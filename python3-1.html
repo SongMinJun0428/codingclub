@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 불과 비교 연산자</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem 0; text-align: center; }
+    main { padding: 20px; max-width: 900px; margin: 0 auto; background-color: white; }
+    h1, h2 { color: #333; }
+    pre { background-color: #e8e8e8; padding: 15px; border-radius: 5px; color: #555; overflow-x: auto; }
+    .example-code { background-color: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; }
+    .output { font-family: monospace; background-color: #d8f3dc; padding: 10px; border-radius: 5px; color: #4caf50; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    table, th, td { border: 1px solid #aaa; }
+    th, td { padding: 8px; text-align: center; }
+    footer { text-align: center; padding: 1rem 0; background-color: #333; color: white; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 불과 비교 연산자</h1>
+</header>
+
+<main>
+  <section class="description">
+    <h2>bool 타입이란?</h2>
+    <p>불(bool)은 참(True) 또는 거짓(False)을 나타내는 값으로, 조건 판단에서 자주 사용됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제: bool 값 출력</h2>
+    <pre>
+a = True
+print(a)
+b = False
+print(b)
+    </pre>
+    <p class="output">True<br>False</p>
+  </section>
+
+  <section class="description">
+    <h2>비교 연산자 종류</h2>
+    <table>
+      <thead>
+        <tr><th>연산자</th><th>의미</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>a == b</td><td>같을 때 True</td></tr>
+        <tr><td>a != b</td><td>다를 때 True</td></tr>
+        <tr><td>a &gt; b</td><td>클 때 True</td></tr>
+        <tr><td>a &lt; b</td><td>작을 때 True</td></tr>
+        <tr><td>a &gt;= b</td><td>크거나 같을 때 True</td></tr>
+        <tr><td>a &lt;= b</td><td>작거나 같을 때 True</td></tr>
+      </tbody>
+    </table>
+    <p><strong>주의:</strong> <code>=</code>과 <code>==</code>는 전혀 다른 의미입니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>숫자 비교</h2>
+    <pre>
+print(1 == 1)
+print(1 == 2)
+
+a = 1
+b = 2
+
+print(a != b)
+print(a != (b - 1))
+print(a > b)
+print(a < b)
+print(a >= b)
+print(a >= (b - 1))
+    </pre>
+    <p class="output">True<br>False<br>True<br>False<br>False<br>True<br>False<br>True</p>
+  </section>
+
+  <section class="example-code">
+    <h2>문자 비교</h2>
+    <pre>
+a = 'python'
+b = 'python'
+c = 'dython'
+d = 'Python'
+
+print(a == b)
+print(a == c)
+print(a != d)
+    </pre>
+    <p class="output">True<br>False<br>True</p>
+  </section>
+
+  <section class="example-code">
+    <h2>문자 비교 (크기 비교)</h2>
+    <pre>
+a = 'python'
+b = 'Python'
+c = 'ppP'
+d = 'pPp'
+
+print(a > b)
+print(c <= d)
+print(a >= c)
+    </pre>
+    <p class="output">True<br>False<br>True</p>
+  </section>
+
+  <section class="example-code">
+    <h2>ord() 함수로 문자 크기 확인</h2>
+    <pre>
+print(ord('p'))
+print(ord('P'))
+    </pre>
+    <p class="output">112<br>80</p>
+    <p>문자 비교는 내부적으로 ASCII(유니코드) 값으로 비교됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>문자열 비교는 앞글자부터</h2>
+    <pre>
+print('p' > 'Python')
+    </pre>
+    <p class="output">True</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

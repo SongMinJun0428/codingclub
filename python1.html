@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파이썬 기초 - 사칙연산</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        pre {
+            background-color: #e8e8e8;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            line-height: 1.4;
+            color: #555;
+        }
+
+        .example-code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .example-code p {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        .output {
+            font-family: monospace;
+            background-color: #d8f3dc;
+            padding: 10px;
+            border-radius: 5px;
+            color: #4caf50;
+        }
+
+        .description {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>파이썬 기초 - 사칙연산</h1>
+</header>
+
+<main>
+    <section class="description">
+        <h2>사칙연산</h2>
+        <p>파이썬에서는 숫자의 계산을 할 수 있습니다. 숫자는 <strong>정수(int)</strong>와 <strong>실수(float)</strong>로 나눠집니다. 사칙연산은 다음과 같은 기호들을 사용합니다.</p>
+
+        <table border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>연산자</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>a + b</td>
+                    <td>a 변수의 값과 b 변수의 값을 더한 결과가 나온다.</td>
+                </tr>
+                <tr>
+                    <td>a - b</td>
+                    <td>a 변수의 값에서 b 변수의 값을 뺀 결과가 나온다.</td>
+                </tr>
+                <tr>
+                    <td>a * b</td>
+                    <td>a 변수의 값과 b 변수의 값을 곱한 결과가 나온다.</td>
+                </tr>
+                <tr>
+                    <td>a / b</td>
+                    <td>a 변수의 값에서 b 변수의 값을 나눈 결과가 나온다. 결과는 <strong>실수(float)</strong>로 나온다.</td>
+                </tr>
+                <tr>
+                    <td>a // b</td>
+                    <td>a 변수의 값에서 b 변수의 값을 나눈 <strong>몫</strong>이 나온다.</td>
+                </tr>
+                <tr>
+                    <td>a % b</td>
+                    <td>a 변수의 값에서 b 변수의 값을 나눈 <strong>나머지</strong>가 나온다.</td>
+                </tr>
+                <tr>
+                    <td>a ** b</td>
+                    <td>a 변수를 b번 곱한 결과가 나온다. (제곱)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="example-code">
+        <h2>예제 1: 덧셈</h2>
+        <pre>
+print(30 + 10)
+        </pre>
+        <p class="output">결과: 40</p>
+    </section>
+
+    <section class="example-code">
+        <h2>예제 2: 뺄셈</h2>
+        <pre>
+print(30 - 10)
+        </pre>
+        <p class="output">결과: 20</p>
+    </section>
+
+    <section class="example-code">
+        <h2>예제 3: 곱셈과 나눗셈</h2>
+        <pre>
+print(30 * 10)
+print(10 / 5)
+        </pre>
+        <p class="output">결과:
+            <br>300
+            <br>2.0</p>
+    </section>
+
+    <section class="example-code">
+        <h2>예제 4: 몫과 나머지</h2>
+        <pre>
+print(10 // 5)
+print(5 // 3)
+print(5 % 3)
+        </pre>
+        <p class="output">결과:
+            <br>2
+            <br>1
+            <br>2</p>
+    </section>
+
+    <section class="example-code">
+        <h2>예제 5: 제곱</h2>
+        <pre>
+print(10 ** 3)
+print(2 ** 10)
+print(2 ** 16)
+        </pre>
+        <p class="output">결과:
+            <br>1000
+            <br>1024
+            <br>65536</p>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

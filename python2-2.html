@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 변수 다루기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      color: #555;
+      overflow-x: auto;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 변수 다루기</h1>
+</header>
+
+<main>
+  <section class="description">
+    <h2>03-02. 변수 다루기</h2>
+    <p>변수에 값을 할당하는 것 외에도 파이썬에서는 변수의 타입을 확인하거나 삭제하거나, 초기화 없이 선언하는 방법도 제공합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>type 함수로 변수 타입 확인하기</h2>
+    <pre>
+print(3 / 1)
+print(type(3 / 1))
+    </pre>
+    <p class="output">
+3.0<br>
+&lt;class 'float'&gt;
+    </p>
+    <p>숫자끼리의 연산도 결과에 따라 float 타입이 될 수 있습니다. <code>type()</code> 함수를 사용하여 타입을 확인할 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제: 나눗셈 결과 비교</h2>
+    <pre>
+x, y = 30, 40
+print(x / y)
+print(type(x / y))
+
+print(x // y)
+print(type(x // y))
+    </pre>
+    <p class="output">
+0.75<br>
+&lt;class 'float'&gt;<br>
+0<br>
+&lt;class 'int'&gt;
+    </p>
+    <p><code>/</code>는 실수 나눗셈, <code>//</code>는 정수 나눗셈(몫)을 의미합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>변수 삭제하기 (del)</h2>
+    <pre>
+x = 50
+print(x)
+
+del x
+print(x)
+    </pre>
+    <p class="output">
+50<br>
+NameError: name 'x' is not defined
+    </p>
+    <p><code>del</code> 키워드를 사용하면 변수가 완전히 삭제됩니다. 이후에 다시 사용하면 오류가 발생합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>None 값 사용하기</h2>
+    <pre>
+x = None
+print(x)
+
+x = 30
+print(x)
+    </pre>
+    <p class="output">
+None<br>
+30
+    </p>
+    <p><code>None</code>은 "아직 값이 없음"을 표현할 때 사용합니다. 나중에 실제 값을 대입할 수 있습니다.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 다양한 출력</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      color: #555;
+      overflow-x: auto;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 다양한 출력</h1>
+</header>
+
+<main>
+  <section class="description">
+    <h2>03-05. 다양한 출력 방법</h2>
+    <p><code>print()</code> 함수는 단순히 값을 출력하는 것 외에도 다양한 방식으로 출력을 조절할 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>여러 값 출력</h2>
+    <pre>print("Hello", "Incoding")</pre>
+    <p class="output">Hello Incoding</p>
+    <p>콤마(<code>,</code>)로 구분하여 여러 값을 출력할 수 있습니다. 기본적으로 값 사이에는 공백이 들어갑니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>sep: 구분자 설정</h2>
+    <pre>
+print(1, 2, 3)
+print(1, 2, 3, sep='H')
+print(1, 2, 3, sep=", ")
+    </pre>
+    <p class="output">1 2 3<br>1H2H3<br>1, 2, 3</p>
+    <p><code>sep</code>은 값 사이에 들어갈 문자를 지정합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>end: 출력 후 끝나는 문자</h2>
+    <pre>
+print(1)
+print(2)
+print(3)
+
+print(1, end=" ")
+print(2, end=" ")
+print(3, end=" ")
+    </pre>
+    <p class="output">1<br>2<br>3<br>1 2 3</p>
+    <p><code>end</code>는 기본적으로 줄바꿈(<code>\n</code>)이지만 다른 문자로 바꿀 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>줄바꿈 문자와 특수문자</h2>
+    <pre>
+print("A\nB\nC")
+print("---")
+print('A', 'B', 'C', sep='\n')
+print('역슬래시 : \\')
+print('작은 따옴표 : \'')
+print("큰 따옴표 : \"")
+    </pre>
+    <p class="output">
+A<br>B<br>C<br>---<br>A<br>B<br>C<br>역슬래시 : \<br>작은 따옴표 : '<br>큰 따옴표 : "</p>
+  </section>
+
+  <section class="example-code">
+    <h2>문자열 합치기</h2>
+    <pre>
+a = 'abc'
+b = 'def'
+print(a + b)
+
+a = 'Hello'
+b = 'Incoding'
+print(a + ' ' + b)
+    </pre>
+    <p class="output">abcdef<br>Hello Incoding</p>
+    <p><code>+</code> 연산자는 문자열을 이어붙이는 역할을 합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>f-string</h2>
+    <pre>
+a = 'Hello'
+b = 'Incoding'
+print(f"{a} {b}")
+
+year = 1994
+month = 8
+day = 3
+print(f"{year}년 {month}월 {day}일")
+    </pre>
+    <p class="output">Hello Incoding<br>1994년 8월 3일</p>
+    <p>f-string은 문자열 안에 변수를 쉽게 삽입할 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>여러줄 문자열</h2>
+    <pre>
+onetwothree = """1
+2
+3"""
+print(onetwothree)
+
+name = "홍길동"
+age = 30
+print(f"""이름 :
+  {name}님
+나이 :
+  {age}살""")
+    </pre>
+    <p class="output">1<br>2<br>3<br>이름 :<br>  홍길동님<br>나이 :<br>  30살</p>
+    <p>큰 따옴표 3개(<code>"""</code>)를 사용하면 여러 줄의 문자열을 표현할 수 있고, f-string과 함께 사용할 수 있습니다.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

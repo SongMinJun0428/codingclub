@@ -1,0 +1,30 @@
+<!-- 관리자용 숙제 등록 폼: assignment.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>숙제 등록</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="min-h-screen bg-blue-50 flex items-center justify-center p-6">
+  <form name="assignment" method="POST" data-netlify="true" enctype="multipart/form-data" class="w-full max-w-xl bg-white p-8 rounded shadow">
+    <input type="hidden" name="form-name" value="assignment" />
+    <h1 class="text-2xl font-bold mb-4">📝 숙제 등록</h1>
+
+    <label class="block text-sm font-bold mb-1">숙제 제목</label>
+    <input type="text" name="title" required class="w-full border p-2 rounded mb-4">
+
+    <label class="block text-sm font-bold mb-1">설명</label>
+    <textarea name="description" required class="w-full border p-2 rounded mb-4"></textarea>
+
+    <label class="block text-sm font-bold mb-1">마감일</label>
+    <input type="date" name="deadline" required class="w-full border p-2 rounded mb-4">
+
+    <label class="block text-sm font-bold mb-1">첨부파일 (선택)</label>
+    <input type="file" name="file" class="w-full border p-2 rounded mb-4">
+
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">등록</button>
+  </form>
+</body>
+</html>
