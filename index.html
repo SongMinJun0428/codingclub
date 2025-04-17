@@ -6,15 +6,80 @@
   <title>봉담중 코딩 동아리</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
       background: linear-gradient(to bottom right, #e0e7ff, #ffffff);
+      color: #1f2937;
+    }
+    .container {
+      max-width: 960px;
+      margin: 50px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .button {
+      background-color: #6366f1;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 8px;
+      display: inline-block;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .button:hover {
+      background-color: #4f46e5;
+      transform: translateY(-2px);
+    }
+    .tab-button {
+      padding: 12px 24px;
+      font-size: 1.1em;
+      cursor: pointer;
+      background-color: #e5e7eb;
+      color: #374151;
+      border: 2px solid #cbd5e1;
+      border-radius: 25px;
+      margin: 0 8px;
+      transition: all 0.3s ease;
+    }
+    .tab-button:hover {
+      background-color: #d1d5db;
+      transform: scale(1.05);
+    }
+    .tab-button.active {
+      background-color: #6366f1;
+      color: white;
+      border-color: #6366f1;
+    }
+    .tab-content {
+      display: none;
+      text-align: left;
+      padding: 32px;
+      background-color: #f9fafb;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      margin-top: 30px;
+      transition: all 0.4s ease;
+    }
+    .tab-content.active {
+      display: block;
     }
     .hidden { display: none; }
+    .animate-bounce-on-hover:hover {
+      animation: shake 0.6s ease-in-out;
+    }
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(-5deg); }
+      75% { transform: rotate(3deg); }
+      100% { transform: rotate(0deg); }
+    }
   </style>
 </head>
 <body class="text-center py-10 px-4">
-
   <!-- 로그인 화면 -->
   <div id="login-screen" class="max-w-md mx-auto bg-white p-8 rounded shadow">
     <h1 class="text-2xl font-bold mb-4 text-blue-800">🔐 로그인</h1>
@@ -24,120 +89,26 @@
     <p id="login-error" class="text-red-600 mt-2 hidden">❌ 로그인 실패: 정보를 확인하세요.</p>
   </div>
 
-  <!-- 실제 사이트 내용 -->
+  <!-- 메인 콘텐츠 -->
   <div id="main-content" class="hidden">
     <p id="welcome-text" class="text-right text-sm text-gray-600 mb-4 pr-6"></p>
 
-    <!-- 여기에 기존에 주신 전체 사이트 코드가 들어갑니다 -->
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>엔트리와 파이썬 학습 사이트</title>
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body {
-                font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-                background: linear-gradient(to bottom right, #e0e7ff, #ffffff);
-                color: #1f2937;
-            }
-            .container {
-                max-width: 960px;
-                margin: 50px auto;
-                padding: 0 20px;
-                text-align: center;
-            }
-            .button {
-                background-color: #6366f1;
-                color: white;
-                padding: 10px 20px;
-                border-radius: 10px;
-                cursor: pointer;
-                font-size: 16px;
-                margin: 8px;
-                display: inline-block;
-                transition: background-color 0.3s ease, transform 0.2s ease;
-            }
-            .button:hover {
-                background-color: #4f46e5;
-                transform: translateY(-2px);
-            }
-            .tab-button {
-                padding: 12px 24px;
-                font-size: 1.1em;
-                cursor: pointer;
-                background-color: #e5e7eb;
-                color: #374151;
-                border: 2px solid #cbd5e1;
-                border-radius: 25px;
-                margin: 0 8px;
-                transition: all 0.3s ease;
-            }
-            .tab-button:hover {
-                background-color: #d1d5db;
-                transform: scale(1.05);
-            }
-            .tab-button.active {
-                background-color: #6366f1;
-                color: white;
-                border-color: #6366f1;
-            }
-            .tab-content {
-                display: none;
-                text-align: left;
-                padding: 32px;
-                background-color: #f9fafb;
-                border-radius: 20px;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-                margin-top: 30px;
-                transition: all 0.4s ease;
-            }
-            .tab-content.active {
-                display: block;
-            }
-            input {
-                padding: 10px;
-                font-size: 16px;
-                margin-top: 20px;
-                border-radius: 6px;
-                border: 1px solid #cbd5e1;
-                width: 100%;
-            }
-            #result {
-                margin-top: 15px;
-                font-size: 1.1em;
-                color: #4f46e5;
-            }
-            @keyframes shake {
-                0% { transform: rotate(0deg); }
-                25% { transform: rotate(5deg); }
-                50% { transform: rotate(-5deg); }
-                75% { transform: rotate(3deg); }
-                100% { transform: rotate(0deg); }
-            }
-            .animate-bounce-on-hover:hover {
-                animation: shake 0.6s ease-in-out;
-            }
-        </style>
-    </head>
-    <body>
-      <div class="container mx-auto px-4 py-10 text-center">
-        <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">엔트리와 파이썬 학습 사이트</h1>
     
-        <!-- 탭 버튼 -->
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-          <button class="tab-button tab-button active px-6 py-3 rounded-full bg-gray-700 text-white" onclick="openTab('entry')">엔트리</button>
-          <button class="tab-button px-6 py-3 rounded-full bg-gray-700 text-white" onclick="openTab('entryclass')">엔트리 수업 자료</button>
-          <button class="tab-button px-6 py-3 rounded-full bg-gray-700 text-white" onclick="openTab('python')">파이썬</button>
-          <button class="tab-button px-6 py-3 rounded-full bg-gray-700 text-white" onclick="openTab('quiz')">파이썬 문제</button>
-          <a href="sunmit.html" class="tab-button px-6 py-3 rounded-full bg-gray-700 text-white">제출</a>
-          <button class="tab-button px-6 py-3 rounded-full bg-gray-700 text-white" onclick="openTab('login')">ID 찾기</button>
-        </div>
-    
-        <!-- Discord + Kakao 버튼 -->
-        <div class="fixed top-4 right-4 flex gap-4 z-50">
+
+    <div class="container">
+      <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">엔트리와 파이썬 학습 사이트</h1>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <button class="tab-button active" onclick="openTab(event, 'home')">홈</button>
+        <button class="tab-button" onclick="openTab(event, 'entry')">엔트리</button>
+        <button class="tab-button" onclick="openTab(event, 'entryclass')">엔트리 수업 자료</button>
+        <button class="tab-button" onclick="openTab(event, 'python')">파이썬</button>
+        <button class="tab-button" onclick="openTab(event, 'quiz')">파이썬 문제</button>
+        <a href="submit.html" class="tab-button">제출</a>
+        <button class="tab-button" onclick="openTab(event, 'login')">ID 찾기</button>
+      </div>
+
+      <div class="fixed top-4 right-4 flex gap-4 z-50">
           <span class="text-sm bg-yellow-100 text-gray-800 px-2 py-1 rounded shadow">카카오톡 비번: 202512</span>
           <a href="https://discord.gg/MyfYHnwr" target="_blank">
             <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="w-10 h-10 animate-bounce-on-hover" alt="Discord">
@@ -150,121 +121,100 @@
         <button onclick="logout()" class="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 shadow-lg z-50">
           🔓 로그아웃
         </button>
-        
-    
-        <!-- 탭 콘텐츠 -->
-        <div id="entry" class="tab-content active bg-white bg-opacity-90 backdrop-blur-md rounded-xl shadow-lg p-8 text-left">
-          <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 학습</h2>
-          <p class="mb-4">엔트리 사이트에 접속하고 기본 항목들을 학습할 수 있습니다.</p>
-          <a href="https://playentry.org/" target="_blank" class="inline-block mb-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">엔트리 사이트로 이동</a>
-          <ul class="list-disc list-inside space-y-2">
-            <li>- 시작: 엔트리 프로젝트 시작 방법</li>
-            <li>- 흐름: 프로젝트의 흐름 설정</li>
-            <li>- 움직임: 객체 이동</li>
-            <li>- 생김새: 객체 외형 설정</li>
-            <li>- 붓: 그리기 기능</li>
-            <li>- 소리: 소리 효과 추가</li>
-            <li>- 판단: 조건문과 결정</li>
-            <li>- 계산: 계산 기능</li>
-            <li>- 자료: 데이터 활용</li>
-          </ul>
+
+      <!-- 탭 콘텐츠들 -->
+      <!-- 탭 콘텐츠: 홈 -->
+      <div id="home" class="tab-content active bg-white rounded-xl shadow-lg p-8">
+
+        <!-- 출석 체크 -->
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <h2 class="text-xl font-bold text-blue-700 mb-2">📅 출석 체크</h2>
+          <p id="attendance-status" class="text-green-600"></p>
         </div>
-    
-        <div id="entryclass" class="tab-content bg-white rounded-xl shadow-lg p-8">
-          <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 수업 자료</h2>
-          <a href="엔트리 기초.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 1 다운로드</a>
-          <a href="숫자 맞추기 게임.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 다운로드</a>
-          <a href="https://numberfind.my.canva.site/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 사이트</a>
+
+        <!-- XP 레벨 -->
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <h2 class="text-xl font-bold text-blue-700 mb-2">🏆 나의 레벨</h2>
+          <p id="xp-status" class="text-lg font-semibold"></p>
         </div>
-    
-        <div id="quiz" class="tab-content bg-white rounded-xl shadow-lg p-8">
-          <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 문제</h2>
-          <a href="python.hw1.html" class="button">1-1. 다이아몬드 출력</a>
-          <a href="python.hw2-1.html" class="button">2-1. 몫과 나머지</a>
-        </div>
-    
-        <div id="python" class="tab-content bg-white rounded-xl shadow-lg p-8">
-                <h2>파이썬 학습</h2>
-                <p>파이썬의 기본 개념과 다양한 링크들을 통해 실습을 할 수 있습니다.</p>
-                <a href="print.html" class="button">print()</a>
-                <a href="python1.html" class="button">1-1. 계산 배우기</a>
-                <a href="python2.html" class="button">1-2. 타입 배우기</a>
-                <a href="python3.html" class="button">1-3. 숫자 계산</a>
-                <a href="python4.html" class="button">2-1. 변수란?</a>
-                <a href="python2-2.html" class="button">2-2. 변수 다루기</a>
-                <a href="python2-3.html" class="button">2-3. 변수와 계산</a>
-                <a href="python2-4.html" class="button">2-4. 값 입력 받기</a>
-                <a href="python2-5.html" class="button">2-5. 다양한 출력</a>
-                <a href="python2-6.html" class="button">2-6. 변수 예제</a>
-                <a href="python3-1.html" class="button">3-1. 값 입력 받기</a>
-                <a href="python3-2.html" class="button">3-2. is, in, type</a>
-                <a href="python3-3.html" class="button">3-3. bool 변환</a>
-                <a href="python3-4.html" class="button">3-4. 논리 연산자</a>
-                <a href="python3-5.html" class="button">3-5. 비교하기 예제</a>
-                <a href="python4-1.html" class="button">4-1. 비교하기 예제</a>
-        </div>
-    
-        <div id="login" class="tab-content">
-          <h2 class="text-2xl font-bold mb-4 text-blue-700">🔍 ID 찾기</h2>
-          <p class="mb-2">이름을 입력하면 ID/PW 이 나타납니다.</p>
-    
-          <input type="text" id="userInput" placeholder="이름 또는 비밀번호 입력" class="w-full border rounded px-4 py-2 mt-4" onkeyup="checkUser()" />
-    
-          <div id="result" class="mt-4 text-lg text-blue-600">입력 결과가 여기에 표시됩니다.</div>
-    
-          <div id="gotoButton" class="mt-4 hidden">
-            <a href="secret.html" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              ✅ 관리자 바로가기
-            </a>
-          </div>
+
+        <!-- 메모장 -->
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <h2 class="text-xl font-bold text-blue-700 mb-2">📝 나만의 메모장</h2>
+          <textarea id="memo" placeholder="오늘 배운 내용을 정리해 보세요." class="w-full p-3 border rounded"></textarea>
         </div>
       </div>
-    
-      <script>
-        function openTab(tabName, event) {
-          document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-          document.getElementById(tabName).classList.add('active');
-    
-          document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
-          event.target.classList.add('active');
-        }
-    
-        function checkUser() {
-          const value = document.getElementById("userInput").value.trim();
-          const result = document.getElementById("result");
-          const button = document.getElementById("gotoButton");
-    
-          const users = {
-            "박우승": "박우승13570 / 621843",
-            "육성현": "육성현77373 / 214898",
-            "이채환": "이채환31948 / bd1234",
-            "김하람": "김하람28476 / 706587",
-            "이도현": "이도현39857 / bd1234",
-            "박시우": "박시우15328 / bd1234",
-            "박용현": "박용현49224 / bd1234"
-          };
-    
-          if (users[value]) {
-            const [id, pw] = users[value].split(" / ");
-            result.textContent = `✅ ID: ${id} | Password: ${pw}`;
-            button.classList.add('hidden');
-          } else if (value === "1234" && localStorage.getItem("isAdmin") === "true") {
-            result.textContent = "✅ 관리자 인증 성공";
-            button.classList.remove('hidden');
-          }
-          
-          else {
-            result.textContent = "해당 이름 또는 비밀번호를 찾을 수 없습니다.";
-            button.classList.add('hidden');
-          }
-        }
-      </script>
-    
-    </body>
-    </html>
+
+      <div id="entry" class="tab-content">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 학습</h2>
+        <p class="mb-4">엔트리 사이트에 접속하고 기본 항목들을 학습할 수 있습니다.</p>
+        <a href="https://playentry.org/" target="_blank" class="inline-block mb-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">엔트리 사이트로 이동</a>
+        <ul class="list-disc list-inside space-y-2">
+          <li>- 시작: 엔트리 프로젝트 시작 방법</li>
+          <li>- 흐름: 프로젝트의 흐름 설정</li>
+          <li>- 움직임: 객체 이동</li>
+          <li>- 생김새: 객체 외형 설정</li>
+          <li>- 붓: 그리기 기능</li>
+          <li>- 소리: 소리 효과 추가</li>
+          <li>- 판단: 조건문과 결정</li>
+          <li>- 계산: 계산 기능</li>
+          <li>- 자료: 데이터 활용</li>
+        </ul>
+      </div>
+      <div id="entryclass" class="tab-content">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 수업 자료</h2>
+        <a href="엔트리 기초.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 1 다운로드</a>
+        <a href="숫자 맞추기 게임.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 다운로드</a>
+        <a href="https://numberfind.my.canva.site/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 사이트</a>
+      </div>
+      <div id="python" class="tab-content">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 학습</h2>
+        <p>파이썬의 기본 개념과 다양한 링크들을 통해 실습을 할 수 있습니다.</p>
+        <a href="print.html" class="button">print()</a>
+        <a href="python1.html" class="button">1-1. 계산 배우기</a>
+        <a href="python2.html" class="button">1-2. 타입 배우기</a>
+        <a href="python3.html" class="button">1-3. 숫자 계산</a>
+        <a href="python4.html" class="button">2-1. 변수란?</a>
+        <a href="python2-2.html" class="button">2-2. 변수 다루기</a>
+        <a href="python2-3.html" class="button">2-3. 변수와 계산</a>
+        <a href="python2-4.html" class="button">2-4. 값 입력 받기</a>
+        <a href="python2-5.html" class="button">2-5. 다양한 출력</a>
+        <a href="python2-6.html" class="button">2-6. 변수 예제</a>
+        <a href="python3-1.html" class="button">3-1. 값 입력 받기</a>
+        <a href="python3-2.html" class="button">3-2. is, in, type</a>
+        <a href="python3-3.html" class="button">3-3. bool 변환</a>
+        <a href="python3-4.html" class="button">3-4. 논리 연산자</a>
+        <a href="python3-5.html" class="button">3-5. 비교하기 예제</a>
+        <a href="python4-1.html" class="button">4-1. 비교하기 예제</a>
+        <!-- 추가 예제는 필요 시 계속 확장 가능 -->
+      </div>
+      <div id="quiz" class="tab-content">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 문제</h2>
+        <a href="python.hw1.html" class="button">1-1. 다이아몬드 출력</a>
+        <a href="python.hw2-1.html" class="button">2-1. 몫과 나머지</a>
+      </div>
+      <div id="login" class="tab-content">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">🔍 ID 찾기</h2>
+        <p class="mb-2">이름을 입력하면 ID/PW 이 나타납니다.</p>
+        <input type="text" id="userInput" placeholder="이름 또는 비밀번호 입력" class="w-full border rounded px-4 py-2 mt-4" onkeyup="checkUser()" />
+        <div id="result" class="mt-4 text-lg text-blue-600">입력 결과가 여기에 표시됩니다.</div>
+        <div id="gotoButton" class="mt-4 hidden">
+          <a href="secret.html" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            ✅ 관리자 바로가기
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
+    function openTab(event, tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
     const users = {
       "admin": "1234",
       "박우승": "p4783907",
@@ -278,51 +228,150 @@
       "박용현": ""
     };
   
-    // 로그인 처리 함수
+    // ✅ 로그인 처리
     function login() {
       const id = document.getElementById("login-id").value.trim();
       const pw = document.getElementById("login-pw").value.trim();
-      const error = document.getElementById("login-error");
   
       if (users[id] === pw) {
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("username", id);
         localStorage.setItem("isAdmin", id === "admin" ? "true" : "false");
-      
+  
         document.getElementById("login-screen").classList.add("hidden");
         document.getElementById("main-content").classList.remove("hidden");
-      
         document.getElementById("welcome-text").textContent = `👋 ${id}님 환영합니다!`;
-      }
-      
-      
-      else {
-        error.classList.remove("hidden");
+  
+        markAttendance();
+        addXP(10);
+        updateXP();
+        restoreMemo();
+      } else {
+        document.getElementById("login-error").classList.remove("hidden");
       }
     }
   
-    // 페이지 로드시 로그인 유지 여부 확인
+    // ✅ 로그인 유지
     window.onload = () => {
       if (localStorage.getItem("loggedIn") === "true") {
         document.getElementById("login-screen").classList.add("hidden");
         document.getElementById("main-content").classList.remove("hidden");
-    
+  
         const username = localStorage.getItem("username");
         document.getElementById("welcome-text").textContent = `👋 ${username}님 환영합니다!`;
+  
+        markAttendance();
+        updateXP();
+        restoreMemo();
       }
     };
+  
+    // ✅ 로그아웃
     function logout() {
       localStorage.removeItem("loggedIn");
       localStorage.removeItem("username");
       localStorage.removeItem("isAdmin");
       location.reload();
     }
+  
+    // ✅ 출석 체크
+    function markAttendance() {
+      const user = localStorage.getItem("username");
+      if (user === "admin") return;  // admin은 출석 제외
     
+      const today = new Date().toLocaleDateString();
+      const record = JSON.parse(localStorage.getItem("attendance") || "{}");
     
+      record[user] = record[user] || [];
+    
+      if (!record[user].includes(today)) {
+        record[user].push(today);
+        localStorage.setItem("attendance", JSON.stringify(record));
+    
+        // XP가 없는 경우 0으로 초기화
+        if (!localStorage.getItem("xp")) {
+          localStorage.setItem("xp", "0");
+        }
+    
+        addXP(10);  // 하루 1번만 XP 추가
+      }
+    
+      document.getElementById("attendance-status").textContent = `✅ 오늘(${today}) 출석 완료!`;
+    }
+    
+  
+    // 📝 메모 자동 저장
+    function restoreMemo() {
+      const memo = localStorage.getItem("memo") || "";
+      const textarea = document.getElementById("memo");
+      if (textarea) {
+        textarea.value = memo;
+        textarea.oninput = () => localStorage.setItem("memo", textarea.value);
+      }
+    }
+  
+    // 💻 파이썬 실행
+    function runPython() {
+      Sk.configure({
+        output: (text) => {
+          document.getElementById("py-output").textContent += text;
+        },
+        read: () => { throw "파일 시스템 지원 안함"; }
+      });
+  
+      document.getElementById("py-output").textContent = "";
+      Sk.misceval.asyncToPromise(() =>
+        Sk.importMainWithBody("__main__", false, document.getElementById("py-code").value)
+      );
+      addXP(5);
+    }
+  
+    // 🏆 XP 시스템
+    function addXP(amount) {
+      const current = parseInt(localStorage.getItem("xp") || "0");
+      const newXP = current + amount;
+      localStorage.setItem("xp", newXP);
+      updateXP();
+    }
+  
+    function updateXP() {
+      const xp = parseInt(localStorage.getItem("xp") || "0");
+      let level = "Beginner";
+      if (xp >= 150) level = "Master";
+      else if (xp >= 50) level = "Intermediate";
+      document.getElementById("xp-status").textContent = `🎖️ 레벨: ${level} (${xp} XP)`;
+    }
+
+    // ✅ 관리자 인증 및 ID/PW 확인
+    function checkUser() {
+      const value = document.getElementById("userInput").value.trim();
+      const result = document.getElementById("result");
+      const button = document.getElementById("gotoButton");
+
+      const userInfo = {
+        "박우승": "박우승13570 / 621843",
+        "육성현": "육성현77373 / 214898",
+        "이채환": "이채환31948 / bd1234",
+        "김하람": "김하람28476 / 706587",
+        "이도현": "이도현39857 / bd1234",
+        "박시우": "박시우15328 / bd1234",
+        "박용현": "박용현49224 / bd1234"
+      };
+
+      if (userInfo[value]) {
+        const [id, pw] = userInfo[value].split(" / ");
+        result.textContent = `✅ ID: ${id} | Password: ${pw}`;
+        button.classList.add('hidden');
+      } else if (value === "1234" && localStorage.getItem("isAdmin") === "true") {
+        result.textContent = "✅ 관리자 인증 성공";
+        button.classList.remove('hidden'); // 관리자 버튼 보이기
+      } else {
+        result.textContent = "해당 이름 또는 비밀번호를 찾을 수 없습니다.";
+        button.classList.add('hidden');
+      }
+    }
 
     
   </script>
-  
-  
 </body>
 </html>
