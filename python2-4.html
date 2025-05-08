@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 값 입력 받기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      color: #555;
+      overflow-x: auto;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 값 입력 받기</h1>
+</header>
+
+<main>
+  <section class="description">
+    <h2>03-04. 값 입력 받기</h2>
+    <p>사용자로부터 값을 입력받는 것은 파이썬 프로그래밍에서 매우 중요한 기능입니다. <code>input()</code> 함수를 통해 입력을 받을 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>기본 입력</h2>
+    <pre>
+input()
+    </pre>
+    <p>프로그램이 일시 정지되며 입력을 기다립니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>입력 후 출력</h2>
+    <pre>
+print(input())
+    </pre>
+    <p class="output">Hello → Hello</p>
+    <p>입력한 값이 그대로 출력됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>input과 괄호</h2>
+    <pre>
+print(input)
+    </pre>
+    <p class="output">&lt;built-in function input&gt;</p>
+    <p><code>()</code>를 생략하면 함수가 호출되지 않고 함수 그 자체를 출력합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>변수에 입력 저장</h2>
+    <pre>
+a = input()
+print(a)
+    </pre>
+    <p class="output">입력값이 변수 a에 저장되어 출력됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>입력값과 숫자 연산 오류</h2>
+    <pre>
+a = input()
+print(a + 30)
+    </pre>
+    <p class="output">TypeError: can only concatenate str (not "int") to str</p>
+    <p>입력값은 <strong>항상 문자열(str)</strong>로 저장되므로 숫자 연산 시 오류가 발생합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>입력값을 숫자로 변환</h2>
+    <pre>
+a = input()
+print(int(a) + 30)
+    </pre>
+    <p class="output">입력값을 정수형으로 변환하면 연산이 가능합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>여러 값 입력받기</h2>
+    <pre>
+a = int(input())
+b = int(input())
+print(a + b)
+    </pre>
+    <p class="output">입력값이 정수로 변환되어 연산 결과가 출력됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>입력 시 설명 추가하기</h2>
+    <pre>
+a = input('물량을 입력해주세요 : ')
+print(a)
+    </pre>
+    <p class="output">물량을 입력해주세요 : 30<br>30</p>
+    <p><code>input()</code> 안에 문자열을 넣으면 입력 전에 설명 문구를 출력할 수 있습니다.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

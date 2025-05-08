@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 함수 예제 모음</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem 0; text-align: center; }
+    main { padding: 20px; max-width: 900px; margin: 0 auto; background-color: white; }
+    h1, h2, h3 { color: #333; }
+    pre { background-color: #e8e8e8; padding: 15px; border-radius: 5px; color: #555; overflow-x: auto; }
+    .example-code { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    .output { font-family: monospace; background-color: #d8f3dc; padding: 10px; border-radius: 5px; color: #4caf50; }
+    footer { text-align: center; padding: 1rem 0; background-color: #333; color: white; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 함수 예제 모음</h1>
+</header>
+
+<main>
+  <section class="description">
+    <p>함수 연습을 통해 다양한 조건 분기, 수학 연산, 문자열 처리 능력을 향상시켜 보세요.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>짝수이면 True, 홀수이면 False 반환</h2>
+    <pre>
+def solution(num: int):
+    return num % 2 == 0</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>짝수면 0, 홀수면 1 반환</h2>
+    <pre>
+def solution(num: int):
+    return num % 2</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>짝수면 "even", 홀수면 "odd" 반환</h2>
+    <pre>
+def solution(num: int):
+    return "even" if num % 2 == 0 else "odd"</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>문자가 모음이면 'a', 자음이면 'b'</h2>
+    <pre>
+def solution(cha: str):
+    return 'a' if cha in 'aeiou' else 'b'</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>문자가 대문자면 True, 아니면 False</h2>
+    <pre>
+def solution(cha: str):
+    return cha.isupper()</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>점수가 70점 이상이면 "Pass" 아니면 False</h2>
+    <pre>
+def solution(score: int):
+    return "Pass" if score >= 70 else False</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>맞은 개수에 따라 점수 계산</h2>
+    <pre>
+def solution(score: int):
+    if score <= 2:
+        return 0
+    elif score <= 5:
+        return 3
+    elif score <= 8:
+        return 6
+    else:
+        return 9</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>약수인지 확인</h2>
+    <pre>
+def solution(m: int, n: int):
+    return n % m == 0</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>1부터 3씩 증가하는 수열인지 확인</h2>
+    <pre>
+def solution(num: int):
+    return (num - 1) % 3 == 0</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>3의 배수 또는 4의 배수인지 확인</h2>
+    <pre>
+def solution(num: int):
+    return num % 3 == 0 or num % 4 == 0</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>사과를 상자에 담기 (8개 기준)</h2>
+    <pre>
+def solution(apple: int):
+    return (apple + 7) // 8</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>사과와 상자 크기 기준 상자 개수</h2>
+    <pre>
+def solution(apple: int, box: int):
+    return (apple + box - 1) // box</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>사과 구매 최소 금액 계산</h2>
+    <pre>
+def solution(apple: int):
+    box = apple // 10
+    single = apple % 10
+    return box * 9500 + single * 1000</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>은행 이자 계산 (매년 두 배)</h2>
+    <pre>
+def solution(year: int):
+    return 10000 * (2 ** year)</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>동전 최소 개수로 거스름돈 만들기</h2>
+    <pre>
+def solution(money: int):
+    count = 0
+    for coin in [500, 50, 10]:
+        count += money // coin
+        money %= coin
+    return count</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>학생 이름과 상장 메시지 출력</h2>
+    <pre>
+def solution(name: str, award: str):
+    return f"{name} 학생은 1학기에 다양한 활동으로\n{award}를 받았습니다. 축하드립니다."</pre>
+  </section>
+
+  <section class="example-code">
+    <h2>보충 대상 여부 메시지 출력</h2>
+    <pre>
+def solution(name: str, score: int):
+    if score < 70:
+        return f"{name} 학생은 이번주 테스트에서\n{score}점을 받았으므로\n보충 대상이 맞습니다."
+    else:
+        return f"{name} 학생은 이번주 테스트에서\n{score}점을 받았으므로\n보충 대상이 아닙니다."</pre>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

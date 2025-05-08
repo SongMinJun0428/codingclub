@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파이썬 기초 - 변수 만들기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        pre {
+            background-color: #e8e8e8;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            line-height: 1.4;
+            color: #555;
+        }
+
+        .example-code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .output {
+            font-family: monospace;
+            background-color: #d8f3dc;
+            padding: 10px;
+            border-radius: 5px;
+            color: #4caf50;
+        }
+
+        .description {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>파이썬 기초 - 변수 만들기</h1>
+</header>
+
+<main>
+    <section class="description">
+        <h2>03-01. 변수 만들기</h2>
+        <p>프로그래밍 언어의 핵심은 <strong>값을 기억</strong>하고 <strong>연산</strong>할 수 있다는 점입니다. 파이썬에서는 변수에 값을 할당하여 다양한 연산을 수행할 수 있습니다.</p>
+    </section>
+
+    <section class="example-code">
+        <h2>기본 변수 할당</h2>
+        <pre>x = 77
+print(x + 3)</pre>
+        <p class="output">결과: 80</p>
+        <p>= 는 '같다'가 아니라 '오른쪽 값을 왼쪽 변수에 할당한다'는 의미입니다.</p>
+    </section>
+
+    <section class="example-code">
+        <h2>문자열 할당</h2>
+        <pre>x = "Hello World"
+print(x)</pre>
+        <p class="output">결과: Hello World</p>
+        <p>변수에는 숫자 뿐 아니라 문자열도 저장할 수 있습니다.</p>
+    </section>
+
+    <section class="example-code">
+        <h2>변수 재할당</h2>
+        <pre>
+x = "Hello World"
+print(x)
+
+x = 10000
+print(x)
+        </pre>
+        <p class="output">결과:<br>Hello World<br>10000</p>
+        <p>같은 변수 이름에 다른 값을 할당하면, 이전 값은 덮어씌워집니다.</p>
+    </section>
+
+    <section class="example-code">
+        <h2>변수 사용 전 오류</h2>
+        <pre>
+print(x)
+
+x = 50
+        </pre>
+        <p class="output">NameError: name 'x' is not defined</p>
+        <p>변수를 사용하려면 반드시 먼저 값을 할당해야 합니다.</p>
+    </section>
+
+    <section class="example-code">
+        <h2>여러 변수 한 번에 할당</h2>
+        <pre>a, b, c = "Hello", "World", "!!!"
+print(a)
+print(b)
+print(c)</pre>
+        <p class="output">결과:<br>Hello<br>World<br>!!!</p>
+        <p>,(쉼표)를 이용하여 여러 변수에 값을 동시에 할당할 수 있습니다.</p>
+    </section>
+
+    <section class="example-code">
+        <h2>변수 값 바꾸기 (Swap)</h2>
+        <pre>
+a, b, c = "Hello", "World", "!!!"
+b, c, a = a, b, c
+print(a)
+print(b)
+print(c)
+        </pre>
+        <p class="output">결과:<br>!!!<br>Hello<br>World</p>
+        <p>파이썬은 간단하게 여러 변수의 값을 서로 바꾸는 것도 가능합니다.</p>
+    </section>
+
+    <section class="description">
+        <h2>변수 작명 규칙</h2>
+        <ul>
+            <li>숫자, 영어, 한글 등 사용 가능 (UTF-8 문자)</li>
+            <li>특수문자 사용 불가 (+, -, *, / 등)</li>
+            <li>대소문자 구분 (num과 Num은 다른 변수)</li>
+            <li>숫자로 시작 불가 (ex. 1name ❌, name1 ✅)</li>
+            <li>파이썬 예약어는 변수로 사용 불가 (if, for, while 등)</li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

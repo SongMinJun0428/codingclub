@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - bool 변환</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem 0; text-align: center; }
+    main { padding: 20px; max-width: 900px; margin: 0 auto; background-color: white; }
+    h1, h2 { color: #333; }
+    pre { background-color: #e8e8e8; padding: 15px; border-radius: 5px; color: #555; overflow-x: auto; }
+    .example-code { background-color: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; }
+    .output { font-family: monospace; background-color: #d8f3dc; padding: 10px; border-radius: 5px; color: #4caf50; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    table, th, td { border: 1px solid #aaa; }
+    th, td { padding: 8px; text-align: center; }
+    footer { text-align: center; padding: 1rem 0; background-color: #333; color: white; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - bool 변환</h1>
+</header>
+
+<main>
+  <section class="description">
+    <h2>bool과 다른 타입</h2>
+    <p><code>bool()</code> 함수는 다양한 타입을 참(<code>True</code>) 또는 거짓(<code>False</code>)으로 변환할 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>False가 되는 값들</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>타입</th><th>False 값</th><th>True 예시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>int</td><td>0</td><td>1</td></tr>
+        <tr><td>float</td><td>0.0, -0.0</td><td>1.0</td></tr>
+        <tr><td>str</td><td>''</td><td>"False"</td></tr>
+        <tr><td>bool</td><td>False</td><td>True</td></tr>
+        <tr><td>기타</td><td>None</td><td>-</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="example-code">
+    <h2>다양한 값의 bool 변환</h2>
+    <pre>
+print(bool(0))
+print(bool(-1))
+print(bool(''))
+print(bool('False'))
+print(bool(None))
+print(bool(0.0))
+    </pre>
+    <p class="output">False<br>True<br>False<br>True<br>False<br>False</p>
+  </section>
+
+  <section class="example-code">
+    <h2>bool → 다른 타입</h2>
+    <pre>
+print(int(True))
+print(float(True))
+print(str(True))
+print("-------")
+print(int(False))
+print(float(False))
+print(str(False))
+    </pre>
+    <p class="output">1<br>1.0<br>True<br>-------<br>0<br>0.0<br>False</p>
+  </section>
+
+  <section class="description">
+    <h2>실전 예제: 음수면 -1, 아니면 1 출력</h2>
+    <p>입력한 숫자가 음수면 <code>-1</code>, 아니면 <code>1</code>을 출력하는 프로그램을 작성해봅시다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>기본 비교만 사용할 때</h2>
+    <pre>
+num = int(input())
+x = int(num >= 0)
+print(x)
+    </pre>
+    <p class="output">입력값이 10이면 → 1<br>입력값이 -10이면 → 0</p>
+  </section>
+
+  <section class="example-code">
+    <h2>1 또는 -1 출력</h2>
+    <pre>
+num = int(input())
+x = 2 * int(num >= 0) - 1
+print(x)
+    </pre>
+    <p class="output">입력값이 10이면 → 1<br>입력값이 -10이면 → -1</p>
+    <p><code>int(True) = 1</code> 이므로 <code>2*1 - 1 = 1</code>, <code>2*0 - 1 = -1</code></p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 비교 예제</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem 0; text-align: center; }
+    main { padding: 20px; max-width: 900px; margin: 0 auto; background-color: white; }
+    h1, h2 { color: #333; }
+    pre { background-color: #e8e8e8; padding: 15px; border-radius: 5px; color: #555; overflow-x: auto; }
+    .example-code { background-color: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; }
+    .output { font-family: monospace; background-color: #d8f3dc; padding: 10px; border-radius: 5px; color: #4caf50; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    table, th, td { border: 1px solid #aaa; }
+    th, td { padding: 8px; text-align: center; }
+    footer { text-align: center; padding: 1rem 0; background-color: #333; color: white; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 비교하기 예제</h1>
+</header>
+
+<main>
+
+  <section class="example-code">
+    <h2>예제 1: 수학 수식 비교</h2>
+    <pre>
+print((1 / 3) ** 2 == 1 / 9)
+print((1.5) ** 2 != 1.25)
+print(0.1 + 0.2 > 0.3)
+print((5 // 2) <= 5)
+    </pre>
+    <p class="output">True<br>True<br>False<br>True</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제 2: 문자열 비교</h2>
+    <pre>
+print('ZZZ' > 'aaa')
+print('coding' < 'Plus')
+print('' < ' ')
+print("파이썬" > 'python')
+    </pre>
+    <p class="output">False<br>False<br>True<br>True</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제 3: in 연산자</h2>
+    <pre>
+# print(1 in 123)  # TypeError: int는 iterable 아님
+print('1' in '123')
+print('' in 'ABC')
+print('coding' in 'co')
+    </pre>
+    <p class="output">True<br>True<br>False</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제 4: 3의 배수이면 1, 아니면 0</h2>
+    <pre>
+num = int(input())
+print(int(num % 3 == 0))
+    </pre>
+    <p class="output">입력: 6 → 1<br>입력: 0 → 1</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제 5: 2 또는 3의 배수이면 1, 아니면 0</h2>
+    <pre>
+num = int(input())
+print(int(num % 2 == 0 or num % 3 == 0))
+    </pre>
+    <p class="output">입력: 8 → 1<br>입력: 7 → 0</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제 6: 단락 평가 예측</h2>
+    <pre>
+print((1 / 2) and (3 - 4))       # 0.5 → True → and → -1
+print('' or None)                # '' → False → or → None
+print((1 // 2) and (3 / 5))      # 0 → False → and → 0
+print('_' or (3 // 5))           # '_' → True → or → '_'
+    </pre>
+    <p class="output">-1<br>None<br>0<br>_</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

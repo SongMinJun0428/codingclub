@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>파이썬 기초 - print() 함수</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      line-height: 1.4;
+      color: #555;
+    }
+
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .example-code p {
+      margin: 0;
+      font-size: 1em;
+    }
+
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+
+    .description {
+      margin-bottom: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - print() 함수</h1>
+</header>
+
+<main>
+  <section class="description">
+    <h2>print() 함수란?</h2>
+    <p><code>print()</code> 함수는 파이썬에서 가장 기본적인 출력 함수입니다. 괄호 안에 있는 값을 화면(콘솔)에 출력하며, 문자열, 숫자, 변수 등 다양한 데이터를 출력할 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제 1: 기본 사용법</h2>
+    <pre>
+print("안녕하세요")
+print(123)
+print("나이:", 12)
+    </pre>
+    <p class="output">결과:<br>안녕하세요<br>123<br>나이: 12</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제 2: 다양한 출력</h2>
+    <pre>
+# 여러 값을 한 줄에 출력
+print("이름:", "민준", "나이:", 14)
+
+# 숫자 계산 출력
+print("3 + 5 =", 3 + 5)
+
+# 변수와 함께 출력
+name = "채환"
+age = 13
+print(name, "의 나이는", age, "살입니다.")
+    </pre>
+    <p class="output">결과:<br>이름: 민준 나이: 14<br>3 + 5 = 8<br>채환 의 나이는 13 살입니다.</p>
+  </section>
+
+  <section class="description">
+    <h2>참고 사항</h2>
+    <ul>
+      <li><code>print()</code> 안에 여러 값을 넣으면 자동으로 띄어쓰기가 됩니다.</li>
+      <li>문자열은 반드시 따옴표(" 또는 ')로 감싸야 합니다.</li>
+      <li><code>print()</code>는 출력 후 자동으로 줄바꿈을 합니다.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

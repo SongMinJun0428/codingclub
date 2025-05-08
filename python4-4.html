@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 함수를 문제 푸는 데 사용하기</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem 0; text-align: center; }
+    main { padding: 20px; max-width: 900px; margin: 0 auto; background-color: white; }
+    h1, h2 { color: #333; }
+    pre { background-color: #e8e8e8; padding: 15px; border-radius: 5px; color: #555; overflow-x: auto; }
+    .example-code { background-color: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; }
+    .output { font-family: monospace; background-color: #d8f3dc; padding: 10px; border-radius: 5px; color: #4caf50; }
+    footer { text-align: center; padding: 1rem 0; background-color: #333; color: white; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 함수를 문제 푸는 데 사용하기</h1>
+</header>
+
+<main>
+  <section class="description">
+    <p>숙제를 제출할 때는 <code>solution</code>이라는 이름의 함수를 사용해 제출합니다. 문제 예제를 통해 배워봅시다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>예제: 두 수의 덧셈</h2>
+    <p><strong>문제 설명:</strong> 정수 <code>num1</code>과 <code>num2</code>가 주어질 때, <code>num1</code>과 <code>num2</code>의 합을 <code>return</code>하도록 <code>solution</code> 함수를 완성해주세요.</p>
+    <pre>
+def solution(num1, num2):
+    return num1 + num2</pre>
+    <p class="output">입출력 예: solution(2, 3) → 5<br>solution(100, 2) → 102</p>
+  </section>
+
+  <section class="example-code">
+    <h2>함수 말고 다른 곳에 코드를?</h2>
+    <pre>
+def add(a, b):
+    return a + b
+
+def solution(num1, num2):
+    return add(num1, num2)</pre>
+    <p>외부 함수를 활용해도 무방합니다. 하지만 <strong>solution 함수의 이름은 바꾸면 안 됩니다</strong>.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>매개변수 이름을 바꿔도?</h2>
+    <pre>
+def solution(a, b):
+    x = a + b
+    return x</pre>
+    <p>매개변수 이름은 바꿔도 상관없고, 함수 내부 코드를 자유롭게 작성해도 됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>테스트는 어떻게?</h2>
+    <pre>
+def solution(num1, num2):
+    return num1 - num2
+
+print(solution(10, 20) == 30)
+print(solution(0, 0) == 0)
+print(solution(1000, 2000) == 3000)</pre>
+    <p class="output">False<br>True<br>False</p>
+    <p>테스트를 직접 해보며 예측값과 비교해 오답을 잡아냅니다.</p>
+
+    <pre>
+def solution(num1, num2):
+    return num1 + num2
+
+print(solution(10, 20) == 30)
+print(solution(0, 0) == 0)
+print(solution(1000, 2000) == 3000)</pre>
+    <p class="output">True<br>True<br>True</p>
+    <p>이제 모든 테스트가 통과된 것을 확인할 수 있습니다. 다양한 테스트 케이스를 넣어보는 습관을 들이세요.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>숙제 목록</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      background: linear-gradient(to bottom right, #f0f4ff, #ffffff);
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6">
+  <div class="max-w-4xl mx-auto bg-white p-8 rounded shadow">
+    <h1 class="text-3xl font-bold text-blue-800 mb-6">📄 제출된 숙제 목록</h1>
+
+    <ul id="homework-list" class="space-y-4"></ul>
+
+    <div class="mt-8">
+      <a href="submit.html" class="text-blue-600 underline">← 숙제 제출 페이지로 돌아가기</a>
+    </div>
+  </div>
+
+  <script>
+    fetch('/.netlify/functions/get-homeworks')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("homework-list");
+
+        if (data.length === 0) {
+          list.innerHTML = '<p class="text-gray-500">제출된 숙제가 없습니다.</p>';
+          return;
+        }
+
+        data.forEach(item => {
+          const li = document.createElement("li");
+          li.className = "border p-4 rounded bg-gray-50";
+
+          li.innerHTML = `
+            <p><strong>이름:</strong> ${item.data.name}</p>
+            <p><strong>과제명:</strong> ${item.data.title}</p>
+            <p><strong>코멘트:</strong> ${item.data.comment || '- 없음 -'}</p>
+            <p class="text-sm text-gray-500">제출일: ${new Date(item.created_at).toLocaleString()}</p>
+          `;
+          list.appendChild(li);
+        });
+      })
+      .catch(err => {
+        document.getElementById("homework-list").innerHTML = '<p class="text-red-500">데이터를 불러오는 중 오류가 발생했습니다.</p>';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

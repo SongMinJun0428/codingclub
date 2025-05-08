@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 논리 연산자</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem 0; text-align: center; }
+    main { padding: 20px; max-width: 900px; margin: 0 auto; background-color: white; }
+    h1, h2 { color: #333; }
+    pre { background-color: #e8e8e8; padding: 15px; border-radius: 5px; color: #555; overflow-x: auto; }
+    .example-code { background-color: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; }
+    .output { font-family: monospace; background-color: #d8f3dc; padding: 10px; border-radius: 5px; color: #4caf50; }
+    footer { text-align: center; padding: 1rem 0; background-color: #333; color: white; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - 논리 연산자</h1>
+</header>
+
+<main>
+  <section class="description">
+    <h2>논리 연산자란?</h2>
+    <p>논리 연산자는 여러 개의 <code>bool</code> 값들을 조합하여 조건을 판단할 수 있게 해주는 연산자입니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>and</h2>
+    <pre>
+print(True and True)
+print(False and True)
+print(True and False)
+print(False and False)
+    </pre>
+    <p class="output">True<br>False<br>False<br>False</p>
+    <p><code>and</code>는 양쪽 모두가 True일 때만 결과가 True입니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>or</h2>
+    <pre>
+print(True or True)
+print(False or True)
+print(True or False)
+print(False or False)
+    </pre>
+    <p class="output">True<br>True<br>True<br>False</p>
+    <p><code>or</code>는 둘 중 하나라도 True이면 결과가 True입니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>not</h2>
+    <pre>
+print(not True)
+print(not False)
+    </pre>
+    <p class="output">False<br>True</p>
+    <p><code>not</code>은 bool 값을 반대로 바꿔줍니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>논리 연산자 적용 예제</h2>
+    <pre>
+a = 5
+print(10 > a or a > 20)
+print(10 < a and a < 20)
+print(not a > 5)
+
+a = 6
+print((a % 2 == 0 and a % 3 != 0) or (a % 12 == 0))
+
+a = 12
+print((a % 2 == 0 and a % 3 != 0) or (a % 12 == 0))
+    </pre>
+    <p class="output">True<br>False<br>True<br>False<br>True</p>
+    <p>복잡한 조건들도 논리 연산자로 표현할 수 있습니다.</p>
+  </section>
+
+  <section class="description">
+    <h2>단락 평가 (Short-circuit Evaluation)</h2>
+    <p><code>and</code>와 <code>or</code>는 단순한 bool 계산 외에도 <strong>다른 타입의 값</strong>에서도 특정 규칙에 따라 동작합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>단락 평가 예제</h2>
+    <pre>
+print(1 and 3)            # 둘 다 True → 뒤의 값 반환
+print(1 or 3)             # 앞이 True → 앞의 값 반환
+print('---')
+print('abc' and '')       # 앞이 True, 뒤가 False → '' 반환
+print('abc' or '')        # 앞이 True → 'abc' 반환
+print('---')
+print('' or 3)            # 앞이 False → 3 반환
+print('' and 1)           # 앞이 False → '' 반환
+print('---')
+print(0 and 123)          # 앞이 False → 0 반환
+print(0 or -32)           # 앞이 False → -32 반환
+    </pre>
+    <p class="output">3<br>1<br>---<br><br>abc<br>---<br>3<br><br>---<br>0<br>-32</p>
+  </section>
+
+  <section class="description">
+    <h2>단락 평가 규칙 정리</h2>
+    <ul>
+      <li><code>a and b</code>: a가 False이면 <code>a</code> 반환, a가 True이면 <code>b</code> 반환</li>
+      <li><code>a or b</code>: a가 True이면 <code>a</code> 반환, a가 False이면 <code>b</code> 반환</li>
+    </ul>
+    <p>조건문 최적화, 기본값 설정 등에서 자주 쓰이니 꼭 기억해 주세요!</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>
