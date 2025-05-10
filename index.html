@@ -295,7 +295,7 @@
     }
   }
 
-  async function updateXp(userId = localStorage.getItem("userId")) {
+  async function updateXp(userId) {
   const { data } = await supabase
     .from('club_xp')
     .select('xp')
@@ -304,26 +304,32 @@
 
   if (data.length > 0) {
     const xp = data[0].xp;
-    let levelName = "Beginner";
+    let level = "🌱 Beginner";
     let levelNumber = 1;
 
-    if (xp >= 150) {
-      levelName = "Master";
+    if (xp >= 500) {
+      level = "🧙 마스터";
+      levelNumber = 6;
+    } else if (xp >= 300) {
+      level = "🔥 고수";
       levelNumber = 5;
-    } else if (xp >= 100) {
-      levelName = "Advanced";
+    } else if (xp >= 200) {
+      level = "💡 중수";
       levelNumber = 4;
-    } else if (xp >= 70) {
-      levelName = "Intermediate";
+    } else if (xp >= 100) {
+      level = "✨ 초보";
       levelNumber = 3;
-    } else if (xp >= 30) {
-      levelName = "Novice";
+    } else if (xp >= 50) {
+      level = "🐣 새싹";
       levelNumber = 2;
     }
 
-    document.getElementById("xp-status").innerHTML = `🎖️ 레벨 ${levelNumber}: ${levelName} (${xp} XP)`;
+    document.getElementById("xp-status").innerHTML = `
+      🎖️ 현재 레벨: <strong>${level}</strong> (LV.${levelNumber}, ${xp} XP)
+    `;
   }
 }
+
 
   async function addXP(amount = 10) {
     const userId = localStorage.getItem("userId");
@@ -368,26 +374,37 @@
 
   // ✅ 로그인 처리 (로컬 스토리지 기반)
   function loginLocal() {
-    const id = document.getElementById("login-id").value.trim();
-    const pw = document.getElementById("login-pw").value.trim();
+  const id = document.getElementById("login-id").value.trim();
+  const pw = document.getElementById("login-pw").value.trim();
 
-    if (users[id] === pw) {
-      localStorage.setItem("loggedIn", "true");
-      localStorage.setItem("localUsername", id);
-      localStorage.setItem("isAdmin", id === "admin" ? "true" : "false");
+  if (users[id] === pw) {
+    // ✅ 로그인 상태 저장
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("localUsername", id);
+    localStorage.setItem("username", id);
+    localStorage.setItem("userId", id); // ✅ Supabase에서 사용할 ID
+    localStorage.setItem("isAdmin", id === "admin" ? "true" : "false");
 
-      document.getElementById("login-screen").classList.add("hidden");
-      document.getElementById("main-content").classList.remove("hidden");
-      document.getElementById("welcome-text").textContent = `👋 ${id}님 환영합니다!`;
+    // ✅ 화면 전환
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("main-content").classList.remove("hidden");
+    document.getElementById("welcome-text").textContent = `👋 ${id}님 환영합니다!`;
 
-      markAttendance();
-      addXP(10);
-      updateXP();
-      restoreMemo();
-    } else {
-      document.getElementById("login-error").classList.remove("hidden");
-    }
+    // ✅ 출석 체크
+    markAttendance();
+
+    // ✅ Supabase XP 처리
+    initXp(id);       // Supabase에 XP row 없으면 생성
+    addXP(10);        // 로그인 시 XP +10
+    updateXp(id);     // 레벨 갱신 및 출력
+
+    // ✅ 메모 불러오기
+    restoreMemo();
+  } else {
+    document.getElementById("login-error").classList.remove("hidden");
   }
+}
+
 
   // ✅ 로그인 유지 (로컬 스토리지 기반)
 window.onload = () => {
