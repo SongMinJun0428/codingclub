@@ -112,7 +112,7 @@
         let level = "Beginner";
         if (xp >= 150) level = "Master";
         else if (xp >= 50) level = "Intermediate";
-        document.getElementById("xp-status").textContent = `🎖️ 레벨: ${level} (${xp} XP)`;
+        document.getElementById("xp-status").textContent = `🎖️ 레벨: <span class="math-inline">\{level\} \(</span>{xp} XP)`;
       }
     }
 
@@ -139,7 +139,7 @@
     window.updateXp = updateXp;
     window.addXP = addXP;
 
-    window.login = async function () {
+    window.loginWithSupabase = async function () {
       const email = document.getElementById("login-id").value;
       const password = document.getElementById("login-pw").value;
 
@@ -160,55 +160,57 @@
       }
     }
 
-    window.logout = function () {
-      localStorage.removeItem("loggedIn");
-      localStorage.removeItem("username");
-      localStorage.removeItem("userId");
-      location.reload();
+    window.logoutSupabase = async function () {
+      const { error } = await supabase.auth.signOut();
+      if (!error) {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userId");
+        location.reload();
+      } else {
+        console.error("로그아웃 실패:", error);
+        alert("로그아웃에 실패했습니다.");
+      }
     }
   </script>
 </head>
-  
-  <!-- 로그인 화면 -->
-  <div id="login-screen" class="max-w-md mx-auto bg-white p-8 rounded shadow">
-    <h1 class="text-2xl font-bold mb-4 text-blue-800">🔐 로그인</h1>
-    <input type="text" id="login-id" placeholder="ID 입력" class="w-full border p-2 rounded mb-3"/>
-    <input type="password" id="login-pw" placeholder="비밀번호 입력" class="w-full border p-2 rounded mb-4"/>
-    <button onclick="login()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">로그인</button>
-    <p id="login-error" class="text-red-600 mt-2 hidden">❌ 로그인 실패: 정보를 확인하세요.</p>
+
+<div id="login-screen" class="max-w-md mx-auto bg-white p-8 rounded shadow">
+  <h1 class="text-2xl font-bold mb-4 text-blue-800">🔐 로그인</h1>
+  <input type="text" id="login-id" placeholder="ID 입력" class="w-full border p-2 rounded mb-3"/>
+  <input type="password" id="login-pw" placeholder="비밀번호 입력" class="w-full border p-2 rounded mb-4"/>
+  <button onclick="loginWithSupabase()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">로그인</button>
+  <p id="login-error" class="text-red-600 mt-2 hidden">❌ 로그인 실패: 정보를 확인하세요.</p>
+</div>
+
+<div id="main-content" class="hidden">
+  <p id="welcome-text" class="text-right text-sm text-gray-600 mb-1 pr-6"></p>
+  <div id="admin-shortcut" class="text-right pr-6 mb-4 hidden">
+    <a href="secret.html" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm">
+      ✅ 관리자 페이지 바로가기
+    </a>
   </div>
+  <p id="welcome-text" class="text-right text-sm text-gray-600 mb-4 pr-6"></p>
 
-  <!-- 메인 콘텐츠 -->
-  <div id="main-content" class="hidden">
-    <p id="welcome-text" class="text-right text-sm text-gray-600 mb-4 pr-6"></p>
 
-    
+  <div class="container">
+    <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">파이썬 학습 사이트</h1>
 
-    <div class="container">
-      <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">파이썬 학습 사이트</h1>
-
-      <div class="flex flex-wrap justify-center gap-4 mb-8">
-        <button class="tab-button active" onclick="openTab(event, 'home')">홈</button>
-        <!--<button class="tab-button" onclick="openTab(event, 'entry')">엔트리</button>
-        <button class="tab-button" onclick="openTab(event, 'entryclass')">엔트리 수업 자료</button>-->
-        <button class="tab-button" onclick="openTab(event, 'python')">파이썬</button>
-        <button class="tab-button" onclick="openTab(event, 'quiz')">파이썬 문제</button>
-        <a href="submit.html" class="tab-button">제출</a>
-        <!--<button class="tab-button" onclick="openTab(event, 'login')">ID 찾기</button>-->
+    <div class="flex flex-wrap justify-center gap-4 mb-8">
+      <button class="tab-button active" onclick="openTab(event, 'home')">홈</button>
+      <button class="tab-button" onclick="openTab(event, 'python')">파이썬</button>
+      <button class="tab-button" onclick="openTab(event, 'quiz')">파이썬 문제</button>
+      <a href="submit.html" class="tab-button">제출</a>
       </div>
 
 
-        <button onclick="logout()" class="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 shadow-lg z-50">
-          🔓 로그아웃
-        </button>
+      <button onclick="logoutSupabase()" class="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 shadow-lg z-50">
+        🔓 로그아웃
+      </button>
 
-      <!-- 탭 콘텐츠들 -->
-      <!-- 탭 콘텐츠: 홈 -->
-      <div id="home" class="tab-content active bg-white rounded-xl shadow-lg p-8">
+    <div id="home" class="tab-content active bg-white rounded-xl shadow-lg p-8">
 
-        <!-- 출석 체크 -->
       <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-        <!-- 제목 + 버튼 -->
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-xl font-bold text-blue-700 cursor-pointer" onclick="scrollToCalendar()">📅 출석 체크</h2>
           <button onclick="toggleCalendar()" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded">
@@ -218,105 +220,100 @@
 
         <div id="attendance-status" class="text-green-600 font-medium mb-3"></div>
 
-        <!-- 달력 영역 -->
         <div id="calendar-container" class="hidden transition-all duration-500">
           <div id="calendar" class="bg-gray-50 p-4 rounded shadow">
             <h3 class="text-base font-semibold mb-3 text-gray-700">🗓️ 나의 출석 달력</h3>
             <div id="calendar-grid" class="grid grid-cols-7 gap-2 text-center text-sm text-gray-800">
               <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
-              <!-- 날짜는 JS로 자동 생성 -->
-            </div>
+              </div>
           </div>
         </div>
       </div>
 
 
-        <!-- XP 레벨 -->
-        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-          <h2 class="text-xl font-bold text-blue-700 mb-2">🏆 나의 레벨</h2>
-          <p id="xp-status" class="text-lg font-semibold"></p>
-        </div>
-
-        <!-- 메모장 -->
-        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-          <h2 class="text-xl font-bold text-blue-700 mb-2">📝 나만의 메모장</h2>
-          <textarea id="memo" placeholder="오늘 배운 내용을 정리해 보세요." class="w-full p-3 border rounded"></textarea>
-        </div>
+      <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+        <h2 class="text-xl font-bold text-blue-700 mb-2">🏆 나의 레벨</h2>
+        <p id="xp-status" class="text-lg font-semibold"></p>
       </div>
 
-      <div id="entry" class="tab-content">
-        <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 학습</h2>
-        <p class="mb-4">엔트리 사이트에 접속하고 기본 항목들을 학습할 수 있습니다.</p>
-        <a href="https://playentry.org/" target="_blank" class="inline-block mb-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">엔트리 사이트로 이동</a>
-        <ul class="list-disc list-inside space-y-2">
-          <li>- 시작: 엔트리 프로젝트 시작 방법</li>
-          <li>- 흐름: 프로젝트의 흐름 설정</li>
-          <li>- 움직임: 객체 이동</li>
-          <li>- 생김새: 객체 외형 설정</li>
-          <li>- 붓: 그리기 기능</li>
-          <li>- 소리: 소리 효과 추가</li>
-          <li>- 판단: 조건문과 결정</li>
-          <li>- 계산: 계산 기능</li>
-          <li>- 자료: 데이터 활용</li>
-        </ul>
+      <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+        <h2 class="text-xl font-bold text-blue-700 mb-2">📝 나만의 메모장</h2>
+        <textarea id="memo" placeholder="오늘 배운 내용을 정리해 보세요." class="w-full p-3 border rounded"></textarea>
       </div>
-      <div id="entryclass" class="tab-content">
-        <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 수업 자료</h2>
-        <a href="엔트리 기초.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 1 다운로드</a>
-        <a href="숫자 맞추기 게임.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 다운로드</a>
-        <a href="https://numberfind.my.canva.site/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 사이트</a>
-      </div>
-      <div id="python" class="tab-content">
-        <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 학습</h2>
-        <p>파이썬의 기본 개념과 다양한 링크들을 통해 실습을 할 수 있습니다.</p>
-        <a href="print.html" class="button">print()</a>
-        <a href="python1.html" class="button">1-1. 계산 배우기</a>
-        <a href="python2.html" class="button">1-2. 타입 배우기</a>
-        <a href="python3.html" class="button">1-3. 숫자 계산</a>
-        <a href="python4.html" class="button">2-1. 변수란?</a>
-        <a href="python2-2.html" class="button">2-2. 변수 다루기</a>
-        <a href="python2-3.html" class="button">2-3. 변수와 계산</a>
-        <a href="python2-4.html" class="button">2-4. 값 입력 받기</a>
-        <a href="python2-5.html" class="button">2-5. 다양한 출력</a>
-        <a href="python2-6.html" class="button">2-6. 변수 예제</a>
-        <a href="python3-1.html" class="button">3-1. 값 입력 받기</a>
-        <a href="python3-2.html" class="button">3-2. is, in, type</a>
-        <a href="python3-3.html" class="button">3-3. bool 변환</a>
-        <a href="python3-4.html" class="button">3-4. 논리 연산자</a>
-        <a href="python3-5.html" class="button">3-5. 비교하기 예제</a>
-        <a href="python4-1.html" class="button">4-1. 함수의 호출</a>
-        <a href="python4-2.html" class="button">4-2. 함수의 반환</a>
-        <a href="python4-3.html" class="button">4-3. 함수의 매개변수</a>
-        <a href="python4-4.html" class="button">4-4. 함수의 사용</a>
-        <a href="python4-5.html" class="button">4-5. 함수 예제</a>
+    </div>
 
-        <!-- 추가 예제는 필요 시 계속 확장 가능 -->
+    <div id="entry" class="tab-content">
+      <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 학습</h2>
+      <p class="mb-4">엔트리 사이트에 접속하고 기본 항목들을 학습할 수 있습니다.</p>
+      <a href="https://playentry.org/" target="_blank" class="inline-block mb-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">엔트리 사이트로 이동</a>
+      <ul class="list-disc list-inside space-y-2">
+        <li>- 시작: 엔트리 프로젝트 시작 방법</li>
+        <li>- 흐름: 프로젝트의 흐름 설정</li>
+        <li>- 움직임: 객체 이동</li>
+        <li>- 생김새: 객체 외형 설정</li>
+        <li>- 붓: 그리기 기능</li>
+        <li>- 소리: 소리 효과 추가</li>
+        <li>- 판단: 조건문과 결정</li>
+        <li>- 계산: 계산 기능</li>
+        <li>- 자료: 데이터 활용</li>
+      </ul>
+    </div>
+    <div id="entryclass" class="tab-content">
+      <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 수업 자료</h2>
+      <a href="엔트리 기초.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 1 다운로드</a>
+      <a href="숫자 맞추기 게임.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 다운로드</a>
+      <a href="https://numberfind.my.canva.site/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 사이트</a>
+    </div>
+    <div id="python" class="tab-content">
+      <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 학습</h2>
+      <p>파이썬의 기본 개념과 다양한 링크들을 통해 실습을 할 수 있습니다.</p>
+      <a href="print.html" class="button">print()</a>
+      <a href="python1.html" class="button">1-1. 계산 배우기</a>
+      <a href="python2.html" class="button">1-2. 타입 배우기</a>
+      <a href="python3.html" class="button">1-3. 숫자 계산</a>
+      <a href="python4.html" class="button">2-1. 변수란?</a>
+      <a href="python2-2.html" class="button">2-2. 변수 다루기</a>
+      <a href="python2-3.html" class="button">2-3. 변수와 계산</a>
+      <a href="python2-4.html" class="button">2-4. 값 입력 받기</a>
+      <a href="python2-5.html" class="button">2-5. 다양한 출력</a>
+      <a href="python2-6.html" class="button">2-6. 변수 예제</a>
+      <a href="python3-1.html" class="button">3-1. 값 입력 받기</a>
+      <a href="python3-2.html" class="button">3-2. is, in, type</a>
+      <a href="python3-3.html" class="button">3-3. bool 변환</a>
+      <a href="python3-4.html" class="button">3-4. 논리 연산자</a>
+      <a href="python3-5.html" class="button">3-5. 비교하기 예제</a>
+      <a href="python4-1.html" class="button">4-1. 함수의 호출</a>
+      <a href="python4-2.html" class="button">4-2. 함수의 반환</a>
+      <a href="python4-3.html" class="button">4-3. 함수의 매개변수
+      <a href="python4-4.html" class="button">4-4. 함수의 사용</a>
+      <a href="python4-5.html" class="button">4-5. 함수 예제</a>
+
       </div>
-      <div id="quiz" class="tab-content">
-        <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 문제</h2>
-        <a href="python.hw1.html" class="button">1-1. 다이아몬드 출력</a>
-        <a href="python.hw2-1.html" class="button">2-1. 몫과 나머지</a>
-        <a href="python.hw2-2.html" class="button">2-2. 제곱 계산하기</a>
-        <a href="python.hw2-3.html" class="button">2-3. 원가와 정가</a>
-        <a href="python.hw2-4.html" class="button">2-4. 소금물 농도 구하기</a>
-        <a href="python.hw2-5.html" class="button">2-5. 소금물 농도 구하기 2</a>
-        <a href="python.hw2-6.html" class="button">2-6. 평균 속력 구하기</a>
-        <a href="python.hw2-7.html" class="button">2-7. 말아톤 꿈의 기록</a>
-      </div>
-      <div id="login" class="tab-content">
-        <h2 class="text-2xl font-bold mb-4 text-blue-700">🔍 ID 찾기</h2>
-        <p class="mb-2">이름을 입력하면 ID/PW 이 나타납니다.</p>
-        <input type="text" id="userInput" placeholder="이름 또는 비밀번호 입력" class="w-full border rounded px-4 py-2 mt-4" onkeyup="checkUser()" />
-        <div id="result" class="mt-4 text-lg text-blue-600">입력 결과가 여기에 표시됩니다.</div>
-        <div id="gotoButton" class="mt-4 hidden">
-          <a href="secret.html" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            ✅ 관리자 바로가기
-          </a>
-        </div>
+    <div id="quiz" class="tab-content">
+      <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 문제</h2>
+      <a href="python.hw1.html" class="button">1-1. 다이아몬드 출력</a>
+      <a href="python.hw2-1.html" class="button">2-1. 몫과 나머지</a>
+      <a href="python.hw2-2.html" class="button">2-2. 제곱 계산하기</a>
+      <a href="python.hw2-3.html" class="button">2-3. 원가와 정가</a>
+      <a href="python.hw2-4.html" class="button">2-4. 소금물 농도 구하기</a>
+      <a href="python.hw2-5.html" class="button">2-5. 소금물 농도 구하기 2</a>
+      <a href="python.hw2-6.html" class="button">2-6. 평균 속력 구하기</a>
+      <a href="python.hw2-7.html" class="button">2-7. 말아톤 꿈의 기록</a>
+    </div>
+    <div id="login" class="tab-content">
+      <h2 class="text-2xl font-bold mb-4 text-blue-700">🔍 ID 찾기</h2>
+      <p class="mb-2">이름을 입력하면 ID/PW 이 나타납니다.</p>
+      <input type="text" id="userInput" placeholder="이름 또는 비밀번호 입력" class="w-full border rounded px-4 py-2 mt-4" onkeyup="checkUser()" />
+      <div id="result" class="mt-4 text-lg text-blue-600">입력 결과가 여기에 표시됩니다.</div>
+      <div id="gotoButton" class="mt-4 hidden">
+        <a href="secret.html" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          ✅ 관리자 바로가기
+        </a>
       </div>
     </div>
   </div>
- <script type="module">
+</div>
+<script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
   const supabase = createClient(
@@ -324,7 +321,7 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmY254anZ3d3ZmbGRkYXFua3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NDI5NzcsImV4cCI6MjA2MjQxODk3N30.csvh85k3wAueeYrBpZdJAEMbUgB_P4qI9BbwNLc5oRc'
   );
 
-  async function login() {
+  async function loginWithSupabase() {
     const email = document.getElementById("login-id").value;
     const password = document.getElementById("login-pw").value;
 
@@ -346,7 +343,7 @@
   }
 
   async function initXp(userId) {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('club_xp')
       .select('*')
       .eq('user_id', userId)
@@ -360,7 +357,7 @@
   }
 
   async function updateXp(userId = localStorage.getItem("userId")) {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('club_xp')
       .select('xp')
       .eq('user_id', userId)
@@ -377,7 +374,7 @@
 
   async function addXP(amount = 10) {
     const userId = localStorage.getItem("userId");
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('club_xp')
       .select('*')
       .eq('user_id', userId)
@@ -396,213 +393,203 @@
 </script>
 
 
-  <script>
-    
-    function openTab(event, tabName) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.getElementById(tabName).classList.add('active');
-      document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
-      event.target.classList.add('active');
+<script>
+
+  function openTab(event, tabName) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  const users = {
+    "admin": "1234",
+    "박우승": "p4783907",
+    "육성현": "09020821!!",
+    "이채환": "nano8778",
+    "김하람": "akaski2006",
+    "이도현": "",
+    "박시우": "icanho75",
+    "박용현": "younghyeon"
+  };
+
+  // ✅ 로그인 처리 (로컬 스토리지 기반)
+  function loginLocal() {
+    const id = document.getElementById("login-id").value.trim();
+    const pw = document.getElementById("login-pw").value.trim();
+
+    if (users[id] === pw) {
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("localUsername", id);
+      localStorage.setItem("isAdmin", id === "admin" ? "true" : "false");
+
+      document.getElementById("login-screen").classList.add("hidden");
+      document.getElementById("main-content").classList.remove("hidden");
+      document.getElementById("welcome-text").textContent = `👋 ${id}님 환영합니다!`;
+
+      markAttendance();
+      addXP(10);
+      updateXP();
+      restoreMemo();
+    } else {
+      document.getElementById("login-error").classList.remove("hidden");
+    }
+  }
+
+  // ✅ 로그인 유지 (로컬 스토리지 기반)
+window.onload = () => {
+  if (localStorage.getItem("loggedIn") === "true") {
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("main-content").classList.remove("hidden");
+
+    const username = localStorage.getItem("username") || localStorage.getItem("localUsername");
+    document.getElementById("welcome-text").textContent = `👋 ${username}님 환영합니다!`;
+
+    markAttendance();
+    updateXP();
+    restoreMemo();
+
+    // ✅ 관리자일 경우 버튼 표시
+    if (localStorage.getItem("isAdmin") === "true") {
+      const adminButton = document.getElementById("gotoButton");
+      if (adminButton) adminButton.classList.remove("hidden");
+      const adminShortcut = document.getElementById("admin-shortcut");
+      if (adminShortcut) adminShortcut.classList.remove("hidden");
+    }
+  }
+};
+
+
+  // ✅ 로그아웃 (로컬 스토리지 기반)
+  function logoutLocal() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("localUsername");
+    localStorage.removeItem("isAdmin");
+    location.reload();
+  }
+
+  // ✅ 출석 체크 (로컬 스토리지 기반)
+  function markAttendance() {
+    const user = localStorage.getItem("username") || localStorage.getItem("localUsername");
+    const today = new Date().toLocaleDateString();
+    const record = JSON.parse(localStorage.getItem("attendance") || "{}");
+
+    record[user] = record[user] || [];
+
+    if (!record[user].includes(today)) {
+      record[user].push(today);
+      localStorage.setItem("attendance", JSON.stringify(record));
     }
 
-    const users = {
-      "admin": "1234",
-      "박우승": "p4783907",
-      "육성현": "09020821!!",
-      "이채환": "nano8778",
-      "김하람": "akaski2006",
-      "이도현": "",
-      "박시우": "icanho75",
-      "박용현": "younghyeon"
-    };
-  
-    // ✅ 로그인 처리
-    function login() {
-      const id = document.getElementById("login-id").value.trim();
-      const pw = document.getElementById("login-pw").value.trim();
-  
-      if (users[id] === pw) {
-        localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("username", id);
-        localStorage.setItem("isAdmin", id === "admin" ? "true" : "false");
-  
-        document.getElementById("login-screen").classList.add("hidden");
-        document.getElementById("main-content").classList.remove("hidden");
-        document.getElementById("welcome-text").textContent = `👋 ${id}님 환영합니다!`;
-  
-        markAttendance();
-        addXP(10);
-        updateXP();
-        restoreMemo();
-      } else {
-        document.getElementById("login-error").classList.remove("hidden");
-      }
+    document.getElementById("attendance-status").textContent = `✅ 오늘(${today}) 출석 완료!`;
+  }
+
+
+  // 📝 메모 자동 저장 (로컬 스토리지 기반)
+  function restoreMemo() {
+    const memo = localStorage.getItem("memo") || "";
+    const textarea = document.getElementById("memo");
+    if (textarea) {
+      textarea.value = memo;
+      textarea.oninput = () => localStorage.setItem("memo", textarea.value);
     }
-  
-    // ✅ 로그인 유지
+  }
+
+  // 💻 파이썬 실행 (Skulpt 사용 안 함)
+  function runPython() {
+    alert("파이썬 실행 기능은 현재 지원하지 않습니다.");
+  }
+
+  // ✅ 관리자 인증 및 ID/PW 확인 (로컬 스토리지 기반)
+  function checkUser() {
+    const value = document.getElementById("userInput").value.trim();
+    const result = document.getElementById("result");
+    const button = document.getElementById("gotoButton");
+
+    const userInfo = {
+      "박우승": "박우승13570 / 621843",
+      "육성현": "육성현77373 / 214898",
+      "이채환": "이채환31948 / bd1234",
+      "김하람": "김하람28476 / 706587",
+      "이도현": "이도현39857 / bd1234",
+      "박시우": "박시우15328 / bd1234",
+      "박용현": "박용현49224 / bd1234"
+    };
+
+    if (userInfo[value]) {
+      const [id, pw] = userInfo[value].split(" / ");
+      result.textContent = `✅ ID: ${id} | Password: ${pw}`;
+      button.classList.add('hidden');
+    } else if (value === "1234" && localStorage.getItem("isAdmin") === "true") {
+      result.textContent = "✅ 관리자 인증 성공";
+      button.classList.remove('hidden'); // 관리자 버튼 보이기
+    } else {
+      result.textContent = "해당 이름 또는 비밀번호를 찾을 수 없습니다.";
+      button.classList.add('hidden');
+    }
+  }
+
+
+function toggleCalendar() {
+  const container = document.getElementById("calendar-container");
+  container.classList.toggle("hidden");
+  if (!container.classList.contains("hidden")) {
+    generateCalendar();
+  }
+}
+
+function scrollToCalendar() {
+  document.getElementById("calendar-container").scrollIntoView({ behavior: 'smooth' });
+  const container = document.getElementById("calendar-container");
+  if (container.classList.contains("hidden")) {
+    container.classList.remove("hidden");
+    generateCalendar();
+  }
+}
+
+function generateCalendar() {
+  const user = localStorage.getItem("username") || localStorage.getItem("localUsername");
+  const record = JSON.parse(localStorage.getItem("attendance") || "{}");
+  const dates = record[user] || [];
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth(); // 0부터 시작
+  const firstDay = new Date(year, month, 1).getDay(); // 0:일 ~ 6:토
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  const grid = document.getElementById("calendar-grid");
+  grid.innerHTML = `
+    <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+  `;
+
+  for (let i = 0; i < firstDay; i++) {
+    grid.innerHTML += `<div></div>`;
+  }
+
+  for (let d = 1; d <= lastDate; d++) {
+    const dateStr = new Date(year, month, d).toLocaleDateString();
+    const isMarked = dates.includes(dateStr);
+    grid.innerHTML += `<div class="${isMarked ? 'bg-green-300 font-bold text-white' : 'bg-gray-100'} p-2 rounded">${d}</div>`;
+  }
+}
+</script>
+<script>
     window.onload = () => {
       if (localStorage.getItem("loggedIn") === "true") {
         document.getElementById("login-screen").classList.add("hidden");
         document.getElementById("main-content").classList.remove("hidden");
-  
-        const username = localStorage.getItem("username");
+
+        const username = localStorage.getItem("username") || localStorage.getItem("localUsername");
         document.getElementById("welcome-text").textContent = `👋 ${username}님 환영합니다!`;
-  
-        markAttendance();
-        updateXP();
-        restoreMemo();
+
+        if (localStorage.getItem("isAdmin") === "true") {
+          document.getElementById("admin-shortcut").classList.remove("hidden");
+        }
       }
     };
-  
-    // ✅ 로그아웃
-    function logout() {
-      localStorage.removeItem("loggedIn");
-      localStorage.removeItem("username");
-      localStorage.removeItem("isAdmin");
-      location.reload();
-    }
-  
-    // ✅ 출석 체크
-    function markAttendance() {
-      const user = localStorage.getItem("username");    
-      const today = new Date().toLocaleDateString();
-      const record = JSON.parse(localStorage.getItem("attendance") || "{}");
-    
-      record[user] = record[user] || [];
-    
-      if (!record[user].includes(today)) {
-        record[user].push(today);
-        localStorage.setItem("attendance", JSON.stringify(record));
-    
-        // XP가 없는 경우 0으로 초기화
-        if (!localStorage.getItem("xp")) {
-          localStorage.setItem("xp", "0");
-        }
-    
-        addXP(10);  // 하루 1번만 XP 추가
-      }
-    
-      document.getElementById("attendance-status").textContent = `✅ 오늘(${today}) 출석 완료!`;
-    }
-    
-  
-    // 📝 메모 자동 저장
-    function restoreMemo() {
-      const memo = localStorage.getItem("memo") || "";
-      const textarea = document.getElementById("memo");
-      if (textarea) {
-        textarea.value = memo;
-        textarea.oninput = () => localStorage.setItem("memo", textarea.value);
-      }
-    }
-  
-    // 💻 파이썬 실행
-    function runPython() {
-      Sk.configure({
-        output: (text) => {
-          document.getElementById("py-output").textContent += text;
-        },
-        read: () => { throw "파일 시스템 지원 안함"; }
-      });
-  
-      document.getElementById("py-output").textContent = "";
-      Sk.misceval.asyncToPromise(() =>
-        Sk.importMainWithBody("__main__", false, document.getElementById("py-code").value)
-      );
-      addXP(5);
-    }
-  
-    // 🏆 XP 시스템
-    function addXP(amount) {
-      const current = parseInt(localStorage.getItem("xp") || "0");
-      const newXP = current + amount;
-      localStorage.setItem("xp", newXP);
-      updateXP();
-    }
-  
-    function updateXP() {
-      const xp = parseInt(localStorage.getItem("xp") || "0");
-      let level = "Beginner";
-      if (xp >= 150) level = "Master";
-      else if (xp >= 50) level = "Intermediate";
-      document.getElementById("xp-status").textContent = `🎖️ 레벨: ${level} (${xp} XP)`;
-    }
+  </script>
 
-    // ✅ 관리자 인증 및 ID/PW 확인
-    function checkUser() {
-      const value = document.getElementById("userInput").value.trim();
-      const result = document.getElementById("result");
-      const button = document.getElementById("gotoButton");
 
-      const userInfo = {
-        "박우승": "박우승13570 / 621843",
-        "육성현": "육성현77373 / 214898",
-        "이채환": "이채환31948 / bd1234",
-        "김하람": "김하람28476 / 706587",
-        "이도현": "이도현39857 / bd1234",
-        "박시우": "박시우15328 / bd1234",
-        "박용현": "박용현49224 / bd1234"
-      };
-
-      if (userInfo[value]) {
-        const [id, pw] = userInfo[value].split(" / ");
-        result.textContent = `✅ ID: ${id} | Password: ${pw}`;
-        button.classList.add('hidden');
-      } else if (value === "1234" && localStorage.getItem("isAdmin") === "true") {
-        result.textContent = "✅ 관리자 인증 성공";
-        button.classList.remove('hidden'); // 관리자 버튼 보이기
-      } else {
-        result.textContent = "해당 이름 또는 비밀번호를 찾을 수 없습니다.";
-        button.classList.add('hidden');
-      }
-    }
-
-  
-  function toggleCalendar() {
-    const container = document.getElementById("calendar-container");
-    container.classList.toggle("hidden");
-    if (!container.classList.contains("hidden")) {
-      generateCalendar();
-    }
-  }
-
-  function scrollToCalendar() {
-    document.getElementById("calendar-container").scrollIntoView({ behavior: 'smooth' });
-    const container = document.getElementById("calendar-container");
-    if (container.classList.contains("hidden")) {
-      container.classList.remove("hidden");
-      generateCalendar();
-    }
-  }
-
-  function generateCalendar() {
-    const user = localStorage.getItem("username");
-    const record = JSON.parse(localStorage.getItem("attendance") || "{}");
-    const dates = record[user] || [];
-
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth(); // 0부터 시작
-    const firstDay = new Date(year, month, 1).getDay(); // 0:일 ~ 6:토
-    const lastDate = new Date(year, month + 1, 0).getDate();
-
-    const grid = document.getElementById("calendar-grid");
-    grid.innerHTML = `
-      <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
-    `;
-
-    for (let i = 0; i < firstDay; i++) {
-      grid.innerHTML += `<div></div>`;
-    }
-
-    for (let d = 1; d <= lastDate; d++) {
-      const dateStr = new Date(year, month, d).toLocaleDateString();
-      const isMarked = dates.includes(dateStr);
-      grid.innerHTML += `<div class="${isMarked ? 'bg-green-300 font-bold text-white' : 'bg-gray-100'} p-2 rounded">${d}</div>`;
-    }
-  }
-</script>
-
-  
 </body>
 </html>
