@@ -221,28 +221,7 @@
       </div>
     </div>
 
-    <div id="entry" class="tab-content">
-      <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 학습</h2>
-      <p class="mb-4">엔트리 사이트에 접속하고 기본 항목들을 학습할 수 있습니다.</p>
-      <a href="https://playentry.org/" target="_blank" class="inline-block mb-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">엔트리 사이트로 이동</a>
-      <ul class="list-disc list-inside space-y-2">
-        <li>- 시작: 엔트리 프로젝트 시작 방법</li>
-        <li>- 흐름: 프로젝트의 흐름 설정</li>
-        <li>- 움직임: 객체 이동</li>
-        <li>- 생김새: 객체 외형 설정</li>
-        <li>- 붓: 그리기 기능</li>
-        <li>- 소리: 소리 효과 추가</li>
-        <li>- 판단: 조건문과 결정</li>
-        <li>- 계산: 계산 기능</li>
-        <li>- 자료: 데이터 활용</li>
-      </ul>
-    </div>
-    <div id="entryclass" class="tab-content">
-      <h2 class="text-2xl font-bold mb-4 text-blue-700">엔트리 수업 자료</h2>
-      <a href="엔트리 기초.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 1 다운로드</a>
-      <a href="숫자 맞추기 게임.pdf" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 다운로드</a>
-      <a href="https://numberfind.my.canva.site/" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">수업자료 2 사이트</a>
-    </div>
+
     <div id="python" class="tab-content">
       <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 학습</h2>
       <p>파이썬의 기본 개념과 다양한 링크들을 통해 실습을 할 수 있습니다.</p>
@@ -317,20 +296,34 @@
   }
 
   async function updateXp(userId = localStorage.getItem("userId")) {
-    const { data } = await supabase
-      .from('club_xp')
-      .select('xp')
-      .eq('user_id', userId)
-      .eq('club_name', '코딩동아리');
+  const { data } = await supabase
+    .from('club_xp')
+    .select('xp')
+    .eq('user_id', userId)
+    .eq('club_name', '코딩동아리');
 
-    if (data.length > 0) {
-      const xp = data[0].xp;
-      let level = "Beginner";
-      if (xp >= 150) level = "Master";
-      else if (xp >= 50) level = "Intermediate";
-      document.getElementById("xp-status").textContent = `🎖️ 레벨: ${level} (${xp} XP)`;
+  if (data.length > 0) {
+    const xp = data[0].xp;
+    let levelName = "Beginner";
+    let levelNumber = 1;
+
+    if (xp >= 150) {
+      levelName = "Master";
+      levelNumber = 5;
+    } else if (xp >= 100) {
+      levelName = "Advanced";
+      levelNumber = 4;
+    } else if (xp >= 70) {
+      levelName = "Intermediate";
+      levelNumber = 3;
+    } else if (xp >= 30) {
+      levelName = "Novice";
+      levelNumber = 2;
     }
+
+    document.getElementById("xp-status").innerHTML = `🎖️ 레벨 ${levelNumber}: ${levelName} (${xp} XP)`;
   }
+}
 
   async function addXP(amount = 10) {
     const userId = localStorage.getItem("userId");
