@@ -112,7 +112,7 @@
         let level = "Beginner";
         if (xp >= 150) level = "Master";
         else if (xp >= 50) level = "Intermediate";
-        document.getElementById("xp-status").textContent = `🎖️ 레벨: <span class="math-inline">\{level\} \(</span>{xp} XP)`;
+        document.getElementById("xp-status").innerHTML = `🎖️ 레벨: ${level} (${xp} XP)`;
       }
     }
 
@@ -139,27 +139,6 @@
     window.updateXp = updateXp;
     window.addXP = addXP;
 
-    window.loginWithSupabase = async function () {
-      const email = document.getElementById("login-id").value;
-      const password = document.getElementById("login-pw").value;
-
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-      if (error) {
-        document.getElementById("login-error").classList.remove("hidden");
-      } else {
-        const user = data.user;
-        localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("username", user.email);
-        localStorage.setItem("userId", user.id);
-        document.getElementById("login-screen").classList.add("hidden");
-        document.getElementById("main-content").classList.remove("hidden");
-        document.getElementById("welcome-text").textContent = `👋 ${user.email}님 환영합니다!`;
-        await initXp(user.id);
-        await updateXp(user.id);
-      }
-    }
-
     window.logoutSupabase = async function () {
       const { error } = await supabase.auth.signOut();
       if (!error) {
@@ -179,7 +158,7 @@
   <h1 class="text-2xl font-bold mb-4 text-blue-800">🔐 로그인</h1>
   <input type="text" id="login-id" placeholder="ID 입력" class="w-full border p-2 rounded mb-3"/>
   <input type="password" id="login-pw" placeholder="비밀번호 입력" class="w-full border p-2 rounded mb-4"/>
-  <button onclick="loginWithSupabase()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">로그인</button>
+  <button onclick="loginLocal()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">로그인</button>
   <p id="login-error" class="text-red-600 mt-2 hidden">❌ 로그인 실패: 정보를 확인하세요.</p>
 </div>
 
@@ -285,7 +264,7 @@
       <a href="python4-1.html" class="button">4-1. 함수의 호출</a>
       <a href="python4-2.html" class="button">4-2. 함수의 반환</a>
       <a href="python4-3.html" class="button">4-3. 함수의 매개변수
-      <a href="python4-4.html" class="button">4-4. 함수의 사용</a>
+        <a href="python4-4.html" class="button">4-4. 함수의 사용</a>
       <a href="python4-5.html" class="button">4-5. 함수 예제</a>
 
       </div>
@@ -321,26 +300,7 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmY254anZ3d3ZmbGRkYXFua3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NDI5NzcsImV4cCI6MjA2MjQxODk3N30.csvh85k3wAueeYrBpZdJAEMbUgB_P4qI9BbwNLc5oRc'
   );
 
-  async function loginWithSupabase() {
-    const email = document.getElementById("login-id").value;
-    const password = document.getElementById("login-pw").value;
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      document.getElementById("login-error").classList.remove("hidden");
-    } else {
-      const user = data.user;
-      localStorage.setItem("loggedIn", "true");
-      localStorage.setItem("username", user.email);
-      localStorage.setItem("userId", user.id);
-      document.getElementById("login-screen").classList.add("hidden");
-      document.getElementById("main-content").classList.remove("hidden");
-      document.getElementById("welcome-text").textContent = `👋 ${user.email}님 환영합니다!`;
-      await initXp(user.id);
-      await updateXp(user.id);
-    }
-  }
 
   async function initXp(userId) {
     const { data } = await supabase
