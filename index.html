@@ -86,24 +86,6 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmY254anZ3d3ZmbGRkYXFua3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NDI5NzcsImV4cCI6MjA2MjQxODk3N30.csvh85k3wAueeYrBpZdJAEMbUgB_P4qI9BbwNLc5oRc'
     );
 
-    window.login = async function () {
-      const email = document.getElementById("login-id").value;
-      const password = document.getElementById("login-pw").value;
-
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-      if (error) {
-        document.getElementById("login-error").classList.remove("hidden");
-      } else {
-        const user = data.user;
-        document.getElementById("login-screen").classList.add("hidden");
-        document.getElementById("main-content").classList.remove("hidden");
-        document.getElementById("welcome-text").textContent = `👋 ${user.email}님 환영합니다!`;
-        await initXp(user.id);
-        await updateXp(user.id);
-      }
-    }
-
     async function initXp(userId) {
       const { data } = await supabase
         .from('club_xp')
@@ -118,7 +100,7 @@
       }
     }
 
-    window.updateXp = async function (userId) {
+    async function updateXp(userId) {
       const { data } = await supabase
         .from('club_xp')
         .select('xp')
@@ -134,8 +116,8 @@
       }
     }
 
-    window.addXP = async function (amount = 10) {
-      const userId = (await supabase.auth.getUser()).data.user.id;
+    async function addXP(amount = 10) {
+      const userId = localStorage.getItem("userId");
       const { data } = await supabase
         .from('club_xp')
         .select('*')
@@ -152,12 +134,9 @@
       }
     }
 
-    window.openTab = function (event, tabName) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(tabName).classList.add('active');
-      event.target.classList.add('active');
-    }
+    window.initXp = initXp;
+    window.updateXp = updateXp;
+    window.addXP = addXP;
   </script>
 </head>
 <body class="text-center py-10 px-4">
