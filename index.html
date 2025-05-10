@@ -78,8 +78,90 @@
       100% { transform: rotate(0deg); }
     }
   </style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabase = createClient(
+      'https://tfcnxjvwwvflddaqnkro.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmY254anZ3d3ZmbGRkYXFua3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NDI5NzcsImV4cCI6MjA2MjQxODk3N30.csvh85k3wAueeYrBpZdJAEMbUgB_P4qI9BbwNLc5oRc'
+    );
+
+    window.login = async function () {
+      const email = document.getElementById("login-id").value;
+      const password = document.getElementById("login-pw").value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        document.getElementById("login-error").classList.remove("hidden");
+      } else {
+        const user = data.user;
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("main-content").classList.remove("hidden");
+        document.getElementById("welcome-text").textContent = `👋 ${user.email}님 환영합니다!`;
+        await initXp(user.id);
+        await updateXp(user.id);
+      }
+    }
+
+    async function initXp(userId) {
+      const { data } = await supabase
+        .from('club_xp')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리');
+
+      if (data.length === 0) {
+        await supabase.from('club_xp').insert([
+          { user_id: userId, club_name: '코딩동아리', xp: 0 }
+        ]);
+      }
+    }
+
+    window.updateXp = async function (userId) {
+      const { data } = await supabase
+        .from('club_xp')
+        .select('xp')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리');
+
+      if (data.length > 0) {
+        const xp = data[0].xp;
+        let level = "Beginner";
+        if (xp >= 150) level = "Master";
+        else if (xp >= 50) level = "Intermediate";
+        document.getElementById("xp-status").textContent = `🎖️ 레벨: ${level} (${xp} XP)`;
+      }
+    }
+
+    window.addXP = async function (amount = 10) {
+      const userId = (await supabase.auth.getUser()).data.user.id;
+      const { data } = await supabase
+        .from('club_xp')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리');
+
+      if (data.length > 0) {
+        const current = data[0].xp;
+        await supabase
+          .from('club_xp')
+          .update({ xp: current + amount })
+          .eq('id', data[0].id);
+        updateXp(userId);
+      }
+    }
+
+    window.openTab = function (event, tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
 </head>
 <body class="text-center py-10 px-4">
+  
   <!-- 로그인 화면 -->
   <div id="login-screen" class="max-w-md mx-auto bg-white p-8 rounded shadow">
     <h1 class="text-2xl font-bold mb-4 text-blue-800">🔐 로그인</h1>
@@ -96,16 +178,16 @@
     
 
     <div class="container">
-      <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">엔트리와 파이썬 학습 사이트</h1>
+      <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">파이썬 학습 사이트</h1>
 
       <div class="flex flex-wrap justify-center gap-4 mb-8">
         <button class="tab-button active" onclick="openTab(event, 'home')">홈</button>
-        <button class="tab-button" onclick="openTab(event, 'entry')">엔트리</button>
-        <button class="tab-button" onclick="openTab(event, 'entryclass')">엔트리 수업 자료</button>
+        <!--<button class="tab-button" onclick="openTab(event, 'entry')">엔트리</button>
+        <button class="tab-button" onclick="openTab(event, 'entryclass')">엔트리 수업 자료</button>-->
         <button class="tab-button" onclick="openTab(event, 'python')">파이썬</button>
         <button class="tab-button" onclick="openTab(event, 'quiz')">파이썬 문제</button>
         <a href="submit.html" class="tab-button">제출</a>
-        <button class="tab-button" onclick="openTab(event, 'login')">ID 찾기</button>
+        <!--<button class="tab-button" onclick="openTab(event, 'login')">ID 찾기</button>-->
       </div>
 
 
@@ -227,8 +309,88 @@
       </div>
     </div>
   </div>
+ <script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+  const supabase = createClient(
+    'https://tfcnxjvwwvflddaqnkro.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmY254anZ3d3ZmbGRkYXFua3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY4NDI5NzcsImV4cCI6MjA2MjQxODk3N30.csvh85k3wAueeYrBpZdJAEMbUgB_P4qI9BbwNLc5oRc'
+  );
+
+  async function login() {
+    const email = document.getElementById("login-id").value;
+    const password = document.getElementById("login-pw").value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      document.getElementById("login-error").classList.remove("hidden");
+    } else {
+      const user = data.user;
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("username", user.email);
+      localStorage.setItem("userId", user.id);
+      document.getElementById("login-screen").classList.add("hidden");
+      document.getElementById("main-content").classList.remove("hidden");
+      document.getElementById("welcome-text").textContent = `👋 ${user.email}님 환영합니다!`;
+      await initXp(user.id);
+      await updateXp(user.id);
+    }
+  }
+
+  async function initXp(userId) {
+    const { data, error } = await supabase
+      .from('club_xp')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('club_name', '코딩동아리');
+
+    if (data.length === 0) {
+      await supabase.from('club_xp').insert([
+        { user_id: userId, club_name: '코딩동아리', xp: 0 }
+      ]);
+    }
+  }
+
+  async function updateXp(userId = localStorage.getItem("userId")) {
+    const { data, error } = await supabase
+      .from('club_xp')
+      .select('xp')
+      .eq('user_id', userId)
+      .eq('club_name', '코딩동아리');
+
+    if (data.length > 0) {
+      const xp = data[0].xp;
+      let level = "Beginner";
+      if (xp >= 150) level = "Master";
+      else if (xp >= 50) level = "Intermediate";
+      document.getElementById("xp-status").textContent = `🎖️ 레벨: ${level} (${xp} XP)`;
+    }
+  }
+
+  async function addXP(amount = 10) {
+    const userId = localStorage.getItem("userId");
+    const { data, error } = await supabase
+      .from('club_xp')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('club_name', '코딩동아리');
+
+    if (data.length > 0) {
+      const current = data[0].xp;
+      await supabase
+        .from('club_xp')
+        .update({ xp: current + amount })
+        .eq('id', data[0].id);
+
+      updateXp(userId);
+    }
+  }
+</script>
+
 
   <script>
+    
     function openTab(event, tabName) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.getElementById(tabName).classList.add('active');
