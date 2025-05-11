@@ -139,7 +139,41 @@
             <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
                 <h2 class="text-xl font-bold text-blue-700 mb-2">🏆 나의 레벨</h2>
                 <p id="xp-status" class="text-lg font-semibold"></p>
+                <button id="levelShopBtn" class="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                레벨 상점
+                </button>
             </div>
+            <!-- 레벨 표시 + 버튼 -->
+             <!-- 상점 모달 -->
+            <div id="levelShopModal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+              <div class="bg-white w-96 p-6 rounded-xl shadow-lg text-center animate-scaleIn">
+                <h2 class="text-xl font-semibold mb-3">🎁 레벨 상점</h2>
+                <p class="text-sm text-gray-600 mb-4">XP를 사용해 아이템을 구매하세요!</p>
+
+                <ul class="text-left text-sm list-disc pl-6 space-y-3">
+                  <li>
+                    닉네임 색상 변경 (Lv5, 100XP)
+                    <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded" data-key="nickname_color" data-required="5" data-cost="100">구매</button>
+                  </li>
+                </ul>
+
+                <button id="closeShopBtn" class="mt-5 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-sm rounded">닫기</button>
+              </div>
+            </div>
+
+            <!-- 애니메이션 스타일 -->
+            <style>
+            @keyframes scaleIn {
+              0% { transform: scale(0.95); opacity: 0; }
+              100% { transform: scale(1); opacity: 1; }
+            }
+            .animate-scaleIn {
+              animation: scaleIn 0.3s ease-out;
+            }
+            </style>
+
+
+
 
             <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
                 <h2 class="text-xl font-bold text-blue-700 mb-2">📝 나만의 메모장</h2>
@@ -188,5 +222,95 @@
 </div>
 <script type="module" src="script.js"></script>
 <script src="local-script.js"></script>
+<script>
+let purchasedItems = new Set();
+
+// 구매한 항목 불러오기
+async function loadPurchasedItems() {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
+
+  const { data, error } = await supabase
+    .from("club_xp_items")
+    .select("item_key")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error("❌ 구매 기록 조회 실패:", error.message);
+    return;
+  }
+
+  purchasedItems = new Set(data.map(d => d.item_key));
+  updateBuyButtons();
+}
+
+// 버튼 상태 업데이트
+function updateBuyButtons() {
+  document.querySelectorAll(".buy-btn").forEach(btn => {
+    const key = btn.dataset.key;
+    const required = parseInt(btn.dataset.required);
+    const cost = parseInt(btn.dataset.cost);
+
+    const alreadyPurchased = purchasedItems.has(key);
+    const disabled = window.currentXP < cost || window.currentLevel < required || alreadyPurchased;
+
+    btn.disabled = disabled;
+    btn.classList.toggle("opacity-50", disabled);
+    btn.innerText = alreadyPurchased ? "구매 완료" : "구매";
+  });
+}
+
+// 구매 처리
+document.querySelectorAll(".buy-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const key = btn.dataset.key;
+    const cost = parseInt(btn.dataset.cost);
+    const userId = localStorage.getItem("userId");
+
+    if (purchasedItems.has(key)) {
+      alert("❗ 이미 구매한 아이템입니다.");
+      return;
+    }
+
+    const { data } = await supabase
+      .from("club_xp")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("club_name", "코딩동아리");
+
+    if (data.length > 0) {
+      const current = data[0].xp;
+      const newXP = current - cost;
+
+      await supabase
+        .from("club_xp")
+        .update({ xp: newXP })
+        .eq("id", data[0].id);
+
+      await supabase
+        .from("club_xp_items")
+        .insert([{ user_id: userId, item_key: key, purchased: true }]);
+
+      await updateXp(userId);     // XP UI 갱신
+      await loadPurchasedItems(); // 버튼 다시 체크
+      alert("✅ 아이템을 성공적으로 구매했습니다!");
+    }
+  });
+});
+
+// 상점 열릴 때 실행
+document.getElementById("levelShopBtn").addEventListener("click", async () => {
+  document.getElementById("levelShopModal").classList.remove("hidden");
+  document.getElementById("levelShopModal").classList.add("flex");
+  await loadPurchasedItems();
+});
+
+document.getElementById("closeShopBtn").addEventListener("click", () => {
+  document.getElementById("levelShopModal").classList.add("hidden");
+  document.getElementById("levelShopModal").classList.remove("flex");
+});
+</script>
+
+
 </body>
 </html>
