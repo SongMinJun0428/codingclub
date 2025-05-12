@@ -9,6 +9,8 @@ window.supabase = createClient(
 
 window.currentXP = 0;
 window.currentLevel = 1;
+window.purchasedItems = new Set(); // 전역으로 선언
+
 
 
 async function initXp(userId) {
@@ -140,11 +142,14 @@ window.logoutSupabase = async function () {
 }
 
 window.onload = async () => {
-    if (localStorage.getItem("loggedIn") === "true") {
-        const username = localStorage.getItem("username") || localStorage.getItem("localUsername");
-        showMainContent(username); // showMainContent 함수에서 updateXp 호출
-    }
-}
+  if (localStorage.getItem("loggedIn") === "true") {
+    const username = localStorage.getItem("username") || localStorage.getItem("localUsername");
+    showMainContent(username);
+    await updateXp(localStorage.getItem("userId"));
+    await loadPurchasedItems(); // 꼭 필요함!
+  }
+};
+
 
 window.initXp = initXp;
 window.updateXp = updateXp;
