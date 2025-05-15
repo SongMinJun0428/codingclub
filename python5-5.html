@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 시퀀스 자료형의 기본</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #1a1a1a;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .output {
+      background: #e0f7fa;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-left: 5px solid #00796b;
+    }
+    .note {
+      background: #fff3cd;
+      padding: 10px;
+      border-left: 5px solid #ffc107;
+      margin-bottom: 20px;
+    }
+    .error {
+      background: #ffe0e0;
+      padding: 10px;
+      border-left: 5px solid #d32f2f;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>06-05. 시퀀스 자료형의 기본</h1>
+</header>
+
+<main>
+
+  <section>
+    <h2>시퀀스란?</h2>
+    <p>파이썬의 <strong>시퀀스(sequence)</strong> 자료형은 연속된 값을 가진 자료형을 말하며, 대표적으로 다음이 있습니다:</p>
+    <ul>
+      <li><code>list</code> : 리스트</li>
+      <li><code>tuple</code> : 튜플</li>
+      <li><code>str</code> : 문자열</li>
+      <li><code>range</code> : 숫자 범위 생성</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>in 연산자</h2>
+    <p>값이 시퀀스에 포함되어 있는지 확인합니다.</p>
+    <pre>
+a = [1, 5, 9]
+b = (1, 5, 9)
+c = '159'
+d = range(1, 10, 4)
+
+print(5 in a, 5 in b, '5' in c, 5 in d)
+print(4 in a, 4 in b, '4' in c, 4 in d)
+    </pre>
+    <div class="output">True True True True<br>False False False False</div>
+
+    <pre>
+a = ('kim', 'han', 'kel')
+b = ['kim', 'han', 'kel']
+
+print('ki' in a, 'ki' in b)
+print('kim' in a, 'kim' in b)
+    </pre>
+    <div class="output">False False<br>True True</div>
+  </section>
+
+  <section>
+    <h2>len 함수</h2>
+    <p>시퀀스의 길이를 반환합니다.</p>
+    <pre>
+a = [1, 5, 9]
+b = (1, 5, 9)
+c = '159'
+d = range(1, 10, 4)
+
+print(len(a), len(b), len(c), len(d))
+    </pre>
+    <div class="output">3 3 3 3</div>
+
+    <pre>
+a = ('kim', 'han', 'kel')
+b = ['kim', 'han', 'kel']
+print(len(a), len(b))
+    </pre>
+    <div class="output">3 3</div>
+
+    <pre>
+a = 'abc def'
+b = 'abc\n\n\ndef\n\n\nghi'
+print(len(a), len(b))
+    </pre>
+    <div class="output">7 15</div>
+  </section>
+
+  <section>
+    <h2>인덱스</h2>
+    <p>시퀀스의 특정 위치 값을 가져올 때는 <code>[]</code>를 사용합니다.</p>
+    <pre>
+a = [1, 5, 9]
+b = (1, 5, 9)
+c = '159'
+d = range(1, 10, 4)
+
+print(a[0])
+print(b[1])
+print(c[2])
+print(d[1])
+    </pre>
+    <div class="output">1<br>5<br>9<br>5</div>
+
+    <h3>음수 인덱스</h3>
+    <pre>
+print(a[-1])
+print(b[-2])
+print(c[-3])
+print(d[-1])
+    </pre>
+    <div class="output">9<br>5<br>1<br>9</div>
+
+    <h3>잘못된 인덱스</h3>
+    <pre>
+a = [1, 2, 3]
+
+print(a[3])
+print(a[-4])
+    </pre>
+    <div class="error">IndexError: list index out of range<br>IndexError: list index out of range</div>
+
+    <div class="note">인덱스는 0부터 시작하며, 범위를 벗어나면 <code>IndexError</code>가 발생합니다.</div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 시퀀스 학습 자료</p>
+</footer>
+
+</body>
+</html>

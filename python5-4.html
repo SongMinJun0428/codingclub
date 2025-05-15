@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - range 사용해보기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #1a1a1a;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .output {
+      background: #e0f7fa;
+      padding: 10px;
+      border-left: 5px solid #00796b;
+      margin-bottom: 20px;
+    }
+    .note {
+      background: #fff3cd;
+      padding: 10px;
+      border-left: 5px solid #ffc107;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>06-04. range 사용해보기</h1>
+</header>
+
+<main>
+
+  <section>
+    <h2>range 생성</h2>
+    <p><code>range()</code>는 연속된 숫자들을 생성하는 객체입니다.</p>
+    <pre>
+a = range(10)
+print(a)
+    </pre>
+    <div class="output">range(0, 10)</div>
+
+    <p>숫자 리스트를 실제로 확인하려면 <code>list()</code> 또는 <code>tuple()</code>로 감싸야 합니다.</p>
+    <pre>
+a = range(10)
+print(list(a))
+print(tuple(a))
+    </pre>
+    <div class="output">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]<br>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+
+    <div class="note"><strong>range는 "반복 가능한 객체 (iterable)"</strong>입니다. 생성만 준비하고, 실행은 list나 for문 등을 통해 합니다.</div>
+  </section>
+
+  <section>
+    <h2>range 문법</h2>
+
+    <h3>1. 인자가 1개</h3>
+    <pre>
+a = range(10)
+b = range(0, 10)
+print(a == b)
+    </pre>
+    <div class="output">True</div>
+
+    <h3>2. 인자가 2개 (시작값, 끝값)</h3>
+    <pre>
+a = range(1, 11)
+print(list(a))
+    </pre>
+    <div class="output">[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</div>
+
+    <h3>3. 인자가 3개 (시작값, 끝값, 간격)</h3>
+    <pre>
+# 홀수
+a = range(1, 20, 2)
+print(tuple(a))
+
+# 짝수
+a = range(0, 20, 2)
+print(tuple(a))
+    </pre>
+    <div class="output">(1, 3, 5, 7, 9, 11, 13, 15, 17, 19)<br>(0, 2, 4, 6, 8, 10, 12, 14, 16, 18)</div>
+  </section>
+
+  <section>
+    <h2>range의 역방향</h2>
+    <pre>
+a = range(1, 10, -1)
+print(list(a))
+    </pre>
+    <div class="output">[]</div>
+
+    <pre>
+a = range(10, 0, -1)
+print(list(a))
+    </pre>
+    <div class="output">[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]</div>
+
+    <div class="note">
+      <strong>역순 range</strong>는 반드시 시작값이 더 크고, step(간격)은 음수여야 합니다.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 range 학습 자료</p>
+</footer>
+
+</body>
+</html>

@@ -78,28 +78,17 @@
             100% { transform: rotate(0deg); }
         }
 
-        .lesson-set.locked-preview {
+      .lesson-set.locked-preview {
         position: relative;
-        filter: blur(2px);
-        opacity: 0.5;
-        pointer-events: none;
+        opacity: 1;
+        filter: none;
+        pointer-events: auto;
       }
 
       .lesson-set.locked-preview::after {
-        content: "🔒 잠긴 콘텐츠 (다음 단계 미리보기)";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.85);
-        padding: 10px 16px;
-        border-radius: 8px;
-        font-weight: bold;
-        color: #1f2937;
-        z-index: 10;
-        font-size: 13px;
-        text-align: center;
+        display: none;
       }
+
     </style>
 
 </head>
@@ -169,144 +158,64 @@
             </div>
             <!-- 레벨 표시 + 버튼 -->
              <!-- 상점 모달 -->
-            <div id="levelShopModal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
-              <div class="bg-white w-96 p-6 rounded-xl shadow-lg text-center animate-scaleIn">
-                <h2 class="text-xl font-semibold mb-3">🎁 레벨 상점</h2>
-                <p class="text-sm text-gray-600 mb-4">XP를 사용해 아이템을 구매하세요!</p>
+            <div id="levelShopModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+              <div class="bg-white w-full max-w-md mx-auto p-6 rounded-2xl shadow-xl animate-scaleIn">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">🎁 레벨 상점</h2>
+                <p class="text-sm text-gray-600 mb-6 text-center">XP를 사용해 진도를 해금하세요!</p>
 
-                <ul class="text-left text-sm list-disc pl-6 space-y-3">
-                  <ul>
-                    <li>
-                      <li>
-                      1단계 진도 열기 (Lv1, 50XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_1"
-                        data-required=""
-                        data-cost="50">구매</button>
-                    </li>
+                <div id="shop-items" class="space-y-3 max-h-96 overflow-y-auto"></div>
 
-                    <li>
-                      2단계 진도 열기 (Lv2, 70XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_2"
-                        data-required="unlock_set_1"
-                        data-cost="70">구매</button>
-                    </li>
-
-                    <li>
-                      3단계 진도 열기 (Lv3, 100XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_3"
-                        data-required="unlock_set_2"
-                        data-cost="100">구매</button>
-                    </li>
-
-                    <li>
-                      4단계 진도 열기 (Lv4, 130XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_4"
-                        data-required="unlock_set_3"
-                        data-cost="130">구매</button>
-                    </li>
-
-                    <li>
-                      5단계 진도 열기 (Lv5, 160XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_5"
-                        data-required="unlock_set_4"
-                        data-cost="160">구매</button>
-                    </li>
-
-                    <li>
-                      6단계 진도 열기 (Lv6, 200XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_6"
-                        data-required="unlock_set_5"
-                        data-cost="200">구매</button>
-                    </li>
-
-                    <li>
-                      7단계 진도 열기 (Lv7, 240XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_7"
-                        data-required="unlock_set_6"
-                        data-cost="240">구매</button>
-                    </li>
-
-                    <li>
-                      8단계 진도 열기 (Lv8, 280XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_8"
-                        data-required="unlock_set_7"
-                        data-cost="280">구매</button>
-                    </li>
-
-                    <li>
-                      9단계 진도 열기 (Lv9, 320XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_9"
-                        data-required="unlock_set_8"
-                        data-cost="320">구매</button>
-                    </li>
-
-                    <li>
-                      10단계 진도 열기 (Lv10, 360XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_10"
-                        data-required="unlock_set_9"
-                        data-cost="360">구매</button>
-                    </li>
-
-                    <li>
-                      11단계 진도 열기 (Lv11, 400XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_11"
-                        data-required="unlock_set_10"
-                        data-cost="400">구매</button>
-                    </li>
-
-                    <li>
-                      12단계 진도 열기 (Lv12, 450XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_12"
-                        data-required="unlock_set_11"
-                        data-cost="450">구매</button>
-                    </li>
-
-                    <li>
-                      13단계 진도 열기 (Lv13, 500XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_13"
-                        data-required="unlock_set_12"
-                        data-cost="500">구매</button>
-                    </li>
-
-                    <li>
-                      14단계 진도 열기 (Lv14, 550XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_14"
-                        data-required="unlock_set_13"
-                        data-cost="550">구매</button>
-                    </li>
-
-                    <li>
-                      15단계 진도 열기 (Lv15, 600XP)
-                      <button class="buy-btn ml-2 px-2 py-1 text-xs bg-green-500 text-white rounded"
-                        data-key="unlock_set_15"
-                        data-required="unlock_set_14"
-                        data-cost="600">구매</button>
-                    </li>
-
-                  </ul>
-
-
-                  
-
-                </ul>
-
-                <button id="closeShopBtn" class="mt-5 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-sm rounded">닫기</button>
+                <button id="closeShopBtn" class="mt-6 w-full bg-gray-300 hover:bg-gray-400 py-2 rounded text-sm">닫기</button>
               </div>
             </div>
+
+            <script>
+              const shopItems = [
+                { level: 1, xp: 50 },
+                { level: 2, xp: 70 },
+                { level: 3, xp: 100 },
+                { level: 4, xp: 130 },
+                { level: 5, xp: 160 },
+                { level: 6, xp: 200 },
+                { level: 7, xp: 240 },
+                { level: 8, xp: 280 },
+                { level: 9, xp: 320 },
+                { level: 10, xp: 360 },
+                { level: 11, xp: 400 },
+                { level: 12, xp: 450 },
+                { level: 13, xp: 500 },
+                { level: 14, xp: 550 },
+                { level: 15, xp: 600 },
+              ];
+
+              const shopContainer = document.getElementById("shop-items");
+
+              shopItems.forEach((item, index) => {
+                const requiredAttr = index === 0 ? '' : `data-required=\"unlock_set_${item.level - 1}\"`;
+                const html = `
+                  <div class=\"flex justify-between items-center bg-gray-50 border px-4 py-2 rounded-lg\">
+                    <div class=\"text-left\">
+                      <p class=\"text-sm font-medium\">${item.level}단계 진도 열기</p>
+                      <p class=\"text-xs text-gray-500\">(Lv${item.level}, ${item.xp}XP)</p>
+                    </div>
+                    <button class=\"buy-btn text-xs bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded\"
+                            data-key=\"unlock_set_${item.level}\"
+                            ${requiredAttr}
+                            data-cost=\"${item.xp}\">
+                      구매
+                    </button>
+                  </div>
+                `;
+                shopContainer.insertAdjacentHTML("beforeend", html);
+              });
+
+            document.getElementById("closeShopBtn").addEventListener("click", () => {
+            document.getElementById("levelShopModal").classList.add("hidden");
+            document.getElementById("levelShopModal").classList.remove("flex");
+            });
+
+            </script>
+
 
             <!-- 애니메이션 스타일 -->
             <style>
@@ -365,7 +274,12 @@
             </div>
 
             <div data-set="unlock_set_5" class="lesson-set">
-              
+              <a href="python5-1.html" class="button">5-1. 문자열 사용해보기</a>
+              <a href="python5-2.html" class="button">5-2. 리스트 사용해보기</a>
+              <a href="python5-3.html" class="button">5-3. 튜플 사용해보기</a>
+              <a href="python5-4.html" class="button">5-4. range 사용해보기</a>
+              <a href="python5-5.html" class="button">5-5. 시퀸즈 자료형의 기본</a>
+              <a href="python5-6.html" class="button">5-6. 시퀸즈 자료형 사용해보기_예제</a>
             </div>
             <div data-set="unlock_set_6" class="lesson-set">
               
@@ -404,17 +318,33 @@
             <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 문제</h2>
 
             <div data-set="unlock_set_1" class="lesson-set">
-              <a href="python.hw1.html" class="button">1-1. 다이아몬드 출력</a>
+              <a href="python.hw1.html" class="button">print. 다이아몬드 출력</a>
             </div>
 
             <div data-set="unlock_set_2" class="lesson-set">
-              <a href="python.hw2-1.html" class="button">2-1. 몫과 나머지</a>
-              <a href="python.hw2-2.html" class="button">2-2. 제곱 계산하기</a>
-              <a href="python.hw2-3.html" class="button">2-3. 원가와 정가</a>
-              <a href="python.hw2-4.html" class="button">2-4. 소금물 농도 구하기</a>
-              <a href="python.hw2-5.html" class="button">2-5. 소금물 농도 구하기 2</a>
-              <a href="python.hw2-6.html" class="button">2-6. 평균 속력 구하기</a>
-              <a href="python.hw2-7.html" class="button">2-7. 말아톤 꿈의 기록</a>
+              <a href="python.hw2-1.html" class="button">1-1. 몫과 나머지</a>
+              <a href="python.hw2-2.html" class="button">1-2. 제곱 계산하기</a>
+              <a href="python.hw2-3.html" class="button">1-3. 원가와 정가</a>
+              <a href="python.hw2-4.html" class="button">1-4. 소금물 농도 구하기</a>
+              <a href="python.hw2-5.html" class="button">1-5. 소금물 농도 구하기 2</a>
+              <a href="python.hw2-6.html" class="button">1-6. 평균 속력 구하기</a>
+              <a href="python.hw2-7.html" class="button">1-7. 말아톤 꿈의 기록</a>
+            </div>
+
+            <div data-set="unlock_set_3" class="lesson-set">
+              <a href="python.hw2.1-1.html" class="button">2-1. 두수의 합</a>
+              <a href="python.hw2.1-2.html" class="button">2-2. 두수의 차</a>
+              <a href="python.hw2.1-3.html" class="button">2-3. 두수의 곱</a>
+              <a href="python.hw2.1-4.html" class="button">2-4. 몫 구하기</a>
+              <a href="python.hw2.1-5.html" class="button">2-5. 나머지 구하기</a>
+              <a href="python.hw2.1-6.html" class="button">2-6. 나이 계산</a>
+              <a href="python.hw2.1-7.html" class="button">2-7. 두수의 나눗셈</a>
+              <a href="python.hw2.1-8.html" class="button">2-8. 특수문자 출력하기</a>
+              <a href="python.hw2.1-9.html" class="button">2-9. 정수 부분 출력하기</a>
+              <a href="python.hw2.1-10.html" class="button">2-10. 문자열 붙여서 출력하기</a>
+              <a href="python.hw2.1-11.html" class="button">2-11. 덧셈식 출력하기</a>
+              <a href="python.hw2.1-12.html" class="button">2-12. a와 b 출력하기</a>
+
             </div>
         </div>
     </div>
@@ -533,13 +463,6 @@ document.getElementById("levelShopBtn").addEventListener("click", async () => {
   document.getElementById("levelShopModal").classList.add("flex");
   await loadPurchasedItems();
 });
-
-document.getElementById("closeShopBtn").addEventListener("click", () => {
-  document.getElementById("levelShopModal").classList.add("hidden");
-  document.getElementById("levelShopModal").classList.remove("flex");
-});
-
-
 </script>
 
 

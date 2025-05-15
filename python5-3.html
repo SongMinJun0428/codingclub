@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - 튜플 사용해보기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #1c1c1c;
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .output {
+      background: #e0f7fa;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-left: 5px solid #00796b;
+    }
+    .note {
+      background: #fff3cd;
+      padding: 10px;
+      border-left: 5px solid #ffc107;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>06-03. 튜플 사용해보기</h1>
+</header>
+
+<main>
+
+  <section>
+    <h2>튜플이란?</h2>
+    <p>튜플은 리스트와 비슷하지만 <strong>값을 변경할 수 없는 자료형</strong>입니다.</p>
+    <pre>
+a = (1, 2, 3)
+print(a)
+    </pre>
+    <div class="output">(1, 2, 3)</div>
+
+    <p>괄호 <code>()</code> 없이도 튜플을 만들 수 있습니다.</p>
+    <pre>
+a = 1, 2, 3
+print(a)
+    </pre>
+    <div class="output">(1, 2, 3)</div>
+
+    <p>변수 다중 할당은 사실상 튜플입니다.</p>
+    <pre>
+x = 1, 2, 3
+x1, x2, x3 = x
+print(x1)
+print(x2)
+print(x3)
+    </pre>
+    <div class="output">1<br>2<br>3</div>
+  </section>
+
+  <section>
+    <h2>다양한 타입의 값도 가능</h2>
+    <pre>
+a = ("인코딩", 3, "플러스", 5)
+print(a)
+    </pre>
+    <div class="output">('인코딩', 3, '플러스', 5)</div>
+  </section>
+
+  <section>
+    <h2>하나짜리 튜플 주의</h2>
+    <pre>
+a = (1)
+b = (1,)
+print(a, type(a))
+print(b, type(b))
+    </pre>
+    <div class="output">1 &lt;class 'int'><br>(1,) &lt;class 'tuple'></div>
+
+    <div class="note"><strong>주의:</strong> 하나의 값만 있는 튜플은 꼭 <code>,</code>를 써야 튜플로 인식됩니다.</div>
+  </section>
+
+  <section>
+    <h2>튜플 연산</h2>
+    <pre>
+a = (1, 2, 3)
+print(a + (4, 5, 6))
+print(a * 3)
+    </pre>
+    <div class="output">(1, 2, 3, 4, 5, 6)<br>(1, 2, 3, 1, 2, 3, 1, 2, 3)</div>
+
+    <p>튜플은 <code>+</code>와 <code>*</code> 연산이 가능하지만, <strong>값 자체를 바꾸는 건 불가능</strong>합니다.</p>
+    <pre>
+a = (1, 2, 3)
+a = a + (4, 5, 6)
+print(a)
+    </pre>
+    <div class="output">(1, 2, 3, 4, 5, 6)</div>
+
+    <div class="note">
+      <strong>재할당은 가능</strong>하지만, <strong>튜플 안의 값을 직접 수정하는 것</strong>은 불가능합니다.
+    </div>
+  </section>
+
+  <section>
+    <h2>튜플 ↔ 리스트 변환</h2>
+    <pre>
+a = (1, 2, 3)
+print(a, type(a))
+
+a = list(a)
+print(a, type(a))
+
+a = tuple(a)
+print(a, type(a))
+    </pre>
+    <div class="output">(1, 2, 3) &lt;class 'tuple'><br>[1, 2, 3] &lt;class 'list'><br>(1, 2, 3) &lt;class 'tuple'></div>
+  </section>
+
+  <section>
+    <h2>타입 비교</h2>
+    <pre>
+a = [1, 2, 3]
+print(type(a) is tuple)
+print(type(a) is list)
+
+a = tuple(a)
+print(type(a) is tuple)
+print(type(a) is list)
+    </pre>
+    <div class="output">False<br>True<br>True<br>False</div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 튜플 학습 자료</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>문제 - 출생 연도 계산</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem; text-align: center; }
+    main { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #333; }
+    pre, code { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    .section { margin-bottom: 30px; }
+    footer { text-align: center; padding: 1rem; background-color: #333; color: white; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 문제 - 출생 연도 계산</h1>
+</header>
+
+<main>
+  <section class="section">
+    <h2>문제 설명</h2>
+    <p>철수는 40살인 선생님이 <strong>몇 년도에 태어났는지</strong> 궁금해졌습니다. 나이 <code>[정수]</code>가 입력될 때, <strong>2022년</strong>을 기준으로 출생 연도를 출력해주세요.</p>
+  </section>
+
+  <section class="section">
+    <h2>제한사항</h2>
+    <ul>
+      <li>0 &lt; [정수] ≤ 120</li>
+      <li>나이는 태어난 연도에 1살이며 1년마다 1씩 증가합니다.</li>
+      <li><strong>input() 함수 안에는 문자열을 쓰지 마세요.</strong></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>입출력 예</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <thead>
+        <tr style="background-color: #eee;">
+          <th>번호</th><th>[정수]</th><th>결과</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>"40"</td><td>1983</td></tr>
+        <tr><td>2</td><td>"23"</td><td>2000</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>출력 예시 설명</h2>
+    <p><strong>예제 1:</strong> 2022년 기준 40살 → 2022 - 40 + 1 = <strong>1983</strong></p>
+    <p><strong>예제 2:</strong> 2022년 기준 23살 → 2022 - 23 + 1 = <strong>2000</strong></p>
+  </section>
+
+  <section class="section">
+    <h2>예상 코드 예시</h2>
+    <pre><code>age = int(input())
+birth_year = 2022 - age + 1
+print(birth_year)
+    </code></pre>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 문제 페이지</p>
+</footer>
+
+</body>
+</html>

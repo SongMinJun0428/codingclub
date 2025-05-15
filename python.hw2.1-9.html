@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>문제 - 실수의 정수 부분 출력</title>
+  <style>
+    body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
+    header { background-color: #333; color: white; padding: 1rem; text-align: center; }
+    main { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #333; }
+    pre, code { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    .section { margin-bottom: 30px; }
+    footer { text-align: center; padding: 1rem; background-color: #333; color: white; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 문제 - 실수의 정수 부분 출력</h1>
+</header>
+
+<main>
+  <section class="section">
+    <h2>문제 설명</h2>
+    <p>실수 <code>flo</code>가 <code>input()</code>으로 주어질 때, <strong>flo의 정수 부분</strong>만 출력하도록 코드를 작성하세요.</p>
+  </section>
+
+  <section class="section">
+    <h2>제한사항</h2>
+    <ul>
+      <li><code>0 ≤ flo ≤ 100</code></li>
+      <li><code>input()</code> 함수 안에 문자열을 넣지 마세요. (예: <code>input("실수: ") ❌</code>)</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>입출력 예</h2>
+    <table border="1" cellspacing="0" cellpadding="6">
+      <thead style="background-color:#eee;">
+        <tr><th>번호</th><th>flo</th><th>결과</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>"1.42"</td><td>1</td></tr>
+        <tr><td>2</td><td>"69.32"</td><td>69</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>예상 코드 예시</h2>
+    <pre><code>flo = float(input())
+print(int(flo))</code></pre>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 파이썬 문제 페이지</p>
+</footer>
+
+</body>
+</html>
