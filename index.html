@@ -155,6 +155,58 @@
                 <button id="levelShopBtn" class="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                 레벨 상점
                 </button>
+                <!-- 등급표 열기/닫기 버튼 -->
+                <div class="max-w-2xl mx-auto mt-6">
+                  <button id="toggle-levels" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    📊 전체 등급표 보기
+                  </button>
+
+                  <!-- 등급표 영역 (초기에는 숨김) -->
+                  <div id="level-table" class="mt-4 hidden bg-white shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold mb-4">등급표</h2>
+                    <div class="overflow-x-auto">
+                      <table class="w-full text-sm text-left border border-gray-300 rounded">
+                        <thead class="bg-blue-100 text-gray-800">
+                          <tr>
+                            <th class="px-4 py-2">레벨</th>
+                            <th class="px-4 py-2">아이콘</th>
+                            <th class="px-4 py-2">한글 이름</th>
+                            <th class="px-4 py-2">영문 이름</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                          <tr><td class="px-4 py-1">LV.1</td><td>🌱</td><td>씨앗</td><td>Beginner</td></tr>
+                          <tr><td class="px-4 py-1">LV.2</td><td>🪴</td><td>준비중</td><td>Growing</td></tr>
+                          <tr><td class="px-4 py-1">LV.3</td><td>🌼</td><td>발아자</td><td>Seedling</td></tr>
+                          <tr><td class="px-4 py-1">LV.4</td><td>🌿</td><td>새싹</td><td>Sprout</td></tr>
+                          <tr><td class="px-4 py-1">LV.5</td><td>🍀</td><td>잎사귀</td><td>Leaf</td></tr>
+                          <tr><td class="px-4 py-1">LV.6</td><td>☘️</td><td>쌍잎</td><td>Apprentice</td></tr>
+                          <tr><td class="px-4 py-1">LV.7</td><td>✨</td><td>초보</td><td>Beginner+</td></tr>
+                          <tr><td class="px-4 py-1">LV.8</td><td>🧩</td><td>입문자</td><td>Novice</td></tr>
+                          <tr><td class="px-4 py-1">LV.9</td><td>🔧</td><td>연습생</td><td>Trainee</td></tr>
+                          <tr><td class="px-4 py-1">LV.10</td><td>💡</td><td>실습자</td><td>Practitioner</td></tr>
+                          <tr><td class="px-4 py-1">LV.11</td><td>💬</td><td>발표자</td><td>Presenter</td></tr>
+                          <tr><td class="px-4 py-1">LV.12</td><td>🧠</td><td>이해자</td><td>Thinker</td></tr>
+                          <tr><td class="px-4 py-1">LV.13</td><td>📊</td><td>분석가</td><td>Analyst</td></tr>
+                          <tr><td class="px-4 py-1">LV.14</td><td>🔥</td><td>숙련자</td><td>Advanced</td></tr>
+                          <tr><td class="px-4 py-1">LV.15</td><td>⚙️</td><td>자동화 초급</td><td>Automation Novice</td></tr>
+                          <tr><td class="px-4 py-1">LV.16</td><td>🧬</td><td>설계자</td><td>Architect</td></tr>
+                          <tr><td class="px-4 py-1">LV.17</td><td>🧪</td><td>실험자</td><td>Experimenter</td></tr>
+                          <tr><td class="px-4 py-1">LV.18</td><td>🧙</td><td>마스터</td><td>Master</td></tr>
+                          <tr><td class="px-4 py-1">LV.19</td><td>💼</td><td>팀 리더</td><td>Team Leader</td></tr>
+                          <tr><td class="px-4 py-1">LV.20</td><td>🚀</td><td>혁신가</td><td>Innovator</td></tr>
+                          <tr><td class="px-4 py-1">LV.21</td><td>🧩</td><td>해결사</td><td>Solver</td></tr>
+                          <tr><td class="px-4 py-1">LV.22</td><td>🎯</td><td>문제 스나이퍼</td><td>Problem Sniper</td></tr>
+                          <tr><td class="px-4 py-1">LV.23</td><td>🦾</td><td>미래 설계자</td><td>Visionary</td></tr>
+                          <tr><td class="px-4 py-1">LV.24</td><td>🏆</td><td>전설의 코더</td><td>Legend</td></tr>
+                          <tr><td class="px-4 py-1">LV.25</td><td>🧠</td><td>인공지능 교관</td><td>AI Instructor</td></tr>
+                          <tr><td class="px-4 py-1">LV.26</td><td>👑</td><td>전설의 개발자</td><td>Grandmaster Developer</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
             </div>
             <!-- 레벨 표시 + 버튼 -->
              <!-- 상점 모달 -->
@@ -169,6 +221,8 @@
                   📈 레벨: <span id="shop-user-level">LV.-</span><br>
                   ⚡ 경험치: <span id="shop-user-xp">- XP</span>
                 </div>
+
+                
 
 
                 <button id="closeShopBtn" class="mt-6 w-full bg-gray-300 hover:bg-gray-400 py-2 rounded text-sm">닫기</button>
@@ -222,6 +276,18 @@
 
             </script>
 
+            <script>
+  document.getElementById("toggle-levels").addEventListener("click", () => {
+    const table = document.getElementById("level-table");
+    const btn = document.getElementById("toggle-levels");
+    table.classList.toggle("hidden");
+    btn.textContent = table.classList.contains("hidden")
+      ? "📊 전체 등급표 보기"
+      : "❌ 등급표 닫기";
+  });
+</script>
+
+
 
             <!-- 애니메이션 스타일 -->
             <style>
@@ -233,6 +299,8 @@
               animation: scaleIn 0.3s ease-out;
             }
             </style>
+
+            
 
 
 
