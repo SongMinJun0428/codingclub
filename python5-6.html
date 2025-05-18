@@ -3,116 +3,160 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>파이썬 예제 모음 - 시퀀스 활용</title>
+  <title>파이썬 기초 - 시퀀스 자료형 사용 예제</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f5f5f5;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
     header, footer {
-      background-color: #222;
-      color: #fff;
-      text-align: center;
+      background-color: #333;
+      color: white;
       padding: 1rem;
+      text-align: center;
     }
     main {
-      max-width: 1000px;
-      margin: auto;
-      background: white;
+      max-width: 960px;
+      margin: 0 auto;
+      background-color: white;
       padding: 20px;
     }
-    section {
-      border-bottom: 1px solid #ddd;
-      margin-bottom: 20px;
-    }
-    h2 {
-      color: #2c3e50;
+    h1, h2 {
+      color: #333;
     }
     pre {
-      background: #f0f0f0;
-      padding: 10px;
+      background-color: #eee;
+      padding: 12px;
       border-radius: 5px;
+      overflow-x: auto;
     }
-    .output {
-      background: #e0f7fa;
+    .example {
+      margin-bottom: 30px;
+    }
+    .highlight {
+      background-color: #e8f5e9;
       padding: 10px;
-      border-left: 5px solid #00796b;
-      margin-top: 5px;
+      border-left: 5px solid #4caf50;
+      font-family: monospace;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>06-07. 시퀀스 자료형 예제 모음</h1>
+  <h1>06-07. 시퀀스 자료형 사용해보기 예제</h1>
 </header>
 
 <main>
 
-  <section>
+  <div class="example">
     <h2>문자열 반복 함수</h2>
-    <p>문자열을 정해진 횟수만큼 반복하세요.</p>
-    <pre>
-def solution(str1: str, num1: int):
-    return str1 * num1
+    <pre>def solution(str1: str, num1: int):<br>    return str1 * num1</pre>
+    <div class="highlight">입력: "coding", 5<br>출력: codingcodingcodingcodingcoding</div>
+  </div>
 
-print(solution("coding", 5))
-    </pre>
-    <div class="output">codingcodingcodingcodingcoding</div>
-  </section>
-
-  <section>
+  <div class="example">
     <h2>리스트에 문자열 추가</h2>
-    <pre>
-def list_add(list1: list, str1: str):
-    list1.append(str1)
-    return list1
+    <pre>def list_add(list1: list, str1: str):<br>    list1.append(str1)<br>    return list1</pre>
+    <div class="highlight">입력: ['a', 'b', 'c'], "d"<br>출력: ['a', 'b', 'c', 'd']</div>
+  </div>
 
-print(list_add(['a', 'b', 'c'], 'd'))
-    </pre>
-    <div class="output">['a', 'b', 'c', 'd']</div>
-  </section>
-
-  <section>
+  <div class="example">
     <h2>0부터 숫자까지 리스트 생성</h2>
-    <pre>
-def solution(num: int):
-    return list(range(num + 1))
+    <pre>def solution(num: int):<br>    return list(range(num + 1))</pre>
+    <div class="highlight">입력: 9<br>출력: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</div>
+  </div>
 
-print(solution(9))
-    </pre>
-    <div class="output">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</div>
-  </section>
+  <div class="example">
+    <h2>1부터 n까지 4로 나누어 1이 남는 숫자</h2>
+    <pre>def solution(n: int):<br>    return [i for i in range(1, n+1) if i % 4 == 1]</pre>
+    <div class="highlight">입력: 21<br>출력: [1, 5, 9, 13, 17, 21]</div>
+  </div>
 
-  <section>
-    <h2>4로 나누어 1이 남는 수</h2>
-    <pre>
-def solution(n: int):
-    return [i for i in range(1, n + 1) if i % 4 == 1]
-
-print(solution(21))
-    </pre>
-    <div class="output">[1, 5, 9, 13, 17, 21]</div>
-  </section>
-
-  <section>
+  <div class="example">
     <h2>리스트 길이 추가</h2>
-    <pre>
-def list_len(list1: list):
-    list1.append(len(list1))
-    return list1
+    <pre>def list_len(list1: list):<br>    list1.append(len(list1))<br>    return list1</pre>
+    <div class="highlight">입력: [4, 5, 6, 7, 8]<br>출력: [4, 5, 6, 7, 8, 5]</div>
+  </div>
 
-print(list_len([4, 5, 6, 7, 8]))
-    </pre>
-    <div class="output">[4, 5, 6, 7, 8, 5]</div>
-  </section>
+  <div class="example">
+    <h2>리스트의 첫, 마지막 원소로 새 리스트</h2>
+    <pre>def list_ind(list1: list):<br>    return [list1[0], list1[-1]]</pre>
+    <div class="highlight">입력: ['a', 'b', 'c', 'd', 'e', 'f', 'g']<br>출력: ['a', 'g']</div>
+  </div>
+
+  <div class="example">
+    <h2>두번째 원소를 마지막에 추가</h2>
+    <pre>def list_add(list1: list):<br>    list1 += [list1[1]]<br>    return list1</pre>
+    <div class="highlight">입력: [4, 5, 6, 7]<br>출력: [4, 5, 6, 7, 5]</div>
+  </div>
+
+  <div class="example">
+    <h2>문자열을 리스트로 반복 삽입</h2>
+    <pre>def solution(string: str, num: int):<br>    return [string] * num</pre>
+    <div class="highlight">입력: "coding", 3<br>출력: ['coding', 'coding', 'coding']</div>
+  </div>
+
+  <div class="example">
+    <h2>range와 튜플</h2>
+    <pre>def solution(num: int):<br>    return tuple(range(num + 1))</pre>
+    <div class="highlight">입력: 9<br>출력: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)</div>
+  </div>
+
+  <div class="example">
+    <h2>튜플 길이 추가</h2>
+    <pre>def tu_len(tup1: tuple):<br>    return tup1 + (len(tup1),)</pre>
+    <div class="highlight">입력: (4, 5, 6, 7, 8)<br>출력: (4, 5, 6, 7, 8, 5)</div>
+  </div>
+
+  <div class="example">
+    <h2>리스트 → 튜플 변환 + 길이 추가</h2>
+    <pre>def solution(my_li: list):<br>    t = tuple(my_li)<br>    return t + (len(my_li),)</pre>
+    <div class="highlight">입력: ['a', 'b', 'c']<br>출력: ('a', 'b', 'c', 3)</div>
+  </div>
+
+  <div class="example">
+    <h2>성적 등급 출력</h2>
+    <pre>def solution(score: int):<br>    if score >= 90: return 'A'<br>    elif score >= 80: return 'B'<br>    elif score >= 70: return 'C'<br>    elif score >= 60: return 'D'<br>    else: return 'E'</pre>
+  </div>
+
+  <div class="example">
+    <h2>짝수 리스트 생성</h2>
+    <pre>def solution(n: int):<br>    return [i for i in range(2, n+1, 2)]</pre>
+  </div>
+
+  <div class="example">
+    <h2>감소 수열 리스트</h2>
+    <pre>def solution(num: int, k: int):<br>    return [i for i in range(num, -1, -k)]</pre>
+  </div>
+
+  <div class="example">
+    <h2>짝수/홀수 판별</h2>
+    <pre>def solution(num: int):<br>    return 'even' if num % 2 == 0 else 'odd'</pre>
+  </div>
+
+  <div class="example">
+    <h2>문자 채우기</h2>
+    <pre>def solution(string: str, cha: str):<br>    return string + cha * (50 - len(string))</pre>
+  </div>
+
+  <div class="example">
+    <h2>사무실 안내 (1줄 출력)</h2>
+    <pre>def solution(num: int):<br>    room = ['교무실', '과학실', '상담실']<br>    return f"{room[num-1]}로 전화를 연결해 드리겠습니다."</pre>
+  </div>
+
+  <div class="example">
+    <h2>사무실 안내 (2줄 출력)</h2>
+    <pre>def solution(num: int):<br>    rooms = ['교무실', '과학실', '상담실']<br>    teachers = ['김세종', '장영실', '오은영']<br>    locs = ['101호', '204호', '509호']<br>    return f"저희 학교 {rooms[num-1]}은 {locs[num-1]}에 있습니다.\n{teachers[num-1]} 선생님에게 문의 부탁드립니다."</pre>
+  </div>
 
 </main>
 
 <footer>
-  <p>© 2025 파이썬 시퀀스 자료형 예제 모음</p>
+  <p>© 2025 파이썬 기초 학습 예제 모음</p>
 </footer>
 
 </body>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - else 사용하기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      color: #555;
+      overflow-x: auto;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - else 사용하기</h1>
+</header>
+
+<main>
+
+  <section class="description">
+    <h2>07-03. else 사용하기</h2>
+    <p><code>else</code>는 <code>if</code>의 조건이 <strong>False일 때</strong> 실행되는 코드를 작성할 수 있도록 도와줍니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>기존 방식 (if 두 번)</h2>
+    <pre>
+age = 18
+if age < 18:
+    print('미성년자입니다.')
+if age >= 18:
+    print('성인입니다.')
+    </pre>
+    <p class="output">성인입니다.</p>
+    <p>두 개의 조건문이 모두 검사되기 때문에 비효율적입니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>논리 연산자를 활용한 if</h2>
+    <pre>
+age = 18
+if age < 18:
+    print('미성년자입니다.')
+if not (age < 18):
+    print('성인입니다.')
+    </pre>
+    <p class="output">성인입니다.</p>
+    <p>논리 연산자를 써서 조건을 반전시킬 수 있지만 가독성이 떨어질 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>else 문법 사용</h2>
+    <pre>
+a = 3
+if a == 3:
+    print('3입니다.')
+else:
+    print('3이 아닙니다.')
+    </pre>
+    <p class="output">3입니다.</p>
+
+    <pre>
+a = 4
+if a == 3:
+    print('3입니다.')
+else:
+    print('3이 아닙니다.')
+    </pre>
+    <p class="output">3이 아닙니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>미성년자 판별 코드 개선</h2>
+    <pre>
+age = 18
+if age < 18:
+    print('미성년자입니다.')
+else:
+    print('성인입니다.')
+    </pre>
+    <p class="output">성인입니다.</p>
+    <p><code>else</code>를 사용하면 <strong>불필요한 조건 평가 없이</strong> 더 간결하고 빠른 코드를 작성할 수 있습니다.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

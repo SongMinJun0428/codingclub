@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - if 사용하기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      color: #555;
+      overflow-x: auto;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - if 사용하기</h1>
+</header>
+
+<main>
+
+  <section class="description">
+    <h2>07-01. if 사용하기</h2>
+    <p>이제 조건에 따라 다른 동작을 하는 <strong>분기</strong>를 배워봅니다. 예를 들어, 나이에 따라 출력 내용을 다르게 하는 조건문을 만들 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>if 문법</h2>
+    <pre>
+a = 3
+if a == 3:
+    print(a)
+    </pre>
+    <p class="output">3</p>
+    <p>조건이 <code>True</code>일 경우에만 실행됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>if에서 들여쓰기</h2>
+    <pre>
+a = 3
+if a == 3:
+    print(f'여긴 if 안쪽 {a}')
+print(f'여긴 if 밖 {a}')
+    </pre>
+    <p class="output">여긴 if 안쪽 3<br>여긴 if 밖 3</p>
+
+    <pre>
+a = 4
+if a == 3:
+    print(f'여긴 if 안쪽 {a}')
+print(f'여긴 if 밖 {a}')
+    </pre>
+    <p class="output">여긴 if 밖 4</p>
+  </section>
+
+  <section class="example-code">
+    <h2>if에서 여러 줄</h2>
+    <pre>
+a = 4
+if a == 4:
+    print('a')
+    print('b')
+    print('c')
+print('x')
+    </pre>
+    <p class="output">a<br>b<br>c<br>x</p>
+
+    <pre>
+a = 3
+if a == 4:
+    print('a')
+    print('b')
+    print('c')
+print('x')
+    </pre>
+    <p class="output">x</p>
+  </section>
+
+  <section class="example-code">
+    <h2>if에서 pass 사용</h2>
+    <pre>
+a = 3
+if a == 3:
+    pass  # 아무 동작도 하지 않음
+print('계속 진행')
+    </pre>
+    <p class="output">계속 진행</p>
+  </section>
+
+  <section class="example-code">
+    <h2>양수/음수/0 판별기</h2>
+    <pre>
+num = float(input('숫자를 입력해주세요 : '))
+
+if num > 0:
+    print(str(num) + '은/는 양수입니다.')
+if num < 0:
+    print(str(num) + '은/는 음수입니다.')
+if num == 0:
+    print('0입니다.')
+    </pre>
+    <p class="output">입력한 수에 따라 결과 출력:<br>예: -2 → -2.0은/는 음수입니다.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

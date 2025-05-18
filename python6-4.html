@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - else와 if 중첩</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.05em;
+      overflow-x: auto;
+      color: #444;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - else와 if 중첩</h1>
+</header>
+
+<main>
+
+  <section class="description">
+    <h2>07-04. else와 if 중첩</h2>
+    <p>가위바위보 문제를 통해 <code>if</code>, <code>else</code>, <code>중첩 조건문</code>, <code>함수</code>, <code>튜플</code>을 함께 활용하는 방법을 배워봅니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>입력 값 유효성 검사</h2>
+    <pre>
+def checkValid(st):
+    return st in ('가위', '바위', '보')
+    </pre>
+    <p class="output">"가위", "바위", "보" 중 하나인지 확인</p>
+  </section>
+
+  <section class="example-code">
+    <h2>승리 판별 함수</h2>
+    <pre>
+def isAWin(A, B):
+    return (A, B) in (
+        ('가위', '보'),
+        ('바위', '가위'),
+        ('보', '바위')
+    )
+    </pre>
+    <p class="output">A가 이기는 경우를 튜플로 표현하여 간결하게 구현</p>
+  </section>
+
+  <section class="example-code">
+    <h2>가위바위보 전체 코드</h2>
+    <pre>
+def checkValid(st):
+    return st in ('가위', '바위', '보')
+
+def isAWin(A, B):
+    return (A, B) in (
+        ('가위', '보'),
+        ('바위', '가위'),
+        ('보', '바위')
+    )
+
+A = input('A가 낸 것 : ')
+B = input('B가 낸 것 : ')
+
+if checkValid(A) and checkValid(B):
+    if A == B:
+        print('비겼습니다')
+    else:
+        if isAWin(A, B):
+            print('A가 이겼습니다.')
+        else:
+            print('B가 이겼습니다.')
+else:
+    print('오류')
+    </pre>
+    <p class="output">입력된 값에 따라 A, B 중 승자가 결정되거나 비김, 오류 메시지가 출력됩니다.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

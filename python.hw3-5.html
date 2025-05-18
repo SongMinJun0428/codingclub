@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>문제 - 두 정수의 몫</title>
+  <title>문제 - 문자열 포함 여부</title>
   <style>
     body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
     header { background-color: #333; color: white; padding: 1rem; text-align: center; }
@@ -17,21 +17,23 @@
 <body>
 
 <header>
-  <h1>파이썬 문제 - 두 정수의 몫</h1>
+  <h1>파이썬 문제 - 문자열 포함 여부</h1>
 </header>
 
 <main>
   <section class="section">
     <h2>문제 설명</h2>
-    <p>정수가 두 번 입력될 때, 두 정수의 <strong>몫</strong>을 출력해주세요.</p>
+    <p>문자열 <strong>str1</strong>, <strong>str2</strong>를 각각 입력받습니다.<br/>
+       str1 안에 str2가 포함되어 있다면 <strong>1</strong>을, 없으면 <strong>2</strong>를 출력해주세요.</p>
   </section>
 
   <section class="section">
     <h2>제한사항</h2>
     <ul>
-      <li>0 ≤ 정수1 ≤ 100</li>
-      <li>0 ≤ 정수2 ≤ 100</li>
-      <li><strong>input() 함수 안에는 어떤 문자열도 쓰지 마세요.</strong></li>
+      <li>1 ≤ str1의 길이 ≤ 100</li>
+      <li>1 ≤ str2의 길이 ≤ 100</li>
+      <li>문자열은 알파벳 대문자, 소문자, 숫자로 구성됩니다.</li>
+      <li><strong>input() 함수 안에는 아무 문자열도 넣지 마세요.</strong></li>
     </ul>
   </section>
 
@@ -40,23 +42,24 @@
     <table border="1" cellspacing="0" cellpadding="6">
       <thead>
         <tr style="background-color: #eee;">
-          <th>번호</th><th>[정수1]</th><th>[정수2]</th><th>결과</th>
+          <th>번호</th><th>str1</th><th>str2</th><th>결과</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td>"10"</td><td>"5"</td><td>2</td></tr>
-        <tr><td>2</td><td>"7"</td><td>"2"</td><td>3</td></tr>
+        <tr><td>1</td><td>"ab6CDE443fgh22iJKlmn1o"</td><td>"6CD"</td><td>1</td></tr>
+        <tr><td>2</td><td>"ppprrrogrammers"</td><td>"pppp"</td><td>2</td></tr>
+        <tr><td>3</td><td>"AbcAbcA"</td><td>"AAA"</td><td>2</td></tr>
       </tbody>
     </table>
   </section>
 
   <section class="section">
     <h2>출력 예시 설명</h2>
-    <p><strong>예제 1:</strong> 10 ÷ 5 = 2</p>
-    <p><strong>예제 2:</strong> 7 ÷ 2 = 3 (정수 몫)</p>
+    <p><strong>예제 1:</strong> str2가 str1 안에 있으므로 1 출력</p>
+    <p><strong>예제 2:</strong> str2가 str1 안에 없으므로 2 출력</p>
+    <p><strong>예제 3:</strong> 대소문자를 구분하므로 str2가 포함되어 있지 않음 → 2 출력</p>
   </section>
 
-  
 </main>
 
 <footer>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - elif 사용하기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.05em;
+      overflow-x: auto;
+      color: #444;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - elif 사용하기</h1>
+</header>
+
+<main>
+
+  <section class="description">
+    <h2>07-05. elif 사용하기</h2>
+    <p><code>elif</code>는 <code>if</code> 조건이 <code>False</code>일 때 실행될 수 있는 <strong>추가 조건</strong>을 처리할 때 사용됩니다. 중첩된 <code>if-else</code> 구조를 깔끔하게 바꿀 수 있습니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>기본 예제: 양수/음수/0 판별</h2>
+    <pre>
+a = int(input())
+if a > 0:
+    print('양수입니다.')
+elif a < 0:
+    print('음수입니다.')
+else:
+    print('0입니다.')
+    </pre>
+    <p class="output">입력 값에 따라 하나의 메시지가 출력됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>여러 개의 elif 사용</h2>
+    <pre>
+a = int(input())
+if a >= 90:
+    print('A')
+elif a >= 80:
+    print('B')
+elif a >= 70:
+    print('C')
+elif a >= 60:
+    print('D')
+elif a >= 50:
+    print('E')
+else:
+    print('F')
+    </pre>
+    <p class="output">점수에 따라 A~F 등급이 출력됩니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>중첩된 if → elif로 개선</h2>
+    <pre>
+def checkValid(st):
+    return st in ('가위', '바위', '보')
+
+def isAWin(A, B):
+    return (A, B) in (
+        ('가위', '보'),
+        ('바위', '가위'),
+        ('보', '바위')
+    )
+
+A = input('A가 낸 것 : ')
+B = input('B가 낸 것 : ')
+
+if not (checkValid(A) and checkValid(B)):
+    print('오류')
+elif A == B:
+    print('비겼습니다')
+elif isAWin(A, B):
+    print('A가 이겼습니다.')
+else:
+    print('B가 이겼습니다.')
+    </pre>
+    <p class="output">가위바위보 게임 결과에 따라 결과가 출력됩니다.</p>
+    <p>불필요한 중첩 없이 조건을 <code>elif</code>로 명확히 구분하여 <strong>가독성을 높인 예제</strong>입니다.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

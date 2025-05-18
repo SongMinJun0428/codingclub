@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>문제 - 두 정수의 몫</title>
+  <title>문제 - 미성년자 판별</title>
   <style>
     body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
     header { background-color: #333; color: white; padding: 1rem; text-align: center; }
@@ -17,21 +17,25 @@
 <body>
 
 <header>
-  <h1>파이썬 문제 - 두 정수의 몫</h1>
+  <h1>파이썬 문제 - 미성년자 판별</h1>
 </header>
 
 <main>
   <section class="section">
     <h2>문제 설명</h2>
-    <p>정수가 두 번 입력될 때, 두 정수의 <strong>몫</strong>을 출력해주세요.</p>
+    <p>철수는 편의점 아르바이트를 하고 있습니다.<br/>
+    담배 구매자의 생년월일 <strong>year</strong>, <strong>month</strong>, <strong>date</strong>가 입력될 때,</p>
+    <p><strong>2023년 3월 1일 기준</strong>으로 만 18세 이상이면 <strong>True</strong>, 아니면 <strong>False</strong>를 출력하세요.</p>
   </section>
 
   <section class="section">
     <h2>제한사항</h2>
     <ul>
-      <li>0 ≤ 정수1 ≤ 100</li>
-      <li>0 ≤ 정수2 ≤ 100</li>
-      <li><strong>input() 함수 안에는 어떤 문자열도 쓰지 마세요.</strong></li>
+      <li>1900 &lt; year &lt; 2023</li>
+      <li>1 ≤ month ≤ 12</li>
+      <li>1 ≤ date ≤ 31</li>
+      <li>날짜 형식은 실제 달력에 맞게 입력됨을 가정합니다.</li>
+      <li><strong>input() 함수 안에는 아무 문자열도 넣지 마세요.</strong></li>
     </ul>
   </section>
 
@@ -40,23 +44,24 @@
     <table border="1" cellspacing="0" cellpadding="6">
       <thead>
         <tr style="background-color: #eee;">
-          <th>번호</th><th>[정수1]</th><th>[정수2]</th><th>결과</th>
+          <th>번호</th><th>year</th><th>month</th><th>date</th><th>결과</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td>"10"</td><td>"5"</td><td>2</td></tr>
-        <tr><td>2</td><td>"7"</td><td>"2"</td><td>3</td></tr>
+        <tr><td>1</td><td>"2005"</td><td>"5"</td><td>"3"</td><td>False</td></tr>
+        <tr><td>2</td><td>"2004"</td><td>"12"</td><td>"30"</td><td>True</td></tr>
+        <tr><td>3</td><td>"1920"</td><td>"1"</td><td>"1"</td><td>True</td></tr>
       </tbody>
     </table>
   </section>
 
   <section class="section">
     <h2>출력 예시 설명</h2>
-    <p><strong>예제 1:</strong> 10 ÷ 5 = 2</p>
-    <p><strong>예제 2:</strong> 7 ÷ 2 = 3 (정수 몫)</p>
+    <p><strong>예제 1:</strong> 2005년 5월 생 → 아직 생일 안 지났음 → 만 17세 → False 출력</p>
+    <p><strong>예제 2:</strong> 2004년생은 이미 만 18세 → True 출력</p>
+    <p><strong>예제 3:</strong> 1920년생은 당연히 성인 → True 출력</p>
   </section>
 
-  
 </main>
 
 <footer>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>문제 - 두 정수의 몫</title>
+  <title>문제 - 공배수 판별</title>
   <style>
     body { font-family: 'Arial', sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; }
     header { background-color: #333; color: white; padding: 1rem; text-align: center; }
@@ -17,21 +17,23 @@
 <body>
 
 <header>
-  <h1>파이썬 문제 - 두 정수의 몫</h1>
+  <h1>파이썬 문제 - 공배수 판별</h1>
 </header>
 
 <main>
   <section class="section">
     <h2>문제 설명</h2>
-    <p>정수가 두 번 입력될 때, 두 정수의 <strong>몫</strong>을 출력해주세요.</p>
+    <p>정수 <strong>number</strong>와 <strong>n</strong>, <strong>m</strong>이 각각 입력됩니다.<br/>
+       number가 n의 배수이면서 m의 배수이면 <strong>True</strong>를, 아니면 <strong>False</strong>를 출력해주세요.</p>
+    <p>C언어로 문제를 푸는 학생은 <strong>1(참)</strong>, <strong>0(거짓)</strong>으로 출력되게 코딩을 완성하세요.</p>
   </section>
 
   <section class="section">
     <h2>제한사항</h2>
     <ul>
-      <li>0 ≤ 정수1 ≤ 100</li>
-      <li>0 ≤ 정수2 ≤ 100</li>
-      <li><strong>input() 함수 안에는 어떤 문자열도 쓰지 마세요.</strong></li>
+      <li>10 ≤ number ≤ 100</li>
+      <li>2 ≤ n, m ≤ 9</li>
+      <li><strong>input() 함수 안에는 아무 문자열도 넣지 마세요.</strong></li>
     </ul>
   </section>
 
@@ -40,23 +42,22 @@
     <table border="1" cellspacing="0" cellpadding="6">
       <thead>
         <tr style="background-color: #eee;">
-          <th>번호</th><th>[정수1]</th><th>[정수2]</th><th>결과</th>
+          <th>번호</th><th>num</th><th>n</th><th>m</th><th>결과</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>1</td><td>"10"</td><td>"5"</td><td>2</td></tr>
-        <tr><td>2</td><td>"7"</td><td>"2"</td><td>3</td></tr>
+        <tr><td>1</td><td>"60"</td><td>"2"</td><td>"3"</td><td>True</td></tr>
+        <tr><td>2</td><td>"55"</td><td>"10"</td><td>"5"</td><td>False</td></tr>
       </tbody>
     </table>
   </section>
 
   <section class="section">
     <h2>출력 예시 설명</h2>
-    <p><strong>예제 1:</strong> 10 ÷ 5 = 2</p>
-    <p><strong>예제 2:</strong> 7 ÷ 2 = 3 (정수 몫)</p>
+    <p><strong>예제 1:</strong> 60은 2와 3의 공배수이므로 True 출력</p>
+    <p><strong>예제 2:</strong> 55는 5의 배수이지만 10의 배수는 아니므로 False 출력</p>
   </section>
 
-  
 </main>
 
 <footer>

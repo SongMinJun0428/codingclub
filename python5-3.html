@@ -7,126 +7,133 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f8f8f8;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
     header, footer {
-      background-color: #1c1c1c;
+      background-color: #333;
       color: white;
+      padding: 1rem;
       text-align: center;
-      padding: 1rem 0;
     }
     main {
       max-width: 900px;
-      margin: auto;
+      margin: 0 auto;
       background-color: white;
       padding: 20px;
     }
-    h1, h2 {
-      color: #2c3e50;
+    h1, h2, h3 {
+      color: #333;
     }
     pre {
-      background: #f4f4f4;
+      background-color: #e8e8e8;
       padding: 10px;
       border-radius: 5px;
+      font-size: 1.05em;
       overflow-x: auto;
     }
     .output {
-      background: #e0f7fa;
+      background-color: #d8f3dc;
       padding: 10px;
-      margin-bottom: 20px;
-      border-left: 5px solid #00796b;
+      border-radius: 5px;
+      font-family: monospace;
+      color: #2d6a4f;
     }
     .note {
-      background: #fff3cd;
+      background-color: #fff3cd;
       padding: 10px;
-      border-left: 5px solid #ffc107;
-      margin-bottom: 20px;
+      border-radius: 5px;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>06-03. 튜플 사용해보기</h1>
+  <h1>파이썬 기초 - 튜플 사용해보기</h1>
 </header>
 
 <main>
+  <section>
+    <h2>06-03. 튜플 사용해보기</h2>
+    <p>튜플은 리스트와 비슷하지만 <strong>수정이 불가능</strong>한 자료형입니다. 불변(immutable) 객체라는 점이 가장 큰 특징입니다.</p>
+  </section>
 
   <section>
-    <h2>튜플이란?</h2>
-    <p>튜플은 리스트와 비슷하지만 <strong>값을 변경할 수 없는 자료형</strong>입니다.</p>
+    <h3>튜플 생성</h3>
     <pre>
 a = (1, 2, 3)
 print(a)
     </pre>
-    <div class="output">(1, 2, 3)</div>
+    <p class="output">(1, 2, 3)</p>
 
-    <p>괄호 <code>()</code> 없이도 튜플을 만들 수 있습니다.</p>
+    <p>()는 생략 가능하며, 이 경우에도 튜플로 인식됩니다:</p>
+
     <pre>
 a = 1, 2, 3
 print(a)
     </pre>
-    <div class="output">(1, 2, 3)</div>
+    <p class="output">(1, 2, 3)</p>
 
-    <p>변수 다중 할당은 사실상 튜플입니다.</p>
+    <p>다중 할당 예제:</p>
+
     <pre>
 x = 1, 2, 3
 x1, x2, x3 = x
+
 print(x1)
 print(x2)
 print(x3)
     </pre>
-    <div class="output">1<br>2<br>3</div>
-  </section>
+    <p class="output">1<br>2<br>3</p>
 
-  <section>
-    <h2>다양한 타입의 값도 가능</h2>
+    <p>다양한 타입도 저장할 수 있습니다:</p>
+
     <pre>
 a = ("인코딩", 3, "플러스", 5)
 print(a)
     </pre>
-    <div class="output">('인코딩', 3, '플러스', 5)</div>
-  </section>
+    <p class="output">('인코딩', 3, '플러스', 5)</p>
 
-  <section>
-    <h2>하나짜리 튜플 주의</h2>
+    <p>주의! 하나짜리 튜플은 쉼표(<code>,</code>)가 필요합니다:</p>
+
     <pre>
 a = (1)
 b = (1,)
+
 print(a, type(a))
 print(b, type(b))
     </pre>
-    <div class="output">1 &lt;class 'int'><br>(1,) &lt;class 'tuple'></div>
-
-    <div class="note"><strong>주의:</strong> 하나의 값만 있는 튜플은 꼭 <code>,</code>를 써야 튜플로 인식됩니다.</div>
+    <p class="output">1 &lt;class 'int'&gt;<br>(1,) &lt;class 'tuple'&gt;</p>
   </section>
 
   <section>
-    <h2>튜플 연산</h2>
+    <h3>튜플의 연산</h3>
+    <p>튜플도 + 와 * 연산이 가능합니다:</p>
+
     <pre>
 a = (1, 2, 3)
 print(a + (4, 5, 6))
 print(a * 3)
     </pre>
-    <div class="output">(1, 2, 3, 4, 5, 6)<br>(1, 2, 3, 1, 2, 3, 1, 2, 3)</div>
+    <p class="output">(1, 2, 3, 4, 5, 6)<br>(1, 2, 3, 1, 2, 3, 1, 2, 3)</p>
 
-    <p>튜플은 <code>+</code>와 <code>*</code> 연산이 가능하지만, <strong>값 자체를 바꾸는 건 불가능</strong>합니다.</p>
+    <p>하지만 이것은 튜플 자체를 변경하는 것이 아니라, <strong>새로운 튜플을 생성</strong>한 것입니다:</p>
+
     <pre>
 a = (1, 2, 3)
 a = a + (4, 5, 6)
 print(a)
     </pre>
-    <div class="output">(1, 2, 3, 4, 5, 6)</div>
+    <p class="output">(1, 2, 3, 4, 5, 6)</p>
 
-    <div class="note">
-      <strong>재할당은 가능</strong>하지만, <strong>튜플 안의 값을 직접 수정하는 것</strong>은 불가능합니다.
-    </div>
+    <p class="note">※ 튜플은 내부 요소의 변경은 불가하지만, <strong>재할당은 가능</strong>합니다.</p>
   </section>
 
   <section>
-    <h2>튜플 ↔ 리스트 변환</h2>
+    <h3>튜플과 리스트 타입 변환</h3>
     <pre>
 a = (1, 2, 3)
 print(a, type(a))
@@ -137,11 +144,10 @@ print(a, type(a))
 a = tuple(a)
 print(a, type(a))
     </pre>
-    <div class="output">(1, 2, 3) &lt;class 'tuple'><br>[1, 2, 3] &lt;class 'list'><br>(1, 2, 3) &lt;class 'tuple'></div>
-  </section>
+    <p class="output">(1, 2, 3) &lt;class 'tuple'&gt;<br>[1, 2, 3] &lt;class 'list'&gt;<br>(1, 2, 3) &lt;class 'tuple'&gt;</p>
 
-  <section>
-    <h2>타입 비교</h2>
+    <p>타입 비교도 가능합니다:</p>
+
     <pre>
 a = [1, 2, 3]
 print(type(a) is tuple)
@@ -151,13 +157,12 @@ a = tuple(a)
 print(type(a) is tuple)
 print(type(a) is list)
     </pre>
-    <div class="output">False<br>True<br>True<br>False</div>
+    <p class="output">False<br>True<br>True<br>False</p>
   </section>
-
 </main>
 
 <footer>
-  <p>© 2025 파이썬 튜플 학습 자료</p>
+  <p>© 2025 파이썬 기초 학습</p>
 </footer>
 
 </body>

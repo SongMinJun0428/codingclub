@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파이썬 기초 - if 활용하기</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    pre {
+      background-color: #e8e8e8;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 1.1em;
+      color: #555;
+      overflow-x: auto;
+    }
+    .example-code {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .output {
+      font-family: monospace;
+      background-color: #d8f3dc;
+      padding: 10px;
+      border-radius: 5px;
+      color: #4caf50;
+    }
+    .description {
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #333;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>파이썬 기초 - if 활용하기</h1>
+</header>
+
+<main>
+
+  <section class="description">
+    <h2>07-02. if 활용하기</h2>
+    <p>이전의 미성년자 판별 문제를 함수로 바꾸어 재사용성과 가독성을 높여 봅시다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>함수 만들기 (기초)</h2>
+    <pre>
+def checkChild(age):
+    if age < 18:
+        print('미성년자입니다.')
+    if age >= 18:
+        print('성인입니다.')
+
+checkChild(17)
+checkChild(18)
+checkChild(19)
+    </pre>
+    <p class="output">미성년자입니다.<br>성인입니다.<br>성인입니다.</p>
+    <p>※ <code>age &lt; 18</code>의 반대 조건을 정확하게 표현하려면 <code>age &gt;= 18</code>이 더 명확합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>return을 사용한 간결한 분기</h2>
+    <pre>
+def checkChild(age):
+    if age < 18:
+        print('미성년자입니다.')
+        return
+    print('성인입니다.')
+
+checkChild(17)
+checkChild(18)
+checkChild(19)
+    </pre>
+    <p class="output">미성년자입니다.<br>성인입니다.<br>성인입니다.</p>
+    <p>※ <code>return</code>을 이용해 미성년자일 경우 바로 함수를 종료합니다.</p>
+  </section>
+
+  <section class="example-code">
+    <h2>출력 분리를 위한 조건 반환 함수</h2>
+    <pre>
+def checkChild(age):
+    return age < 18
+
+if checkChild(17):
+    print('미성년자입니다.')
+if not checkChild(17):
+    print('성인입니다.')
+    </pre>
+    <p class="output">미성년자입니다.</p>
+    <p>※ 함수의 결과를 조건으로 활용하여 <code>True</code>/<code>False</code>에 따라 다른 출력을 분리합니다.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 파이썬 기초 학습</p>
+</footer>
+
+</body>
+</html>

@@ -130,11 +130,18 @@
 
             <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-bold text-blue-700 cursor-pointer" onclick="scrollToCalendar()">📅 출석 체크</h2>
-                    <button onclick="toggleCalendar()" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded">
-                        달력 보기
+                  <h2 class="text-xl font-bold text-blue-700">📅 출석 체크</h2>
+                  <div class="space-x-2">
+                    <button onclick="checkAttendance(localStorage.getItem('userId'))"
+                      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                      출석 체크하기
                     </button>
+                    <button onclick="toggleCalendar()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
+                      달력 보기
+                    </button>
+                  </div>
                 </div>
+
 
                 <div id="attendance-status" class="text-green-600 font-medium mb-3"></div>
 
@@ -157,7 +164,7 @@
                 </button>
                 <!-- 등급표 열기/닫기 버튼 -->
                 <div class="max-w-2xl mx-auto mt-6">
-                  <button id="toggle-levels" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                  <button id="toggle-levels" class="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                     📊 전체 등급표 보기
                   </button>
 
@@ -217,7 +224,7 @@
 
                 <div id="shop-items" class="space-y-3 max-h-96 overflow-y-auto"></div>
                   <div id="user-shop-status" class="text-center text-sm text-gray-700 mt-6 leading-relaxed">
-                  🎖️ <span id="shop-user-level-name">-</span> (등급: <span id="shop-user-rank">-</span>)<br>
+                  🎖️ <strong>${info.icon} ${info.name}</strong> (등급: ${info.grade})<br>
                   📈 레벨: <span id="shop-user-level">LV.-</span><br>
                   ⚡ 경험치: <span id="shop-user-xp">- XP</span>
                 </div>
@@ -228,6 +235,14 @@
                 <button id="closeShopBtn" class="mt-6 w-full bg-gray-300 hover:bg-gray-400 py-2 rounded text-sm">닫기</button>
               </div>
             </div>
+            <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+              <h2 class="text-xl font-bold text-blue-700 mb-4">🏆 랭킹</h2>
+              <ol id="ranking-list" class="list-decimal list-inside text-gray-700">
+                
+              </ol>
+            </div>
+
+
 
             <script>
               const shopItems = [
@@ -357,7 +372,12 @@
               <a href="python5-6.html" class="button">5-6. 시퀸즈 자료형 사용해보기_예제</a>
             </div>
             <div data-set="unlock_set_6" class="lesson-set hidden">
-              
+              <a href="python6-1.html" class="button">6-1. if 사용해보기</a>
+              <a href="python6-2.html" class="button">6-2. if 활용해보기</a>
+              <a href="python6-3.html" class="button">6-3. else 사용해보기</a>
+              <a href="python6-4.html" class="button">6-4. else 와 if 중첩</a>
+              <a href="python6-5.html" class="button">6-5. elif 사용해보기</a>
+              <a href="python6-6.html" class="button">6-6. 조건문 사용해보기_예제</a>
             </div>
             <div data-set="unlock_set_7" class="lesson-set hidden">
               
@@ -420,6 +440,17 @@
               <a href="python.hw2.1-11.html" class="button">2-11. 덧셈식 출력하기</a>
               <a href="python.hw2.1-12.html" class="button">2-12. a와 b 출력하기</a>
 
+            </div>
+
+            <div data-set="unlock_set_3" class="lesson-set hidden">
+              <a href="python.hw3-1.html" class="button">3-1. 두수의 합</a>
+              <a href="python.hw3-2.html" class="button">3-2. 두수의 차</a>
+              <a href="python.hw3-3.html" class="button">3-3. 두수의 곱</a>
+              <a href="python.hw3-4.html" class="button">3-4. 몫 구하기</a>
+              <a href="python.hw3-5.html" class="button">3-5. 나머지 구하기</a>
+              <a href="python.hw3-6.html" class="button">3-6. 나이 계산</a>
+              <a href="python.hw3-7.html" class="button">3-7. 두수의 나눗셈</a>
+              <a href="python.hw3-8.html" class="button">3-8. 특수문자 출력하기</a>
             </div>
         </div>
     </div>
@@ -534,6 +565,233 @@ document.getElementById("levelShopBtn").addEventListener("click", async () => {
   document.getElementById("levelShopModal").classList.add("flex");
   await loadPurchasedItems();
 });
+</script>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabase = createClient(
+  'https://jzkqqqofveivqaerqwcl.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6a3FxcW9mdmVpdnFhZXJxd2NsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NjEwMzQsImV4cCI6MjA2MjUzNzAzNH0.PYB6fyfyAxaZBK76kUnPe5d7EQKWXfCBBIlvdNPwyq0'
+);
+
+async function checkAttendance(userId) {
+  const today = new Date().toISOString().split('T')[0];
+
+  // 이미 출석했는지 확인
+  const { data: existing } = await supabase
+    .from('club_attendance')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('club_name', '코딩동아리')
+    .eq('date', today);
+
+  if (existing.length > 0) {
+    document.getElementById("attendance-status").textContent = `✅ 이미 오늘(${today}) 출석 완료`;
+    return;
+  }
+
+  // 마지막 출석일 확인
+  const { data: last } = await supabase
+    .from('club_attendance')
+    .select('date, consecutive_days')
+    .eq('user_id', userId)
+    .eq('club_name', '코딩동아리')
+    .order('date', { ascending: false })
+    .limit(1);
+
+  let streak = 1;
+  if (last.length > 0) {
+    const lastDate = new Date(last[0].date);
+    const diff = (new Date(today) - lastDate) / (1000 * 60 * 60 * 24);
+    streak = diff === 1 ? last[0].consecutive_days + 1 : 1;
+  }
+
+  // 출석 기록 추가
+  await supabase.from('club_attendance').insert([
+    {
+      user_id: userId,
+      club_name: '코딩동아리',
+      date: today,
+      consecutive_days: streak
+    }
+  ]);
+
+  // XP 보상
+  const xp = 10 + (streak >= 7 ? 20 : 0); // 기본 10XP + 7일 연속 보너스
+  await addXP(xp);
+
+  document.getElementById("attendance-status").textContent = `🎉 출석 완료! ${xp} XP 지급 (연속 ${streak}일차)`;
+  await renderCalendar(userId);
+}
+
+// 달력 렌더링
+async function renderCalendar(userId) {
+  const { data } = await supabase
+    .from('club_attendance')
+    .select('date')
+    .eq('user_id', userId)
+    .eq('club_name', '코딩동아리');
+
+  const dates = data.map(d => d.date);
+  const grid = document.getElementById("calendar-grid");
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const start = new Date(year, month, 1).getDay();
+  const days = new Date(year, month + 1, 0).getDate();
+
+  grid.innerHTML = `<div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>`;
+  for (let i = 0; i < start; i++) grid.innerHTML += `<div></div>`;
+
+  for (let day = 1; day <= days; day++) {
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const marked = dates.includes(dateStr);
+    grid.innerHTML += `<div class="py-1 ${marked ? 'bg-green-300 font-bold rounded' : ''}">${day}</div>`;
+  }
+}
+
+window.checkAttendance = checkAttendance;
+window.renderCalendar = renderCalendar;
+
+async function fetchRanking() {
+  const { data, error } = await supabase
+    .from('club_xp')
+    .select('user_id, xp')
+    .eq('club_name', '코딩동아리')
+    .order('xp', { ascending: false })
+    .limit(10);
+
+  if (error) {
+    console.error('랭킹 데이터 조회 실패:', error.message);
+    return;
+  }
+
+  displayRanking(data);
+}
+
+function displayRanking(data) {
+  const rankingContainer = document.getElementById('ranking-container');
+  rankingContainer.innerHTML = '';
+
+  data.forEach((user, index) => {
+    const rankItem = document.createElement('div');
+    rankItem.className = 'flex justify-between p-2 border-b';
+    rankItem.innerHTML = `
+      <span>${index + 1}위</span>
+      <span>${user.user_id}</span>
+      <span>${user.xp} XP</span>
+    `;
+    rankingContainer.appendChild(rankItem);
+  });
+}
+
+async function loadRanking() {
+  const { data, error } = await supabase
+    .from('club_xp')
+    .select('user_id, xp')
+    .eq('club_name', '코딩동아리')
+    .order('xp', { ascending: false })
+    .limit(10);
+
+  if (error) {
+    console.error('❌ 랭킹 조회 실패:', error.message);
+    return;
+  }
+
+  const rankingList = document.getElementById('ranking-list');
+  rankingList.innerHTML = "";
+
+  data.forEach((entry, index) => {
+    const li = document.createElement('li');
+    let prefix = "";
+    let style = "";
+
+    switch (index) {
+      case 0:
+        prefix = "👑 1위";
+        style = "text-yellow-600 font-bold";
+        break;
+      case 1:
+        prefix = "🥈 2위";
+        style = "text-gray-700";
+        break;
+      case 2:
+        prefix = "🥉 3위";
+        style = "text-orange-600";
+        break;
+      default:
+        prefix = `😢 ${index + 1}위`;
+        style = "text-gray-500 text-sm";
+    }
+
+    li.innerHTML = `<span class="${style}">${prefix} - ${entry.user_id} (${entry.xp} XP)</span>`;
+    rankingList.appendChild(li);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", loadRanking);
+
+let memoTimer;
+document.getElementById("memo").addEventListener("input", () => {
+  clearTimeout(memoTimer);
+  memoTimer = setTimeout(saveMemo, 5000); // 5초 후 자동 저장
+});
+
+async function saveMemo() {
+  const content = document.getElementById("memo").value;
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
+
+  const { data: existing } = await supabase
+    .from('club_memo')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('club_name', '코딩동아리')
+    .limit(1);
+
+  if (existing.length > 0) {
+    await supabase
+      .from('club_memo')
+      .update({ content, updated_at: new Date().toISOString() })
+      .eq('id', existing[0].id);
+  } else {
+    await supabase
+      .from('club_memo')
+      .insert([{ user_id: userId, club_name: '코딩동아리', content }]);
+  }
+
+  console.log("📝 메모 저장 완료");
+}
+
+async function loadMemo() {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
+
+  const { data, error } = await supabase
+    .from('club_memo')
+    .select('content')
+    .eq('user_id', userId)
+    .eq('club_name', '코딩동아리')
+    .limit(1);
+
+  if (error) {
+    console.error("❌ 메모 불러오기 실패:", error.message);
+    return;
+  }
+
+  if (data.length > 0 && data[0].content) {
+    document.getElementById("memo").value = data[0].content;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await loadRanking(); // 기존 랭킹 불러오기
+  await loadMemo();    // 메모 불러오기 추가
+});
+
+
 </script>
 
 

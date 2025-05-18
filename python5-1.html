@@ -7,76 +7,83 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
     header, footer {
-      background-color: #222;
+      background-color: #333;
       color: white;
+      padding: 1rem;
       text-align: center;
-      padding: 1rem 0;
     }
     main {
       max-width: 900px;
-      margin: auto;
-      background: white;
+      margin: 0 auto;
+      background-color: white;
       padding: 20px;
     }
     h1, h2 {
       color: #333;
     }
     pre {
-      background: #eee;
+      background-color: #e8e8e8;
       padding: 10px;
       border-radius: 5px;
+      font-size: 1.05em;
       overflow-x: auto;
     }
     .output {
-      background: #e0f7fa;
+      background-color: #d8f3dc;
       padding: 10px;
-      margin-bottom: 20px;
-      border-left: 5px solid #00796b;
+      border-radius: 5px;
+      font-family: monospace;
+      color: #2d6a4f;
     }
-    .warning {
-      background: #ffe0e0;
+    .note {
+      background-color: #fff3cd;
       padding: 10px;
-      border-left: 5px solid #d32f2f;
+      border-radius: 5px;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>06-01. 문자열 사용해보기</h1>
+  <h1>파이썬 기초 - 문자열 사용해보기</h1>
 </header>
 
 <main>
   <section>
-    <h2>문자열 기본</h2>
-    <p>문자열은 작은 따옴표(')나 큰 따옴표(")로 감싸서 만듭니다.</p>
+    <h2>06-01. 문자열 사용해보기</h2>
+    <p>문자열은 파이썬의 기본 값 중 하나입니다. 문장을 출력할 때에도 문자열을 사용합니다.</p>
+
     <pre>print('Hello World')</pre>
-    <div class="output">Hello World</div>
+    <p class="output">Hello World</p>
+
+    <p>작은 따옴표(<code>'</code>) 또는 큰 따옴표(<code>"</code>)로 문자열을 감쌀 수 있지만, 혼용하면 오류가 발생합니다.</p>
+
     <pre>print('Hello World")</pre>
-    <div class="warning">SyntaxError: unterminated string literal</div>
-    <p>문자열은 같은 종류의 따옴표로 시작하고 끝나야 합니다.</p>
+    <p class="output">SyntaxError: unterminated string literal</p>
   </section>
 
   <section>
     <h2>문자열 연산</h2>
-    <p>문자열은 <code>+</code> 와 <code>*</code> 연산을 지원합니다.</p>
     <pre>
 a = 'Hello'
 b = 'World'
 print(a + b)
     </pre>
-    <div class="output">HelloWorld</div>
+    <p class="output">HelloWorld</p>
 
     <pre>
+a = 'Hello'
+b = 'World'
 print(a + ' ' + b)
     </pre>
-    <div class="output">Hello World</div>
+    <p class="output">Hello World</p>
 
     <pre>
 a = 'aaa'
@@ -84,19 +91,25 @@ b = 'bbb'
 print(a + b)
 print(b + a)
     </pre>
-    <div class="output">aaabbb<br>bbbaaa</div>
+    <p class="output">aaabbb<br>bbbaaa</p>
+
+    <p>숫자와 문자열을 더하면 오류가 납니다:</p>
 
     <pre>
 a = 1000
 b = 'Hello'
 print(a + b)
     </pre>
-    <div class="warning">TypeError: unsupported operand type(s) for +: 'int' and 'str'</div>
+    <p class="output">TypeError: unsupported operand type(s) for +: 'int' and 'str'</p>
+
+    <p>문자열로 변환 후 더해야 합니다:</p>
 
     <pre>
+a = 1000
+b = 'Hello'
 print(str(a) + b)
     </pre>
-    <div class="output">1000Hello</div>
+    <p class="output">1000Hello</p>
   </section>
 
   <section>
@@ -105,41 +118,48 @@ print(str(a) + b)
 a = 'hell'
 print(a * 5)
     </pre>
-    <div class="output">hellhellhellhellhell</div>
+    <p class="output">hellhellhellhellhell</p>
 
     <pre>
 a = 'hell'
 b = '5'
 print(a * b)
     </pre>
-    <div class="warning">TypeError: can't multiply sequence by non-int of type 'str'</div>
+    <p class="output">TypeError: can't multiply sequence by non-int of type 'str'</p>
 
     <pre>
+a = 'hell'
 b = 5.0
 print(a * b)
     </pre>
-    <div class="warning">TypeError: can't multiply sequence by non-int of type 'float'</div>
+    <p class="output">TypeError: can't multiply sequence by non-int of type 'float'</p>
+
+    <p>정수와의 곱셈은 순서가 바뀌어도 가능합니다:</p>
 
     <pre>
+a = 'hell'
 b = 5
 print(b * a)
+print(a * b)
     </pre>
-    <div class="output">hellhellhellhellhell</div>
+    <p class="output">hellhellhellhellhell<br>hellhellhellhellhell</p>
   </section>
 
   <section>
     <h2>문자열 변환</h2>
     <pre>
 a = str(30)
-b = str(10.4)
-c = str(True)
 print(a)
+
+b = str(10.4)
 print(b)
+
+c = str(True)
 print(c)
     </pre>
-    <div class="output">30<br>10.4<br>True</div>
+    <p class="output">30<br>10.4<br>True</p>
 
-    <p>문자열 변환은 숫자를 문자열로 바꿔 연결할 때 자주 사용됩니다.</p>
+    <p>문자열 결합 후 숫자로 변환:</p>
 
     <pre>
 a = 30
@@ -148,7 +168,7 @@ c = str(a) + str(b)
 c = int(c)
 print(c)
     </pre>
-    <div class="output">301</div>
+    <p class="output">301</p>
   </section>
 
   <section>
@@ -158,20 +178,21 @@ a = 'hell'
 a * 5
 print(a)
     </pre>
-    <div class="output">hell</div>
-    <p><strong>주의:</strong> 연산만 하면 값이 바뀌지 않습니다. 반드시 다시 저장해야 합니다.</p>
+    <p class="output">hell</p>
+
+    <p class="note">※ 연산 결과를 저장하지 않으면 원래 값은 변하지 않습니다.</p>
 
     <pre>
 a = 'hell'
 a = a * 5
 print(a)
     </pre>
-    <div class="output">hellhellhellhellhell</div>
+    <p class="output">hellhellhellhellhell</p>
   </section>
 </main>
 
 <footer>
-  <p>© 2025 파이썬 문자열 학습 자료</p>
+  <p>© 2025 파이썬 기초 학습</p>
 </footer>
 
 </body>
