@@ -167,6 +167,8 @@ window.onload = async () => {
   }
 };
 
+
+
 // ✅ 전역 함수 등록
 window.initXp = initXp;
 window.updateXp = updateXp;

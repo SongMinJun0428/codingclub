@@ -15,7 +15,9 @@ const users = {
     "김하람": "akaski2006",
     "이도현": "",
     "박시우": "icanho75",
-    "박용현": "younghyeon"
+    "박용현": "younghyeon",
+    "guest1" : "",
+    "guest2" : ""
 };
 
 // ✅ 로그인 처리 (로컬 스토리지 기반)
@@ -79,32 +81,7 @@ function logoutLocal() {
 }
 
 // ✅ 출석 체크 (로컬 스토리지 기반)
-function markAttendance() {
-    const user = localStorage.getItem("username") || localStorage.getItem("localUsername");
-    const today = new Date().toLocaleDateString();
-    const record = JSON.parse(localStorage.getItem("attendance") || "{}");
-
-    record[user] = record[user] || [];
-
-    if (!record[user].includes(today)) {
-        record[user].push(today);
-        localStorage.setItem("attendance", JSON.stringify(record));
-        document.getElementById("attendance-status").textContent = `✅ 오늘(${today}) 출석 완료!`;
-    } else if (document.getElementById("attendance-status")) {
-        document.getElementById("attendance-status").textContent = `✅ 오늘(${today}) 이미 출석했습니다.`;
-    }
-}
-
-
 // 📝 메모 자동 저장 (로컬 스토리지 기반)
-function restoreMemo() {
-    const memo = localStorage.getItem("memo") || "";
-    const textarea = document.getElementById("memo");
-    if (textarea) {
-        textarea.value = memo;
-        textarea.oninput = () => localStorage.setItem("memo", textarea.value);
-    }
-}
 
 // 💻 파이썬 실행 (Skulpt 사용 안 함)
 function runPython() {
@@ -145,42 +122,19 @@ function toggleCalendar() {
     const container = document.getElementById("calendar-container");
     container.classList.toggle("hidden");
     if (!container.classList.contains("hidden")) {
-        generateCalendar();
+        const userId = localStorage.getItem("userId");
+        renderCalendar(userId);  // ✅ 수정
     }
 }
+
 
 function scrollToCalendar() {
     document.getElementById("calendar-container").scrollIntoView({ behavior: 'smooth' });
     const container = document.getElementById("calendar-container");
     if (container.classList.contains("hidden")) {
         container.classList.remove("hidden");
-        generateCalendar();
+        const userId = localStorage.getItem("userId");
+        renderCalendar(userId); // ✅ 수정
     }
 }
 
-function generateCalendar() {
-    const user = localStorage.getItem("username") || localStorage.getItem("localUsername");
-    const record = JSON.parse(localStorage.getItem("attendance") || "{}");
-    const dates = record[user] || [];
-
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth(); // 0부터 시작
-    const firstDay = new Date(year, month, 1).getDay(); // 0:일 ~ 6:토
-    const lastDate = new Date(year, month + 1, 0).getDate();
-
-    const grid = document.getElementById("calendar-grid");
-    grid.innerHTML = `
-        <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
-    `;
-
-    for (let i = 0; i < firstDay; i++) {
-        grid.innerHTML += `<div></div>`;
-    }
-
-    for (let d = 1; d <= lastDate; d++) {
-        const dateStr = new Date(year, month, d).toLocaleDateString();
-        const isMarked = dates.includes(dateStr);
-        grid.innerHTML += `<div class="${isMarked ? 'bg-green-300 font-bold text-white' : 'bg-gray-100'} p-2 rounded">${d}</div>`;
-    }
-}
