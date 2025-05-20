@@ -166,6 +166,73 @@ window.onload = async () => {
     renderLevelTable(); // ✅ 등급표 출력
   }
 };
+async function loadDailyQuests() {
+  const userId = localStorage.getItem("userId");
+  const today = new Date().toISOString().split("T")[0];
+
+  // 퀘스트 목록 가져오기
+  const { data: quests, error: questError } = await supabase
+    .from("daily_quests")
+    .select("*")
+    .order("id");
+
+  if (questError) {
+    console.error("❌ 퀘스트 로드 실패:", questError.message);
+    return;
+  }
+
+  // 유저 완료 퀘스트 조회
+  const { data: completed, error: logError } = await supabase
+    .from("user_quest_log")
+    .select("quest_id")
+    .eq("user_id", userId)
+    .eq("date", today);
+
+  const completedIds = new Set(completed?.map(d => d.quest_id));
+
+  const list = document.getElementById("quest-list");
+  list.innerHTML = "";
+
+  quests.forEach(q => {
+    const isDone = completedIds.has(q.id);
+    const item = document.createElement("li");
+    item.className = `p-4 rounded-lg ${isDone ? "bg-gray-200 text-gray-500" : "bg-blue-50"} shadow`;
+
+    item.innerHTML = `
+      <div class="flex justify-between items-center">
+        <div>
+          <p class="font-semibold">${q.title}</p>
+          <p class="text-sm text-gray-600">${q.description}</p>
+        </div>
+        <button class="px-3 py-1 text-sm rounded ${isDone ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 text-white"}"
+                ${isDone ? "disabled" : ""}
+                onclick="completeQuest(${q.id}, '${q.title}')">
+          ${isDone ? "완료됨" : "완료하기"}
+        </button>
+      </div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+window.loadDailyQuests = loadDailyQuests;
+
+async function completeQuest(questId, title) {
+  const userId = localStorage.getItem("userId");
+  const today = new Date().toISOString().split("T")[0];
+
+  // 완료 기록 저장
+  await supabase.from("user_quest_log").insert([
+    { user_id: userId, quest_id: questId, date: today }
+  ]);
+
+  // XP 지급 (기본 20XP, 필요 시 수정 가능)
+  await addXP(20);
+  alert(`🎉 "${title}" 퀘스트 완료! 20 XP 지급`);
+
+  await loadDailyQuests();
+  await updateXp(userId); // XP UI 갱신
+}
 
 
 

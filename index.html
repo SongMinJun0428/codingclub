@@ -240,6 +240,13 @@
               </ol>
             </div>
 
+            <!-- 일일 퀘스트 -->
+            <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+              <h2 class="text-xl font-bold text-blue-700 mb-4">🗓️ 일일 퀘스트 (Beta)</h2>
+              <ul id="quest-list" class="space-y-3"></ul>
+            </div>
+
+
 
 
             <script>
@@ -640,6 +647,80 @@ async function checkAttendance(userId) {
 
 }
 
+async function processDailyQuests(userId) {
+  if (!userId) return;
+
+  // 오늘 날짜
+  const today = new Date().toISOString().split('T')[0];
+
+  // 1. 이미 완료한 퀘스트 조회
+  const { data: completedLog } = await supabase
+    .from('user_quest_log')
+    .select('quest_id')
+    .eq('user_id', userId)
+    .eq('date', today);
+
+  const completedIds = completedLog?.map(q => q.quest_id) || [];
+
+  // 2. 전체 퀘스트 목록 가져오기
+  const { data: allQuests } = await supabase
+    .from('daily_quests')
+    .select('*');
+
+  if (!allQuests) return;
+
+  // 3. 자동 수행 확인 (예: 출석, 메모 작성 등)
+  for (const quest of allQuests) {
+    const alreadyDone = completedIds.includes(quest.id);
+    if (alreadyDone) continue;
+
+    let success = false;
+
+    if (quest.title.includes("출석")) {
+      const { data: attendance } = await supabase
+        .from('club_attendance')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('date', today);
+      success = attendance.length > 0;
+    }
+
+    if (quest.title.includes("메모")) {
+      const { data: memo } = await supabase
+        .from('club_memo')
+        .select('content')
+        .eq('user_id', userId);
+      success = memo.length > 0 && memo[0].content.length >= 5;
+    }
+
+    if (success) {
+      const reward = XP_BY_DIFFICULTY[quest.difficulty] || 10;
+
+      // XP 추가
+      await addXP(reward);
+
+      // 기록 남기기
+      await supabase.from('user_quest_log').insert([
+        {
+          user_id: userId,
+          quest_id: quest.id,
+          date: today,
+          xp_reward: reward
+        }
+      ]);
+
+      console.log(`✅ 퀘스트 완료: ${quest.title} (+${reward}XP)`);
+    }
+  }
+}
+
+const XP_BY_DIFFICULTY = {
+  '하': 10,
+  '중': 20,
+  '상': 30
+};
+
+
 async function renderCalendar(userId) {
   const { data, error } = await supabase
     .from('club_attendance')
@@ -704,10 +785,75 @@ async function renderCalendar(userId) {
 
 
 
-  
-  
+document.addEventListener("DOMContentLoaded", async () => {
+  const userId = localStorage.getItem("userId"); // ✅ 먼저 가져오기
+  await loadRanking();
+  await loadMemo();
+  await loadDailyQuests(userId);
+});
+
+
   
 
+async function loadDailyQuests() {
+  const { data, error } = await supabase.from('daily_quests').select('*');
+  if (error) {
+    console.error("❌ 퀘스트 목록 불러오기 실패:", error.message);
+    return;
+  }
+
+  const list = document.getElementById("quest-list");
+  list.innerHTML = "";
+  data.forEach(q => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div class="flex justify-between items-center border p-3 rounded bg-gray-50">
+        <span>📌 ${q.title} (${q.difficulty})</span>
+        <span class="text-sm text-blue-600">+${XP_BY_DIFFICULTY[q.difficulty] || 10} XP</span>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+async function addXP(xp) {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return;
+
+  const { data, error } = await supabase
+    .from("club_xp")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("club_name", "코딩동아리")
+    .limit(1);
+
+  if (data.length === 0) return;
+
+  const currentXP = data[0].xp;
+  const newXP = currentXP + xp;
+
+  await supabase
+    .from("club_xp")
+    .update({ xp: newXP })
+    .eq("id", data[0].id);
+
+  await updateXp(userId); // UI 갱신
+}
+
+async function updateXp(userId) {
+  const { data } = await supabase
+    .from("club_xp")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("club_name", "코딩동아리");
+
+  if (data.length > 0) {
+    const xp = data[0].xp;
+    window.currentXP = xp; // 상점에서 필요
+    document.getElementById("xp-status").textContent = `현재 XP: ${xp}`;
+    document.getElementById("shop-user-xp").textContent = `${xp} XP`;
+  }
+}
 
 
 
@@ -847,10 +993,6 @@ async function loadMemo() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  await loadRanking(); // 기존 랭킹 불러오기
-  await loadMemo();    // 메모 불러오기 추가
-});
 
 
 </script>
