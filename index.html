@@ -899,8 +899,7 @@ async function loadRanking() {
     .from('club_xp')
     .select('user_id, xp')
     .eq('club_name', '코딩동아리')
-    .order('xp', { ascending: false })
-    .limit(10);
+    .order('xp', { ascending: false });
 
   if (error) {
     console.error('❌ 랭킹 조회 실패:', error.message);
@@ -915,28 +914,35 @@ async function loadRanking() {
     let prefix = "";
     let style = "";
 
-    switch (index) {
-      case 0:
-        prefix = "👑 1위";
-        style = "text-yellow-600 font-bold";
-        break;
-      case 1:
-        prefix = "🥈 2위";
-        style = "text-gray-700";
-        break;
-      case 2:
-        prefix = "🥉 3위";
-        style = "text-orange-600";
-        break;
-      default:
-        prefix = `😢 ${index + 1}위`;
-        style = "text-gray-500 text-sm";
+    if (index === 0) {
+      prefix = "👑 Admin";
+      style = "text-red-600 font-bold";
+    } else {
+      const rank = index; // Admin을 0번으로 하고 나머지는 1부터 시작
+      switch (rank) {
+        case 1:
+          prefix = "🥇 1위";
+          style = "text-yellow-600 font-bold";
+          break;
+        case 2:
+          prefix = "🥈 2위";
+          style = "text-gray-700";
+          break;
+        case 3:
+          prefix = "🥉 3위";
+          style = "text-orange-600";
+          break;
+        default:
+          prefix = `😢 ${rank}위`;
+          style = "text-gray-500 text-sm";
+      }
     }
 
     li.innerHTML = `<span class="${style}">${prefix} - ${entry.user_id} (${entry.xp} XP)</span>`;
     rankingList.appendChild(li);
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", loadRanking);
 
