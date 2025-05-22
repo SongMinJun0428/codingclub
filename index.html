@@ -471,6 +471,8 @@
 <script type="module" src="script.js"></script>
 <script src="local-script.js"></script>
 
+
+
 <script>
 let purchasedItems = new Set();
 
@@ -635,25 +637,115 @@ async function checkAttendance(userId) {
    // XP 보상
   const xp = 10 + (streak >= 2 ? 20 : 0); // 기본 10XP + 연속 보너스
   await addXP(xp);
-
-  // 출석 상태 메시지
-  document.getElementById("attendance-status").textContent =
-    `🎉 출석 완료! ${xp} XP 지급 (연속 ${streak}일차)`;
-
-  // ✅ 달력 강제 표시 및 즉시 렌더링
-  document.getElementById("calendar-container").classList.remove("hidden");
-  await renderCalendar(userId);
   scrollToCalendar(); // (선택) 달력 위치로 스크롤
 
+  await processDailyQuests(userId); // ✅ 출석 후 퀘스트 자동 성공 체크
+  document.getElementById("attendance-status").textContent =
+  `🎉 출석 완료! ${xp} XP 지급 (연속 ${streak}일차)`;
+
+// 달력 표시
+document.getElementById("calendar-container").classList.remove("hidden");
+await renderCalendar(userId);
+
+
 }
+
+async function assignDailyQuests(userId) {
+  const today = new Date().toISOString().split('T')[0];
+
+  // 이미 오늘 퀘스트를 받은 경우 함수 종료
+  const { data: existing } = await supabase
+    .from('user_daily_quests')
+    .select('quest_id')
+    .eq('user_id', userId)
+    .eq('date', today);
+
+  if (existing && existing.length >= 3) {
+    console.log("✅ 오늘 퀘스트 이미 배정됨");
+    return;
+  }
+
+  // 전체 퀘스트 목록에서 무작위로 3개 선택
+  const { data: allQuests } = await supabase.from('daily_quests').select('*');
+  if (!allQuests || allQuests.length < 3) {
+    console.warn("⚠️ 퀘스트 목록 부족");
+    return;
+  }
+
+  const selected = allQuests.sort(() => 0.5 - Math.random()).slice(0, 3);
+  const inserts = selected.map(q => ({
+    user_id: userId,
+    date: today,
+    quest_id: q.id
+  }));
+
+  await supabase.from('user_daily_quests').insert(inserts);
+  console.log("🎯 퀘스트 3개 배정 완료");
+}
+document.addEventListener("DOMContentLoaded", async () => {
+  const userId = localStorage.getItem("userId");
+  await assignDailyQuests(userId);     // 퀘스트 무작위 할당
+  await loadDailyQuests(userId);       // 퀘스트 UI 표시
+  await processDailyQuests(userId);    // 퀘스트 자동 확인
+});
 
 async function processDailyQuests(userId) {
   if (!userId) return;
 
-  // 오늘 날짜
   const today = new Date().toISOString().split('T')[0];
 
-  // 1. 이미 완료한 퀘스트 조회
+  // 오늘 무작위로 부여된 퀘스트 가져오기
+  const { data: todayQuests, error: err1 } = await supabase
+    .from('user_daily_quests')
+    .select('quest_id')
+    .eq('user_id', userId)
+    .eq('date', today);
+
+  if (err1) {
+    console.error("❌ 퀘스트 불러오기 실패:", err1.message);
+    return;
+  }
+
+  if (!todayQuests || todayQuests.length === 0) {
+    console.log("⚠️ 오늘 퀘스트 없음");
+    return;
+  }
+
+  const questIds = todayQuests.map(q => q.quest_id).slice(0, 3); // 최대 3개만
+
+  // 퀘스트 상세 정보 가져오기
+  const { data: quests, error: err2 } = await supabase
+    .from('daily_quests')
+    .select('*')
+    .in('id', questIds);
+
+  if (err2 || !quests) {
+    console.error("❌ 퀘스트 상세 조회 실패:", err2?.message);
+    return;
+  }
+
+  // 오늘 완료한 퀘스트 조회
+async function processDailyQuests(userId) {
+  if (!userId) return;
+
+  const today = new Date().toISOString().split('T')[0];
+
+  // 오늘 퀘스트 가져오기
+  const { data: todayQuests, error: err1 } = await supabase
+    .from('user_daily_quests')
+    .select('quest_id')
+    .eq('user_id', userId)
+    .eq('date', today);
+
+  if (err1 || !todayQuests) return;
+
+  const questIds = todayQuests.map(q => q.quest_id);
+
+  const { data: quests } = await supabase
+    .from('daily_quests')
+    .select('*')
+    .in('id', questIds);
+
   const { data: completedLog } = await supabase
     .from('user_quest_log')
     .select('quest_id')
@@ -662,17 +754,8 @@ async function processDailyQuests(userId) {
 
   const completedIds = completedLog?.map(q => q.quest_id) || [];
 
-  // 2. 전체 퀘스트 목록 가져오기
-  const { data: allQuests } = await supabase
-    .from('daily_quests')
-    .select('*');
-
-  if (!allQuests) return;
-
-  // 3. 자동 수행 확인 (예: 출석, 메모 작성 등)
-  for (const quest of allQuests) {
-    const alreadyDone = completedIds.includes(quest.id);
-    if (alreadyDone) continue;
+  for (const quest of quests) {
+    if (completedIds.includes(quest.id)) continue;
 
     let success = false;
 
@@ -682,7 +765,7 @@ async function processDailyQuests(userId) {
         .select('id')
         .eq('user_id', userId)
         .eq('date', today);
-      success = attendance.length > 0;
+      success = attendance?.length > 0;
     }
 
     if (quest.title.includes("메모")) {
@@ -690,29 +773,29 @@ async function processDailyQuests(userId) {
         .from('club_memo')
         .select('content')
         .eq('user_id', userId);
-      success = memo.length > 0 && memo[0].content.length >= 5;
+      success = memo && memo[0]?.content?.length >= 5;
     }
 
     if (success) {
       const reward = XP_BY_DIFFICULTY[quest.difficulty] || 10;
-
-      // XP 추가
       await addXP(reward);
 
-      // 기록 남기기
-      await supabase.from('user_quest_log').insert([
-        {
-          user_id: userId,
-          quest_id: quest.id,
-          date: today,
-          xp_reward: reward
-        }
-      ]);
+      await supabase.from('user_quest_log').insert([{
+        user_id: userId,
+        quest_id: quest.id,
+        date: today,
+        completed: true,
+        completed_at: new Date().toISOString()
+      }]);
 
-      console.log(`✅ 퀘스트 완료: ${quest.title} (+${reward}XP)`);
+      console.log(`✅ 퀘스트 완료 처리됨: ${quest.title} (+${reward}XP)`);
     }
   }
 }
+}
+
+
+
 
 const XP_BY_DIFFICULTY = {
   '하': 10,
@@ -795,65 +878,60 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   
 
-async function loadDailyQuests() {
-  const { data, error } = await supabase.from('daily_quests').select('*');
+async function loadDailyQuests(userId) {
+  const today = new Date().toISOString().split('T')[0];
+
+  // 오늘의 퀘스트 3개 불러오기
+  const { data: todayQuests } = await supabase
+    .from('user_daily_quests')
+    .select('quest_id')
+    .eq('user_id', userId)
+    .eq('date', today);
+
+  if (!todayQuests) return;
+
+  const ids = todayQuests.map(q => q.quest_id);
+
+  const { data: quests, error } = await supabase
+    .from('daily_quests')
+    .select('*')
+    .in('id', ids);
+
   if (error) {
     console.error("❌ 퀘스트 목록 불러오기 실패:", error.message);
     return;
   }
 
+  // ✅ 완료된 퀘스트 가져오기
+  const { data: completedLog } = await supabase
+    .from('user_quest_log')
+    .select('quest_id')
+    .eq('user_id', userId)
+    .eq('date', today);
+
+  const completedIds = completedLog?.map(q => q.quest_id) || [];
+
   const list = document.getElementById("quest-list");
   list.innerHTML = "";
-  data.forEach(q => {
+
+  quests.forEach(q => {
+    const isCompleted = completedIds.includes(q.id);
+    const reward = XP_BY_DIFFICULTY[q.difficulty] || 10;
+
     const li = document.createElement("li");
     li.innerHTML = `
-      <div class="flex justify-between items-center border p-3 rounded bg-gray-50">
-        <span>📌 ${q.title} (${q.difficulty})</span>
-        <span class="text-sm text-blue-600">+${XP_BY_DIFFICULTY[q.difficulty] || 10} XP</span>
+      <div class="flex justify-between items-center border p-3 rounded ${isCompleted ? 'bg-green-100' : 'bg-gray-50'}">
+        <span>📌 ${q.title} (${q.difficulty}) ${isCompleted ? '✅ 완료' : ''}</span>
+        <span class="text-sm ${isCompleted ? 'text-green-700 font-bold' : 'text-blue-600'}">
+          ${isCompleted ? `+${reward} XP` : `+${reward} XP`}
+        </span>
       </div>
     `;
     list.appendChild(li);
   });
 }
 
-async function addXP(xp) {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return;
 
-  const { data, error } = await supabase
-    .from("club_xp")
-    .select("*")
-    .eq("user_id", userId)
-    .eq("club_name", "코딩동아리")
-    .limit(1);
-
-  if (data.length === 0) return;
-
-  const currentXP = data[0].xp;
-  const newXP = currentXP + xp;
-
-  await supabase
-    .from("club_xp")
-    .update({ xp: newXP })
-    .eq("id", data[0].id);
-
-  await updateXp(userId); // UI 갱신
-}
-
-async function updateXp(userId) {
-  const { data } = await supabase
-    .from("club_xp")
-    .select("*")
-    .eq("user_id", userId)
-    .eq("club_name", "코딩동아리");
-
-  if (data.length > 0) {
-    const xp = data[0].xp;
-    window.currentXP = xp; // 상점에서 필요
-    document.getElementById("xp-status").textContent = `현재 XP: ${xp}`;
-    document.getElementById("shop-user-xp").textContent = `${xp} XP`;
-  }
-}
 
 
 
@@ -916,7 +994,7 @@ async function loadRanking() {
 
     if (index === 0) {
       prefix = "👑 Admin";
-      style = "text-red-600 font-bold";
+      style = "text-red-600";
     } else {
       const rank = index; // Admin을 0번으로 하고 나머지는 1부터 시작
       switch (rank) {
@@ -976,6 +1054,8 @@ async function saveMemo() {
   }
 
   console.log("📝 메모 저장 완료");
+  await processDailyQuests(userId); // ✅ 메모 저장 후 퀘스트 자동 확인
+
 }
 
 async function loadMemo() {
@@ -999,10 +1079,7 @@ async function loadMemo() {
   }
 }
 
-
-
 </script>
-
 
 
 </body>
