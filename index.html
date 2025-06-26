@@ -1321,6 +1321,56 @@
 
   </script>
 
+  <!-- body 태그 내 가장 아래에 삽입 -->
+<!-- 🔈 배경 음악 제어 영역 -->
+<div class="fixed bottom-4 left-4 bg-white p-4 rounded-xl shadow-lg flex flex-col gap-2 z-50 text-sm">
+  <p class="font-semibold text-blue-600">🎧 배경 음악</p>
+  <div class="flex gap-2 items-center">
+    <button onclick="togglePlay()" id="playBtn" class="bg-blue-500 text-white px-3 py-1 rounded">⏸️ 일시정지</button>
+    <button onclick="nextTrack()" class="bg-indigo-500 text-white px-3 py-1 rounded">🎵 음악 바꾸기</button>
+  </div>
+  <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)" class="w-full" />
+</div>
+
+<!-- 🎶 오디오 요소 -->
+<audio id="bgm" autoplay loop></audio>
+
+<script>
+  // 🎵 배경 음악 목록 (원하시는 Suno 음악 URL로 교체 가능)
+  const tracks = [
+    "동아리bgm1.mp3",
+    "동아리bgm2.m4a"
+  ];
+
+  let currentTrackIndex = 0;
+  const audio = document.getElementById("bgm");
+  const playBtn = document.getElementById("playBtn");
+
+  // 초기화
+  audio.src = tracks[currentTrackIndex];
+  audio.volume = 0.5;
+
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = "⏸️ 일시정지";
+    } else {
+      audio.pause();
+      playBtn.textContent = "▶️ 다시 재생";
+    }
+  }
+
+  function setVolume(vol) {
+    audio.volume = vol;
+  }
+
+  function nextTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    audio.src = tracks[currentTrackIndex];
+    audio.play();
+    playBtn.textContent = "⏸️ 일시정지";
+  }
+</script>
 
 </body>
 
