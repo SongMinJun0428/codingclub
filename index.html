@@ -1,278 +1,465 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>봉담중 코딩 동아리</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-            background: linear-gradient(to bottom right, #e0e7ff, #ffffff);
-            color: #1f2937;
-        }
-        .container {
-            max-width: 960px;
-            margin: 50px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-        .button {
-            background-color: #6366f1;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 8px;
-            display: inline-block;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .button:hover {
-            background-color: #4f46e5;
-            transform: translateY(-2px);
-        }
-        .tab-button {
-            padding: 12px 24px;
-            font-size: 1.1em;
-            cursor: pointer;
-            background-color: #e5e7eb;
-            color: #374151;
-            border: 2px solid #cbd5e1;
-            border-radius: 25px;
-            margin: 0 8px;
-            transition: all 0.3s ease;
-        }
-        .tab-button:hover {
-            background-color: #d1d5db;
-            transform: scale(1.05);
-        }
-        .tab-button.active {
-            background-color: #6366f1;
-            color: white;
-            border-color: #6366f1;
-        }
-        .tab-content {
-            display: none;
-            text-align: left;
-            padding: 32px;
-            background-color: #f9fafb;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            margin-top: 30px;
-            transition: all 0.4s ease;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .hidden { display: none; }
-        .animate-bounce-on-hover:hover {
-            animation: shake 0.6s ease-in-out;
-        }
-        @keyframes shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            50% { transform: rotate(-5deg); }
-            75% { transform: rotate(3deg); }
-            100% { transform: rotate(0deg); }
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodingOn - 봉담중 코딩  동아리</title>
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      .lesson-set.locked-preview {
-        position: relative;
+    body {
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      background: linear-gradient(to bottom right, #e0e7ff, #ffffff);
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 50px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .button {
+      background-color: #6366f1;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 8px;
+      display: inline-block;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .button:hover {
+      background-color: #4f46e5;
+      transform: translateY(-2px);
+    }
+
+    .tab-button {
+      padding: 12px 24px;
+      font-size: 1.1em;
+      cursor: pointer;
+      background-color: #e5e7eb;
+      color: #374151;
+      border: 2px solid #cbd5e1;
+      border-radius: 25px;
+      margin: 0 8px;
+      transition: all 0.3s ease;
+    }
+
+    .tab-button:hover {
+      background-color: #d1d5db;
+      transform: scale(1.05);
+    }
+
+    .tab-button.active {
+      background-color: #6366f1;
+      color: white;
+      border-color: #6366f1;
+    }
+
+    .tab-content {
+      display: none;
+      text-align: left;
+      padding: 32px;
+      background-color: #f9fafb;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      margin-top: 30px;
+      transition: all 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .animate-bounce-on-hover:hover {
+      animation: shake 0.6s ease-in-out;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(5deg);
+      }
+
+      50% {
+        transform: rotate(-5deg);
+      }
+
+      75% {
+        transform: rotate(3deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    .lesson-set.locked-preview {
+      position: relative;
+      opacity: 1;
+      filter: none;
+      pointer-events: auto;
+    }
+
+    .lesson-set.locked-preview::after {
+      display: none;
+    }
+
+    @keyframes scaleIn {
+      0% {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
         opacity: 1;
-        filter: none;
-        pointer-events: auto;
       }
+    }
 
-      .lesson-set.locked-preview::after {
-        display: none;
-      }
-
-    </style>
+    .animate-scaleIn {
+      animation: scaleIn 0.3s ease-out;
+    }
+  </style>
 
 </head>
+
 <body>
-<div id="login-screen" class="max-w-md mx-auto bg-white p-8 rounded shadow">
+
+  <div id="login-screen" class="max-w-md mx-auto bg-white p-8 rounded shadow">
     <h1 class="text-2xl font-bold mb-4 text-blue-800">🔐 로그인</h1>
-    <input type="text" id="login-id" placeholder="ID 입력" class="w-full border p-2 rounded mb-3"/>
-    <input type="password" id="login-pw" placeholder="비밀번호 입력" class="w-full border p-2 rounded mb-4"/>
+    <input type="text" id="login-id" placeholder="ID 입력" class="w-full border p-2 rounded mb-3" />
+    <input type="password" id="login-pw" placeholder="비밀번호 입력" class="w-full border p-2 rounded mb-4" />
     <button onclick="loginLocal()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">로그인</button>
     <p id="login-error" class="text-red-600 mt-2 hidden">❌ 로그인 실패: 정보를 확인하세요.</p>
-</div>
+  </div>
 
-<div id="main-content" class="hidden">
+  <div id="main-content" class="hidden">
     <p id="welcome-text" class="text-right text-sm text-gray-600 mb-1 pr-6"></p>
     <div id="admin-shortcut" class="text-right pr-6 mb-4 hidden">
-        <a href="secret.html" target="_blank" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm">
-            ✅ 관리자 페이지 바로가기
-        </a>
+      <a href="secret.html" target="_blank"
+        class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm">
+        ✅ 관리자 페이지 바로가기
+      </a>
     </div>
     <p id="welcome-text" class="text-right text-sm text-gray-600 mb-4 pr-6"></p>
 
 
     <div class="container">
-        <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">파이썬 학습 사이트</h1>
+      <h1 class="text-4xl font-bold mb-8 text-blue-900 drop-shadow-lg">파이썬 학습 사이트</h1>
 
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-            <button class="tab-button active" onclick="openTab(event, 'home')">홈</button>
-            <button class="tab-button" onclick="openTab(event, 'python')">파이썬</button>
-            <button class="tab-button" onclick="openTab(event, 'quiz')">파이썬 문제</button>
-            <a href="submit.html" class="tab-button">제출</a>
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <button class="tab-button active" onclick="openTab(event, 'home')">홈</button>
+        <button class="tab-button" onclick="openTab(event, 'python')">파이썬</button>
+        <button class="tab-button" onclick="openTab(event, 'quiz')">파이썬 문제</button>
+        <a href="submit.html" class="tab-button">제출</a>
+      </div>
+
+
+      <button onclick="logoutSupabase()"
+        class="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 shadow-lg z-50">
+        🔓 로그아웃
+      </button>
+
+      <div id="home" class="tab-content active bg-white rounded-xl shadow-lg p-8">
+
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-blue-700">📅 출석 체크</h2>
+            <div class="space-x-2">
+              <button onclick="checkAttendance(localStorage.getItem('userId'))"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                출석 체크하기
+              </button>
+              <button onclick="toggleCalendar()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
+                달력 보기
+              </button>
+            </div>
+          </div>
+
+
+          <div id="attendance-status" class="text-green-600 font-medium mb-3"></div>
+
+          <div id="calendar-container" class="hidden transition-all duration-500">
+            <div id="calendar" class="bg-gray-50 p-4 rounded shadow">
+              <h3 class="text-base font-semibold mb-3 text-gray-700">🗓️ 나의 출석 달력</h3>
+              <div id="calendar-grid" class="grid grid-cols-7 gap-2 text-center text-sm text-gray-800"></div>
+            </div>
+          </div>
         </div>
 
 
-        <button onclick="logoutSupabase()" class="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 shadow-lg z-50">
-            🔓 로그아웃
-        </button>
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <h2 class="text-xl font-bold text-blue-700 mb-2">🏆 나의 레벨</h2>
+          <p id="xp-status" class="text-lg font-semibold"></p>
+          <button id="levelShopBtn" class="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+            레벨 상점
+          </button>
+          <!-- 등급표 열기/닫기 버튼 -->
+          <div class="max-w-2xl mx-auto mt-6">
+            <button id="toggle-levels" class="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+              📊 전체 등급표 보기
+            </button>
 
-        <div id="home" class="tab-content active bg-white rounded-xl shadow-lg p-8">
-
-            <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-                <div class="flex items-center justify-between mb-4">
-                  <h2 class="text-xl font-bold text-blue-700">📅 출석 체크</h2>
-                  <div class="space-x-2">
-                    <button onclick="checkAttendance(localStorage.getItem('userId'))"
-                      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                      출석 체크하기
-                    </button>
-                    <button onclick="toggleCalendar()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
-                      달력 보기
-                    </button>
-                  </div>
-                </div>
-
-
-                <div id="attendance-status" class="text-green-600 font-medium mb-3"></div>
-
-                <div id="calendar-container" class="hidden transition-all duration-500">
-                    <div id="calendar" class="bg-gray-50 p-4 rounded shadow">
-                        <h3 class="text-base font-semibold mb-3 text-gray-700">🗓️ 나의 출석 달력</h3>
-                        <div id="calendar-grid" class="grid grid-cols-7 gap-2 text-center text-sm text-gray-800"></div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-                <h2 class="text-xl font-bold text-blue-700 mb-2">🏆 나의 레벨</h2>
-                <p id="xp-status" class="text-lg font-semibold"></p>
-                <button id="levelShopBtn" class="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-                레벨 상점
-                </button>
-                <!-- 등급표 열기/닫기 버튼 -->
-                <div class="max-w-2xl mx-auto mt-6">
-                  <button id="toggle-levels" class="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
-                    📊 전체 등급표 보기
-                  </button>
-
-                  <!-- 등급표 영역 (초기에는 숨김) -->
-                  <div id="level-table" class="mt-4 hidden bg-white shadow rounded-lg p-6">
-                    <h2 class="text-xl font-bold mb-4">등급표</h2>
-                    <div class="overflow-x-auto">
-                      <table class="w-full text-sm text-left border border-gray-300 rounded">
-                        <thead class="bg-blue-100 text-gray-800">
-                          <tr>
-                            <th class="px-4 py-2">레벨</th>
-                            <th class="px-4 py-2">아이콘</th>
-                            <th class="px-4 py-2">한글 이름</th>
-                            <th class="px-4 py-2">영문 이름</th>
-                          </tr>
-                        </thead>
-                        <tbody class="text-gray-700">
-                          <tr><td class="px-4 py-1">LV.1</td><td>🌱</td><td>씨앗</td><td>Beginner</td></tr>
-                          <tr><td class="px-4 py-1">LV.2</td><td>🪴</td><td>준비중</td><td>Growing</td></tr>
-                          <tr><td class="px-4 py-1">LV.3</td><td>🌼</td><td>발아자</td><td>Seedling</td></tr>
-                          <tr><td class="px-4 py-1">LV.4</td><td>🌿</td><td>새싹</td><td>Sprout</td></tr>
-                          <tr><td class="px-4 py-1">LV.5</td><td>🍀</td><td>잎사귀</td><td>Leaf</td></tr>
-                          <tr><td class="px-4 py-1">LV.6</td><td>☘️</td><td>쌍잎</td><td>Apprentice</td></tr>
-                          <tr><td class="px-4 py-1">LV.7</td><td>✨</td><td>초보</td><td>Beginner+</td></tr>
-                          <tr><td class="px-4 py-1">LV.8</td><td>🧩</td><td>입문자</td><td>Novice</td></tr>
-                          <tr><td class="px-4 py-1">LV.9</td><td>🔧</td><td>연습생</td><td>Trainee</td></tr>
-                          <tr><td class="px-4 py-1">LV.10</td><td>💡</td><td>실습자</td><td>Practitioner</td></tr>
-                          <tr><td class="px-4 py-1">LV.11</td><td>💬</td><td>발표자</td><td>Presenter</td></tr>
-                          <tr><td class="px-4 py-1">LV.12</td><td>🧠</td><td>이해자</td><td>Thinker</td></tr>
-                          <tr><td class="px-4 py-1">LV.13</td><td>📊</td><td>분석가</td><td>Analyst</td></tr>
-                          <tr><td class="px-4 py-1">LV.14</td><td>🔥</td><td>숙련자</td><td>Advanced</td></tr>
-                          <tr><td class="px-4 py-1">LV.15</td><td>⚙️</td><td>자동화 초급</td><td>Automation Novice</td></tr>
-                          <tr><td class="px-4 py-1">LV.16</td><td>🧬</td><td>설계자</td><td>Architect</td></tr>
-                          <tr><td class="px-4 py-1">LV.17</td><td>🧪</td><td>실험자</td><td>Experimenter</td></tr>
-                          <tr><td class="px-4 py-1">LV.18</td><td>🧙</td><td>마스터</td><td>Master</td></tr>
-                          <tr><td class="px-4 py-1">LV.19</td><td>💼</td><td>팀 리더</td><td>Team Leader</td></tr>
-                          <tr><td class="px-4 py-1">LV.20</td><td>🚀</td><td>혁신가</td><td>Innovator</td></tr>
-                          <tr><td class="px-4 py-1">LV.21</td><td>🧩</td><td>해결사</td><td>Solver</td></tr>
-                          <tr><td class="px-4 py-1">LV.22</td><td>🎯</td><td>문제 스나이퍼</td><td>Problem Sniper</td></tr>
-                          <tr><td class="px-4 py-1">LV.23</td><td>🦾</td><td>미래 설계자</td><td>Visionary</td></tr>
-                          <tr><td class="px-4 py-1">LV.24</td><td>🏆</td><td>전설의 코더</td><td>Legend</td></tr>
-                          <tr><td class="px-4 py-1">LV.25</td><td>🧠</td><td>인공지능 교관</td><td>AI Instructor</td></tr>
-                          <tr><td class="px-4 py-1">LV.26</td><td>👑</td><td>전설의 개발자</td><td>Grandmaster Developer</td></tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-            <!-- 레벨 표시 + 버튼 -->
-             <!-- 상점 모달 -->
-            <div id="levelShopModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-              <div class="bg-white w-full max-w-md mx-auto p-6 rounded-2xl shadow-xl animate-scaleIn">
-                <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">🎁 레벨 상점</h2>
-                <p class="text-sm text-gray-600 mb-6 text-center">XP를 사용해 진도를 해금하세요!</p>
-
-                <div id="shop-items" class="space-y-3 max-h-96 overflow-y-auto"></div>
-                  <div id="user-shop-status" class="text-center text-sm text-gray-700 mt-6 leading-relaxed">
-                  🎖️ <strong>${info.icon} ${info.name}</strong> (등급: ${info.grade})<br>
-                  📈 레벨: <span id="shop-user-level">LV.-</span><br>
-                  ⚡ 경험치: <span id="shop-user-xp">- XP</span>
-                </div>
-
-                
-
-
-                <button id="closeShopBtn" class="mt-6 w-full bg-gray-300 hover:bg-gray-400 py-2 rounded text-sm">닫기</button>
+            <!-- 등급표 영역 (초기에는 숨김) -->
+            <div id="level-table" class="mt-4 hidden bg-white shadow rounded-lg p-6">
+              <h2 class="text-xl font-bold mb-4">등급표</h2>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left border border-gray-300 rounded">
+                  <thead class="bg-blue-100 text-gray-800">
+                    <tr>
+                      <th class="px-4 py-2">레벨</th>
+                      <th class="px-4 py-2">아이콘</th>
+                      <th class="px-4 py-2">한글 이름</th>
+                      <th class="px-4 py-2">영문 이름</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-gray-700">
+                    <tr>
+                      <td class="px-4 py-1">LV.1</td>
+                      <td>🌱</td>
+                      <td>씨앗</td>
+                      <td>Beginner</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.2</td>
+                      <td>🪴</td>
+                      <td>준비중</td>
+                      <td>Growing</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.3</td>
+                      <td>🌼</td>
+                      <td>발아자</td>
+                      <td>Seedling</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.4</td>
+                      <td>🌿</td>
+                      <td>새싹</td>
+                      <td>Sprout</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.5</td>
+                      <td>🍀</td>
+                      <td>잎사귀</td>
+                      <td>Leaf</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.6</td>
+                      <td>☘️</td>
+                      <td>쌍잎</td>
+                      <td>Apprentice</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.7</td>
+                      <td>✨</td>
+                      <td>초보</td>
+                      <td>Beginner+</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.8</td>
+                      <td>🧩</td>
+                      <td>입문자</td>
+                      <td>Novice</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.9</td>
+                      <td>🔧</td>
+                      <td>연습생</td>
+                      <td>Trainee</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.10</td>
+                      <td>💡</td>
+                      <td>실습자</td>
+                      <td>Practitioner</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.11</td>
+                      <td>💬</td>
+                      <td>발표자</td>
+                      <td>Presenter</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.12</td>
+                      <td>🧠</td>
+                      <td>이해자</td>
+                      <td>Thinker</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.13</td>
+                      <td>📊</td>
+                      <td>분석가</td>
+                      <td>Analyst</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.14</td>
+                      <td>🔥</td>
+                      <td>숙련자</td>
+                      <td>Advanced</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.15</td>
+                      <td>⚙️</td>
+                      <td>자동화 초급</td>
+                      <td>Automation Novice</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.16</td>
+                      <td>🧬</td>
+                      <td>설계자</td>
+                      <td>Architect</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.17</td>
+                      <td>🧪</td>
+                      <td>실험자</td>
+                      <td>Experimenter</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.18</td>
+                      <td>🧙</td>
+                      <td>마스터</td>
+                      <td>Master</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.19</td>
+                      <td>💼</td>
+                      <td>팀 리더</td>
+                      <td>Team Leader</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.20</td>
+                      <td>🚀</td>
+                      <td>혁신가</td>
+                      <td>Innovator</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.21</td>
+                      <td>🧩</td>
+                      <td>해결사</td>
+                      <td>Solver</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.22</td>
+                      <td>🎯</td>
+                      <td>문제 스나이퍼</td>
+                      <td>Problem Sniper</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.23</td>
+                      <td>🦾</td>
+                      <td>미래 설계자</td>
+                      <td>Visionary</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.24</td>
+                      <td>🏆</td>
+                      <td>전설의 코더</td>
+                      <td>Legend</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.25</td>
+                      <td>🧠</td>
+                      <td>인공지능 교관</td>
+                      <td>AI Instructor</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-1">LV.26</td>
+                      <td>👑</td>
+                      <td>전설의 개발자</td>
+                      <td>Grandmaster Developer</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-            <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-              <h2 class="text-xl font-bold text-blue-700 mb-4">🏆 랭킹</h2>
-              <ol id="ranking-list" class="list-decimal list-inside text-gray-700">
-                
-              </ol>
+          </div>
+
+        </div>
+        <!-- 레벨 표시 + 버튼 -->
+        <!-- 상점 모달 -->
+        <div id="levelShopModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+          <div class="bg-white w-full max-w-md mx-auto p-6 rounded-2xl shadow-xl animate-scaleIn">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 text-center">🎁 레벨 상점</h2>
+            <p class="text-sm text-gray-600 mb-6 text-center">XP를 사용해 진도를 해금하세요!</p>
+
+            <div id="shop-items" class="space-y-3 max-h-96 overflow-y-auto"></div>
+            <div id="user-shop-status" class="text-center text-sm text-gray-700 mt-6 leading-relaxed">
+              🎖️ <strong><span id="shop-user-icon">🌱</span> <span id="shop-user-name">-</span></strong> (등급: <span
+                id="shop-user-grade">-</span>)<br>
+              📈 레벨: <span id="shop-user-level">LV.-</span><br>
+              ⚡ 경험치: <span id="shop-user-xp">- XP</span>
             </div>
 
-            <!-- 일일 퀘스트 -->
-            <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-              <h2 class="text-xl font-bold text-blue-700 mb-4">🗓️ 일일 퀘스트 (Beta)</h2>
-              <ul id="quest-list" class="space-y-3"></ul>
-            </div>
+
+
+
+            <button id="closeShopBtn" class="mt-6 w-full bg-gray-300 hover:bg-gray-400 py-2 rounded text-sm">닫기</button>
+          </div>
+        </div>
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <h2 class="text-xl font-bold text-blue-700 mb-4">🏆 랭킹</h2>
+          <ol id="ranking-list" class="list-decimal list-inside text-gray-700">
+
+          </ol>
+        </div>
+
+        <!-- 일일 퀘스트 -->
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <h2 class="text-xl font-bold text-blue-700 mb-4">🗓️ 일일 퀘스트 (Beta)</h2>
+          <ul id="quest-list" class="space-y-3"></ul>
+        </div>
 
 
 
 
-            <script>
-              const shopItems = [
-                { level: 1, xp: 50 },
-                { level: 2, xp: 70 },
-                { level: 3, xp: 100 },
-                { level: 4, xp: 130 },
-                { level: 5, xp: 160 },
-                { level: 6, xp: 200 },
-                { level: 7, xp: 240 },
-                { level: 8, xp: 280 },
-                { level: 9, xp: 320 },
-                { level: 10, xp: 360 },
-                { level: 11, xp: 400 },
-                { level: 12, xp: 450 },
-                { level: 13, xp: 500 },
-                { level: 14, xp: 550 },
-                { level: 15, xp: 600 },
-              ];
+        <script>
+          const shopItems = [
+            { level: 1, xp: 50 },
+            { level: 2, xp: 70 },
+            { level: 3, xp: 100 },
+            { level: 4, xp: 130 },
+            { level: 5, xp: 160 },
+            { level: 6, xp: 200 },
+            { level: 7, xp: 240 },
+            { level: 8, xp: 280 },
+            { level: 9, xp: 320 },
+            { level: 10, xp: 360 },
+            { level: 11, xp: 400 },
+            { level: 12, xp: 450 },
+            { level: 13, xp: 500 },
+            { level: 14, xp: 550 },
+            { level: 15, xp: 600 },
+            { level: 16, xp: 700 },
+            { level: 17, xp: 800 },
+          ];
 
-              const shopContainer = document.getElementById("shop-items");
 
-              shopItems.forEach((item, index) => {
-                const requiredAttr = index === 0 ? '' : `data-required=\"unlock_set_${item.level - 1}\"`;
-                const html = `
+          const shopContainer = document.getElementById("shop-items");
+
+          shopItems.forEach((item, index) => {
+            const requiredAttr = index === 0 ? '' : `data-required=\"unlock_set_${item.level - 1}\"`;
+            const html = `
                   <div class=\"flex justify-between items-center bg-gray-50 border px-4 py-2 rounded-lg\">
                     <div class=\"text-left\">
                       <p class=\"text-sm font-medium\">${item.level}단계 진도 열기</p>
@@ -286,640 +473,699 @@
                     </button>
                   </div>
                 `;
-                shopContainer.insertAdjacentHTML("beforeend", html);
-              });
+            shopContainer.insertAdjacentHTML("beforeend", html);
+          });
 
-            document.getElementById("closeShopBtn").addEventListener("click", () => {
+          document.getElementById("closeShopBtn").addEventListener("click", () => {
             document.getElementById("levelShopModal").classList.add("hidden");
             document.getElementById("levelShopModal").classList.remove("flex");
-            });
+          });
 
-            </script>
+        </script>
 
-            <script>
-  document.getElementById("toggle-levels").addEventListener("click", () => {
-    const table = document.getElementById("level-table");
-    const btn = document.getElementById("toggle-levels");
-    table.classList.toggle("hidden");
-    btn.textContent = table.classList.contains("hidden")
-      ? "📊 전체 등급표 보기"
-      : "❌ 등급표 닫기";
-  });
-</script>
-
-
-
-            <!-- 애니메이션 스타일 -->
-            <style>
-            @keyframes scaleIn {
-              0% { transform: scale(0.95); opacity: 0; }
-              100% { transform: scale(1); opacity: 1; }
-            }
-            .animate-scaleIn {
-              animation: scaleIn 0.3s ease-out;
-            }
-            </style>
-
-            
+        <script>
+          document.getElementById("toggle-levels").addEventListener("click", () => {
+            const table = document.getElementById("level-table");
+            const btn = document.getElementById("toggle-levels");
+            table.classList.toggle("hidden");
+            btn.textContent = table.classList.contains("hidden")
+              ? "📊 전체 등급표 보기"
+              : "❌ 등급표 닫기";
+          });
+        </script>
 
 
 
 
-            <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
-                <h2 class="text-xl font-bold text-blue-700 mb-2">📝 나만의 메모장</h2>
-                <textarea id="memo" placeholder="오늘 배운 내용을 정리해 보세요." class="w-full p-3 border rounded"></textarea>
-            </div>
+        <div class="bg-white shadow rounded-xl p-6 mb-6 mx-auto max-w-2xl">
+          <h2 class="text-xl font-bold text-blue-700 mb-2">📝 나만의 메모장</h2>
+          <textarea id="memo" placeholder="오늘 배운 내용을 정리해 보세요." class="w-full p-3 border rounded"></textarea>
+        </div>
+      </div>
+
+
+      <div id="python" class="tab-content">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 학습</h2>
+        <p>파이썬의 기본 개념과 다양한 링크들을 통해 실습을 할 수 있습니다.</p>
+        <a href="print.html" class="button">print()</a>
+
+        <div data-set="unlock_set_1" class="lesson-set hidden">
+          <a href="python1.html" class="button">1-1. 계산 배우기</a>
+          <a href="python2.html" class="button">1-2. 타입 배우기</a>
+          <a href="python3.html" class="button">1-3. 숫자 계산</a>
         </div>
 
+        <div data-set="unlock_set_2" class="lesson-set hidden">
+          <a href="python4.html" class="button">2-1. 변수란?</a>
+          <a href="python2-2.html" class="button">2-2. 변수 다루기</a>
+          <a href="python2-3.html" class="button">2-3. 변수와 계산</a>
+          <a href="python2-4.html" class="button">2-4. 값 입력 받기</a>
+          <a href="python2-5.html" class="button">2-5. 다양한 출력</a>
+          <a href="python2-6.html" class="button">2-6. 변수 예제</a>
+        </div>
 
-        <div id="python" class="tab-content">
-            <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 학습</h2>
-            <p>파이썬의 기본 개념과 다양한 링크들을 통해 실습을 할 수 있습니다.</p>
-            <a href="print.html" class="button">print()</a>
+        <div data-set="unlock_set_3" class="lesson-set hidden">
+          <a href="python3-1.html" class="button">3-1. 값 입력 받기</a>
+          <a href="python3-2.html" class="button">3-2. is, in, type</a>
+          <a href="python3-3.html" class="button">3-3. bool 변환</a>
+          <a href="python3-4.html" class="button">3-4. 논리 연산자</a>
+          <a href="python3-5.html" class="button">3-5. 비교하기 예제</a>
+        </div>
 
-            <div data-set="unlock_set_1" class="lesson-set hidden">
-              <a href="python1.html" class="button">1-1. 계산 배우기</a>
-              <a href="python2.html" class="button">1-2. 타입 배우기</a>
-              <a href="python3.html" class="button">1-3. 숫자 계산</a>
-            </div>
+        <div data-set="unlock_set_4" class="lesson-set hidden">
+          <a href="python4-1.html" class="button">4-1. 함수의 호출</a>
+          <a href="python4-2.html" class="button">4-2. 함수의 반환</a>
+          <a href="python4-3.html" class="button">4-3. 함수의 매개변수
+            <a href="python4-4.html" class="button">4-4. 함수의 사용</a>
+            <a href="python4-5.html" class="button">4-5. 함수 예제</a>
+        </div>
 
-            <div data-set="unlock_set_2" class="lesson-set hidden">
-              <a href="python4.html" class="button">2-1. 변수란?</a>
-              <a href="python2-2.html" class="button">2-2. 변수 다루기</a>
-              <a href="python2-3.html" class="button">2-3. 변수와 계산</a>
-              <a href="python2-4.html" class="button">2-4. 값 입력 받기</a>
-              <a href="python2-5.html" class="button">2-5. 다양한 출력</a>
-              <a href="python2-6.html" class="button">2-6. 변수 예제</a>
-            </div>
+        <div data-set="unlock_set_5" class="lesson-set hidden">
+          <a href="python5-1.html" class="button">5-1. 문자열 사용해보기</a>
+          <a href="python5-2.html" class="button">5-2. 리스트 사용해보기</a>
+          <a href="python5-3.html" class="button">5-3. 튜플 사용해보기</a>
+          <a href="python5-4.html" class="button">5-4. range 사용해보기</a>
+          <a href="python5-5.html" class="button">5-5. 시퀸즈 자료형의 기본</a>
+          <a href="python5-6.html" class="button">5-6. 시퀸즈 자료형 사용해보기_예제</a>
+        </div>
 
-            <div data-set="unlock_set_3" class="lesson-set hidden">
-              <a href="python3-1.html" class="button">3-1. 값 입력 받기</a>
-              <a href="python3-2.html" class="button">3-2. is, in, type</a>
-              <a href="python3-3.html" class="button">3-3. bool 변환</a>
-              <a href="python3-4.html" class="button">3-4. 논리 연산자</a>
-              <a href="python3-5.html" class="button">3-5. 비교하기 예제</a>
-            </div>
+        <div data-set="unlock_set_6" class="lesson-set hidden">
+          <a href="python6-1.html" class="button">6-1. if 사용해보기</a>
+          <a href="python6-2.html" class="button">6-2. if 활용해보기</a>
+          <a href="python6-3.html" class="button">6-3. else 사용해보기</a>
+          <a href="python6-4.html" class="button">6-4. else 와 if 중첩</a>
+          <a href="python6-5.html" class="button">6-5. elif 사용해보기</a>
+          <a href="python6-6.html" class="button">6-6. 조건문 사용해보기_예제</a>
+        </div>
 
-            <div data-set="unlock_set_4" class="lesson-set hidden">
-              <a href="python4-1.html" class="button">4-1. 함수의 호출</a>
-              <a href="python4-2.html" class="button">4-2. 함수의 반환</a>
-              <a href="python4-3.html" class="button">4-3. 함수의 매개변수
-              <a href="python4-4.html" class="button">4-4. 함수의 사용</a>
-              <a href="python4-5.html" class="button">4-5. 함수 예제</a>
-            </div>
+        <div data-set="unlock_set_7" class="lesson-set hidden">
+          <a href="python7-1.html" class="button">7-1. for문의 기본</a>
+          <a href="python7-2.html" class="button">7-2. for문으로 누적 표현하기</a>
+          <a href="python7-3.html" class="button">7-3. while문의 기본</a>
+          <a href="python7-4.html" class="button">7-4. break와 continue</a>
+          <a href="python7-5.html" class="button">7-5. 한글 코드 사용하기</a>
+          <a href="python7-6.html" class="button">7-6. 반복문 사용하기 예제1</a>
+          <a href="python7-7.html" class="button">7-7. 반복문 사용하기 예제2</a>
+        </div>
+        <div data-set="unlock_set_8" class="lesson-set hidden">
+          <a href="python8-1.html" class="button">8-1. 슬라이스 사용하기</a>
+          <a href="python8-2.html" class="button">8-2. 슬라이스 응용하기</a>
+          <a href="python8-3.html" class="button">8-3. 시퀀스에서 사용되는 함수들</a>
+          <a href="python8-4.html" class="button">8-4. 정렬 함수</a>
+          <a href="python8-5.html" class="button">8-5. List Comprehension 기본</a>
+          <a href="python8-6.html" class="button">8-6. List Comprehension 조건 필터</a>
+          <a href="python8-7.html" class="button">8-7. List Comprehension 응용</a>
+          <a href="python8-8.html" class="button">8-8. 시퀀스 활용하기 예제</a>
+        </div>
 
-            <div data-set="unlock_set_5" class="lesson-set hidden">
-              <a href="python5-1.html" class="button">5-1. 문자열 사용해보기</a>
-              <a href="python5-2.html" class="button">5-2. 리스트 사용해보기</a>
-              <a href="python5-3.html" class="button">5-3. 튜플 사용해보기</a>
-              <a href="python5-4.html" class="button">5-4. range 사용해보기</a>
-              <a href="python5-5.html" class="button">5-5. 시퀸즈 자료형의 기본</a>
-              <a href="python5-6.html" class="button">5-6. 시퀸즈 자료형 사용해보기_예제</a>
-            </div>
+        <div data-set="unlock_set_9" class="lesson-set hidden">
+          <a href="python9-1.html" class="button">9-1. 문자열 기초</a>
+          <a href="python9-2.html" class="button">9-2. 문자열 포맷팅</a>
+          <a href="python9-3.html" class="button">9-3. 문자열 메서드 (문자 변경)</a>
+          <a href="python9-4.html" class="button">9-4. 문자열 메서드 (검색)</a>
+        </div>
 
-            <div data-set="unlock_set_6" class="lesson-set hidden">
-              <a href="python6-1.html" class="button">6-1. if 사용해보기</a>
-              <a href="python6-2.html" class="button">6-2. if 활용해보기</a>
-              <a href="python6-3.html" class="button">6-3. else 사용해보기</a>
-              <a href="python6-4.html" class="button">6-4. else 와 if 중첩</a>
-              <a href="python6-5.html" class="button">6-5. elif 사용해보기</a>
-              <a href="python6-6.html" class="button">6-6. 조건문 사용해보기_예제</a>
-            </div>
-            
-            <div data-set="unlock_set_7" class="lesson-set hidden">
-              <a href="python7-1.html" class="button">7-1. for문의 기본</a>
-              <a href="python7-2.html" class="button">7-2. for문으로 누적 표현하기</a>
-              <a href="python7-3.html" class="button">7-3. while문의 기본</a>
-              <a href="python7-4.html" class="button">7-4. break와 continue</a>
-              <a href="python7-5.html" class="button">7-5. 한글 코드 사용하기</a>
-              <a href="python7-6.html" class="button">7-6. 반복문 사용하기 예제1</a>
-              <a href="python7-7.html" class="button">7-7. 반복문 사용하기 예제2</a>
-            </div>
-            <div data-set="unlock_set_8" class="lesson-set hidden">
-              
-            </div>
-            <div data-set="unlock_set_9" class="lesson-set hidden">
-              
-            </div>
-            <div data-set="unlock_set_10" class="lesson-set hidden">
-              
-            </div>
-            <div data-set="unlock_set_11" class="lesson-set hidden">
-              
-            </div>
-            <div data-set="unlock_set_12" class="lesson-set hidden">
-              
-            </div>
-            <div data-set="unlock_set_13" class="lesson-set hidden">
-              
-            </div>
-            <div data-set="unlock_set_14" class="lesson-set hidden">
-              
-            </div>
-            <div data-set="unlock_set_15" class="lesson-set hidden">
-              
-            </div>
+        <div data-set="unlock_set_10" class="lesson-set hidden">
+          <a href="python10-1.html" class="button">10-1. 요소를 추가하는 메서드</a>
+          <a href="python10-2.html" class="button">10-2. 요소를 제거하는 메서드</a>
+          <a href="python10-3.html" class="button">10-3. 요소를 찾고 정렬하는 메서드</a>
+        </div>
 
+        <div data-set="unlock_set_11" class="lesson-set hidden">
+          <a href="python11-1.html" class="button">11-1. 나머지 메서드</a>
+          <a href="python11-2.html" class="button">11-2. 참조</a>
+          <a href="python11-3.html" class="button">11-3. 애스터리스크</a>
+          <a href="python11-4.html" class="button">11-4. sort를 위한 함수 만들기</a>
+        </div>
+
+        <div data-set="unlock_set_12" class="lesson-set hidden">
+          <a href="python12-1.html" class="button">12-1. 반복문 안에 반복문</a>
+          <a href="python12-2.html" class="button">12-2. 리스트 안에 리스트</a>
+          <a href="python12-3.html" class="button">12-3. List Comprehension 중첩</a>
+          <a href="python12-4.html" class="button">12-4. 리스트 참조</a>
+          <a href="python12-5.html" class="button">12-5. 재귀함수</a>
+        </div>
+
+        <div data-set="unlock_set_13" class="lesson-set hidden">
+          <a href="python13-1.html" class="button">13-1. set의 개념과 연산</a>
+          <a href="python13-2.html" class="button">13-2. set의 응용</a>
+          <a href="python13-3.html" class="button">13-3. dictionary의 개념과 연산</a>
+          <a href="python13-4.html" class="button">13-4. dictionary의 응용</a>
+        </div>
+
+        <div data-set="unlock_set_14" class="lesson-set hidden">
+          <a href="python14-1.html" class="button">14-1. import에 대해서</a>
+          <a href="python14-2.html" class="button">14-2. math</a>
+          <a href="python14-3.html" class="button">14-3. random</a>
+          <a href="python14-4.html" class="button">14-4. time</a>
+          <a href="python14-5.html" class="button">14-5. datetime.timedelta</a>
+          <a href="python14-6.html" class="button">14-6. datetime.date</a>
+          <a href="python14-7.html" class="button">14-7. datetime.datetime</a>
+        </div>
+
+        <div data-set="unlock_set_15" class="lesson-set hidden">
+          <a href="python15-1.html" class="button">15-1. 무한 반복 모듈</a>
+          <a href="python15-2.html" class="button">15-2. 다양한 반복자 모듈</a>
+          <a href="python15-3.html" class="button">15-3. 조합형 모듈</a>
+          <a href="python15-4.html" class="button">15-4. 조합형 모듈 응용</a>
+        </div>
+
+        <div data-set="unlock_set_16" class="lesson-set hidden">
+          <a href="python16-1.html" class="button">16-1. 클래스 기초</a>
+          <a href="python16-2.html" class="button">16-2. Python Advanced Syntax</a>
+          <a href="python16-3.html" class="button">16-3. 클래스 예제</a>
+        </div>
+
+        <div data-set="unlock_set_17" class="lesson-set hidden">
+          <a href="python17-1.html" class="button">17-1. 연산자 우선순위</a>
+          <a href="python17-3.html" class="button">17-3. 매직 메서드 리스트</a>
+        </div>
+      </div>
+      <div id="quiz" class="tab-content">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 문제</h2>
+
+
+        <a href="python.hw1.html" class="button">print. 다이아몬드 출력</a>
+
+
+        <div data-set="unlock_set_1" class="lesson-set hidden">
+          <a href="python.hw2-1.html" class="button">1-1. 몫과 나머지</a>
+          <a href="python.hw2-2.html" class="button">1-2. 제곱 계산하기</a>
+          <a href="python.hw2-3.html" class="button">1-3. 원가와 정가</a>
+          <a href="python.hw2-4.html" class="button">1-4. 소금물 농도 구하기</a>
+          <a href="python.hw2-5.html" class="button">1-5. 소금물 농도 구하기 2</a>
+          <a href="python.hw2-6.html" class="button">1-6. 평균 속력 구하기</a>
+          <a href="python.hw2-7.html" class="button">1-7. 말아톤 꿈의 기록</a>
+        </div>
+
+        <div data-set="unlock_set_2" class="lesson-set hidden">
+          <a href="python.hw2.1-1.html" class="button">2-1. 두수의 합</a>
+          <a href="python.hw2.1-2.html" class="button">2-2. 두수의 차</a>
+          <a href="python.hw2.1-3.html" class="button">2-3. 두수의 곱</a>
+          <a href="python.hw2.1-4.html" class="button">2-4. 몫 구하기</a>
+          <a href="python.hw2.1-5.html" class="button">2-5. 나머지 구하기</a>
+          <a href="python.hw2.1-6.html" class="button">2-6. 나이 계산</a>
+          <a href="python.hw2.1-7.html" class="button">2-7. 두수의 나눗셈</a>
+          <a href="python.hw2.1-8.html" class="button">2-8. 특수문자 출력하기</a>
+          <a href="python.hw2.1-9.html" class="button">2-9. 정수 부분 출력하기</a>
+          <a href="python.hw2.1-10.html" class="button">2-10. 문자열 붙여서 출력하기</a>
+          <a href="python.hw2.1-11.html" class="button">2-11. 덧셈식 출력하기</a>
+          <a href="python.hw2.1-12.html" class="button">2-12. a와 b 출력하기</a>
 
         </div>
-        <div id="quiz" class="tab-content">
-            <h2 class="text-2xl font-bold mb-4 text-blue-700">파이썬 문제</h2>
 
-          
-            <a href="python.hw1.html" class="button">print. 다이아몬드 출력</a>
-          
-
-            <div data-set="unlock_set_1" class="lesson-set hidden">
-              <a href="python.hw2-1.html" class="button">1-1. 몫과 나머지</a>
-              <a href="python.hw2-2.html" class="button">1-2. 제곱 계산하기</a>
-              <a href="python.hw2-3.html" class="button">1-3. 원가와 정가</a>
-              <a href="python.hw2-4.html" class="button">1-4. 소금물 농도 구하기</a>
-              <a href="python.hw2-5.html" class="button">1-5. 소금물 농도 구하기 2</a>
-              <a href="python.hw2-6.html" class="button">1-6. 평균 속력 구하기</a>
-              <a href="python.hw2-7.html" class="button">1-7. 말아톤 꿈의 기록</a>
-            </div>
-
-            <div data-set="unlock_set_2" class="lesson-set hidden">
-              <a href="python.hw2.1-1.html" class="button">2-1. 두수의 합</a>
-              <a href="python.hw2.1-2.html" class="button">2-2. 두수의 차</a>
-              <a href="python.hw2.1-3.html" class="button">2-3. 두수의 곱</a>
-              <a href="python.hw2.1-4.html" class="button">2-4. 몫 구하기</a>
-              <a href="python.hw2.1-5.html" class="button">2-5. 나머지 구하기</a>
-              <a href="python.hw2.1-6.html" class="button">2-6. 나이 계산</a>
-              <a href="python.hw2.1-7.html" class="button">2-7. 두수의 나눗셈</a>
-              <a href="python.hw2.1-8.html" class="button">2-8. 특수문자 출력하기</a>
-              <a href="python.hw2.1-9.html" class="button">2-9. 정수 부분 출력하기</a>
-              <a href="python.hw2.1-10.html" class="button">2-10. 문자열 붙여서 출력하기</a>
-              <a href="python.hw2.1-11.html" class="button">2-11. 덧셈식 출력하기</a>
-              <a href="python.hw2.1-12.html" class="button">2-12. a와 b 출력하기</a>
-
-            </div>
-
-            <div data-set="unlock_set_3" class="lesson-set hidden">
-              <a href="python.hw3-1.html" class="button">3-1. 두수의 합</a>
-              <a href="python.hw3-2.html" class="button">3-2. 두수의 차</a>
-              <a href="python.hw3-3.html" class="button">3-3. 두수의 곱</a>
-              <a href="python.hw3-4.html" class="button">3-4. 몫 구하기</a>
-              <a href="python.hw3-5.html" class="button">3-5. 나머지 구하기</a>
-              <a href="python.hw3-6.html" class="button">3-6. 나이 계산</a>
-              <a href="python.hw3-7.html" class="button">3-7. 두수의 나눗셈</a>
-              <a href="python.hw3-8.html" class="button">3-8. 특수문자 출력하기</a>
-            </div>
+        <div data-set="unlock_set_3" class="lesson-set hidden">
+          <a href="python.hw3-1.html" class="button">3-1. 두수의 합</a>
+          <a href="python.hw3-2.html" class="button">3-2. 두수의 차</a>
+          <a href="python.hw3-3.html" class="button">3-3. 두수의 곱</a>
+          <a href="python.hw3-4.html" class="button">3-4. 몫 구하기</a>
+          <a href="python.hw3-5.html" class="button">3-5. 나머지 구하기</a>
+          <a href="python.hw3-6.html" class="button">3-6. 나이 계산</a>
+          <a href="python.hw3-7.html" class="button">3-7. 두수의 나눗셈</a>
+          <a href="python.hw3-8.html" class="button">3-8. 특수문자 출력하기</a>
         </div>
+      </div>
     </div>
-</div>
-<script type="module" src="script.js"></script>
-<script src="local-script.js"></script>
+  </div>
+  <script type="module" src="script.js"></script>
+  <script src="local-script.js"></script>
 
 
 
-<script>
-let purchasedItems = new Set();
+  <script>
+    let purchasedItems = new Set();
 
-// 구매한 항목 불러오기
-async function loadPurchasedItems() {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return;
+    // 구매한 항목 불러오기
+    async function loadPurchasedItems() {
+      const userId = localStorage.getItem("userId");
+      if (!userId) return;
 
-  const { data, error } = await supabase
-    .from("club_xp_items")
-    .select("item_key")
-    .eq("user_id", userId);
-
-  if (error) {
-    console.error("❌ 구매 기록 조회 실패:", error.message);
-    return;
-  }
-
-  purchasedItems = new Set(data.map(d => d.item_key));
-  updateBuyButtons();
-  updateLessonVisibility(); // 여기서 진도 버튼을 보이게 만듦
-}
-window.loadPurchasedItems = loadPurchasedItems;
-
-function updateLessonVisibility() {
-  const allSets = Array.from(document.querySelectorAll(".lesson-set"));
-  let foundNext = false;
-
-  allSets.forEach(setEl => {
-    const requiredKey = setEl.dataset.set;
-    const unlocked = purchasedItems.has(requiredKey);
-
-    // 기본 상태: 숨김
-    setEl.classList.add("hidden");
-    setEl.classList.remove("locked-preview");
-
-    if (unlocked) {
-  setEl.classList.remove("hidden");
-}
-// 구매하지 않은 진도는 숨김 유지
-
-  });
-}
-
-
-
-// 버튼 상태 업데이트
-function updateBuyButtons() {
-  document.querySelectorAll(".buy-btn").forEach(btn => {
-    const key = btn.dataset.key;
-    const requiredKey = btn.dataset.required;
-    const cost = parseInt(btn.dataset.cost);
-    const alreadyPurchased = purchasedItems.has(key);
-    const requiredPurchased = !requiredKey || purchasedItems.has(requiredKey);
-
-    const disabled = !requiredPurchased || window.currentXP < cost || alreadyPurchased;
-
-    btn.disabled = disabled;
-    btn.classList.toggle("opacity-50", disabled);
-    btn.innerText = alreadyPurchased ? "구매 완료" : "구매";
-  });
-}
-
-
-// 구매 처리
-document.querySelectorAll(".buy-btn").forEach(btn => {
-  btn.addEventListener("click", async () => {
-    const key = btn.dataset.key;
-    const cost = parseInt(btn.dataset.cost);
-    const userId = localStorage.getItem("userId");
-
-    if (purchasedItems.has(key)) {
-      alert("❗ 이미 구매한 아이템입니다.");
-      return;
-    }
-
-    const { data } = await supabase
-      .from("club_xp")
-      .select("*")
-      .eq("user_id", userId)
-      .eq("club_name", "코딩동아리");
-
-    if (data.length > 0) {
-      const current = data[0].xp;
-      const newXP = current - cost;
-
-      await supabase
-        .from("club_xp")
-        .update({ xp: newXP })
-        .eq("id", data[0].id);
-
-      await supabase
+      const { data, error } = await supabase
         .from("club_xp_items")
-        .insert([{ user_id: userId, item_key: key, purchased: true }]);
+        .select("item_key")
+        .eq("user_id", userId);
 
-      await updateXp(userId);     // XP UI 갱신
-      await loadPurchasedItems(); // 버튼 다시 체크
-      alert("✅ 아이템을 성공적으로 구매했습니다!");
+      if (error) {
+        console.error("❌ 구매 기록 조회 실패:", error.message);
+        return;
+      }
+
+      purchasedItems = new Set(data.map(d => d.item_key));
+      updateBuyButtons();
+      updateLessonVisibility(); // 여기서 진도 버튼을 보이게 만듦
     }
-  });
-});
+    window.loadPurchasedItems = loadPurchasedItems;
 
-// 상점 열릴 때 실행
-document.getElementById("levelShopBtn").addEventListener("click", async () => {
-  document.getElementById("levelShopModal").classList.remove("hidden");
-  document.getElementById("levelShopModal").classList.add("flex");
-  await loadPurchasedItems();
-});
-</script>
+    function updateLessonVisibility() {
+      const allSets = Array.from(document.querySelectorAll(".lesson-set"));
+      let foundNext = false;
 
-<script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+      allSets.forEach(setEl => {
+        const requiredKey = setEl.dataset.set;
+        const unlocked = purchasedItems.has(requiredKey);
 
-const supabase = createClient(
-  'https://jzkqqqofveivqaerqwcl.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6a3FxcW9mdmVpdnFhZXJxd2NsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NjEwMzQsImV4cCI6MjA2MjUzNzAzNH0.PYB6fyfyAxaZBK76kUnPe5d7EQKWXfCBBIlvdNPwyq0'
-);
+        // 기본 상태: 숨김
+        setEl.classList.add("hidden");
+        setEl.classList.remove("locked-preview");
 
-async function checkAttendance(userId) {
-  const today = new Date().toISOString().split('T')[0];
+        if (unlocked) {
+          setEl.classList.remove("hidden");
+        }
+        // 구매하지 않은 진도는 숨김 유지
 
-  // 이미 출석했는지 확인
-  const { data: existing } = await supabase
-    .from('club_attendance')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('club_name', '코딩동아리')
-    .eq('date', today);
-
-  if (existing.length > 0) {
-    document.getElementById("attendance-status").textContent = `✅ 이미 오늘(${today}) 출석 완료`;
-    return;
-  }
-
-  // 마지막 출석일 확인
-  const { data: last } = await supabase
-    .from('club_attendance')
-    .select('date, consecutive_days')
-    .eq('user_id', userId)
-    .eq('club_name', '코딩동아리')
-    .order('date', { ascending: false })
-    .limit(1);
-
-  let streak = 1;
-  if (last.length > 0) {
-    const lastDate = new Date(last[0].date);
-    const diff = (new Date(today) - lastDate) / (1000 * 60 * 60 * 24);
-    streak = diff === 1 ? last[0].consecutive_days + 1 : 1;
-  }
-
-  // 출석 기록 추가
-  await supabase.from('club_attendance').insert([
-    {
-      user_id: userId,
-      club_name: '코딩동아리',
-      date: today,
-      consecutive_days: streak
+      });
     }
-  ]);
-  
-
-   // XP 보상
-  const xp = 10 + (streak >= 2 ? 20 : 0); // 기본 10XP + 연속 보너스
-  await addXP(xp);
-  scrollToCalendar(); // (선택) 달력 위치로 스크롤
-
-  await processDailyQuests(userId); // ✅ 출석 후 퀘스트 자동 성공 체크
-  document.getElementById("attendance-status").textContent =
-  `🎉 출석 완료! ${xp} XP 지급 (연속 ${streak}일차)`;
-
-// 달력 표시
-document.getElementById("calendar-container").classList.remove("hidden");
-await renderCalendar(userId);
 
 
-}
 
-async function assignDailyQuests(userId) {
-  const today = new Date().toISOString().split('T')[0];
+    // 버튼 상태 업데이트
+    function updateBuyButtons() {
+      document.querySelectorAll(".buy-btn").forEach(btn => {
+        const key = btn.dataset.key;
+        const requiredKey = btn.dataset.required;
+        const cost = parseInt(btn.dataset.cost);
+        const alreadyPurchased = purchasedItems.has(key);
+        const requiredPurchased = !requiredKey || purchasedItems.has(requiredKey);
 
-  // 이미 오늘 퀘스트를 받은 경우 함수 종료
-  const { data: existing } = await supabase
-    .from('user_daily_quests')
-    .select('quest_id')
-    .eq('user_id', userId)
-    .eq('date', today);
+        const disabled = !requiredPurchased || window.currentXP < cost || alreadyPurchased;
 
-  if (existing && existing.length >= 3) {
-    console.log("✅ 오늘 퀘스트 이미 배정됨");
-    return;
-  }
+        btn.disabled = disabled;
+        btn.classList.toggle("opacity-50", disabled);
+        btn.innerText = alreadyPurchased ? "구매 완료" : "구매";
+      });
+    }
 
-  // 전체 퀘스트 목록에서 무작위로 3개 선택
-  const { data: allQuests } = await supabase.from('daily_quests').select('*');
-  if (!allQuests || allQuests.length < 3) {
-    console.warn("⚠️ 퀘스트 목록 부족");
-    return;
-  }
 
-  const selected = allQuests.sort(() => 0.5 - Math.random()).slice(0, 3);
-  const inserts = selected.map(q => ({
-    user_id: userId,
-    date: today,
-    quest_id: q.id
-  }));
+    // 구매 처리
+    document.querySelectorAll(".buy-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const key = btn.dataset.key;
+        const cost = parseInt(btn.dataset.cost);
+        const userId = localStorage.getItem("userId");
 
-  await supabase.from('user_daily_quests').insert(inserts);
-  console.log("🎯 퀘스트 3개 배정 완료");
-}
-document.addEventListener("DOMContentLoaded", async () => {
-  const userId = localStorage.getItem("userId");
-  await assignDailyQuests(userId);     // 퀘스트 무작위 할당
-  await loadDailyQuests(userId);       // 퀘스트 UI 표시
-  await processDailyQuests(userId);    // 퀘스트 자동 확인
-});
+        if (purchasedItems.has(key)) {
+          alert("❗ 이미 구매한 아이템입니다.");
+          return;
+        }
 
-async function processDailyQuests(userId) {
-  if (!userId) return;
+        const { data } = await supabase
+          .from("club_xp")
+          .select("*")
+          .eq("user_id", userId)
+          .eq("club_name", "코딩동아리");
 
-  const today = new Date().toISOString().split('T')[0];
+        if (data.length > 0) {
+          const current = data[0].xp;
+          const newXP = current - cost;
 
-  // 오늘 무작위로 부여된 퀘스트 가져오기
-  const { data: todayQuests, error: err1 } = await supabase
-    .from('user_daily_quests')
-    .select('quest_id')
-    .eq('user_id', userId)
-    .eq('date', today);
+          await supabase
+            .from("club_xp")
+            .update({ xp: newXP })
+            .eq("id", data[0].id);
 
-  if (err1) {
-    console.error("❌ 퀘스트 불러오기 실패:", err1.message);
-    return;
-  }
+          await supabase
+            .from("club_xp_items")
+            .insert([{ user_id: userId, item_key: key, purchased: true }]);
 
-  if (!todayQuests || todayQuests.length === 0) {
-    console.log("⚠️ 오늘 퀘스트 없음");
-    return;
-  }
+          await updateXp(userId);     // XP UI 갱신
+          await loadPurchasedItems(); // 버튼 다시 체크
+          alert("✅ 아이템을 성공적으로 구매했습니다!");
+        }
+      });
+    });
 
-  const questIds = todayQuests.map(q => q.quest_id).slice(0, 3); // 최대 3개만
+    // 상점 열릴 때 실행
+    document.getElementById("levelShopBtn").addEventListener("click", async () => {
+      document.getElementById("levelShopModal").classList.remove("hidden");
+      document.getElementById("levelShopModal").classList.add("flex");
+      await loadPurchasedItems();
+      await loadShopUserStatus();  // ✅ 사용자 상태 표시
+    });
+    async function loadShopUserStatus() {
+      const userId = localStorage.getItem("userId");
+      if (!userId) return;
 
-  // 퀘스트 상세 정보 가져오기
-  const { data: quests, error: err2 } = await supabase
-    .from('daily_quests')
-    .select('*')
-    .in('id', questIds);
+      // 사용자 XP 정보 가져오기
+      const { data, error } = await supabase
+        .from('club_xp')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리')
+        .limit(1);
 
-  if (err2 || !quests) {
-    console.error("❌ 퀘스트 상세 조회 실패:", err2?.message);
-    return;
-  }
+      if (error || !data || data.length === 0) {
+        console.error("❌ 사용자 정보 불러오기 실패");
+        return;
+      }
 
-  // 오늘 완료한 퀘스트 조회
-async function processDailyQuests(userId) {
-  if (!userId) return;
+      const info = data[0];
 
-  const today = new Date().toISOString().split('T')[0];
+      document.getElementById("shop-user-level").textContent = `LV.${info.level}`;
+      document.getElementById("shop-user-xp").textContent = `${info.xp} XP`;
+      document.getElementById("shop-user-name").textContent = info.name || userId;
+      document.getElementById("shop-user-grade").textContent = info.grade || "-";
+      document.getElementById("shop-user-icon").textContent = info.icon || "🎖️";
+    }
 
-  // 오늘 퀘스트 가져오기
-  const { data: todayQuests, error: err1 } = await supabase
-    .from('user_daily_quests')
-    .select('quest_id')
-    .eq('user_id', userId)
-    .eq('date', today);
+  </script>
 
-  if (err1 || !todayQuests) return;
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-  const questIds = todayQuests.map(q => q.quest_id);
+    const supabase = createClient(
+      'https://jzkqqqofveivqaerqwcl.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6a3FxcW9mdmVpdnFhZXJxd2NsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NjEwMzQsImV4cCI6MjA2MjUzNzAzNH0.PYB6fyfyAxaZBK76kUnPe5d7EQKWXfCBBIlvdNPwyq0'
+    );
 
-  const { data: quests } = await supabase
-    .from('daily_quests')
-    .select('*')
-    .in('id', questIds);
+    async function checkAttendance(userId) {
+      const today = new Date().toISOString().split('T')[0];
 
-  const { data: completedLog } = await supabase
-    .from('user_quest_log')
-    .select('quest_id')
-    .eq('user_id', userId)
-    .eq('date', today);
-
-  const completedIds = completedLog?.map(q => q.quest_id) || [];
-
-  for (const quest of quests) {
-    if (completedIds.includes(quest.id)) continue;
-
-    let success = false;
-
-    if (quest.title.includes("출석")) {
-      const { data: attendance } = await supabase
+      // 이미 출석했는지 확인
+      const { data: existing } = await supabase
         .from('club_attendance')
-        .select('id')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리')
+        .eq('date', today);
+
+      if (existing.length > 0) {
+        document.getElementById("attendance-status").textContent = `✅ 이미 오늘(${today}) 출석 완료`;
+        return;
+      }
+
+      // 마지막 출석일 확인
+      const { data: last } = await supabase
+        .from('club_attendance')
+        .select('date, consecutive_days')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리')
+        .order('date', { ascending: false })
+        .limit(1);
+
+      let streak = 1;
+      if (last.length > 0) {
+        const lastDate = new Date(last[0].date);
+        const diff = (new Date(today) - lastDate) / (1000 * 60 * 60 * 24);
+        streak = diff === 1 ? last[0].consecutive_days + 1 : 1;
+      }
+
+      // 출석 기록 추가
+      await supabase.from('club_attendance').insert([
+        {
+          user_id: userId,
+          club_name: '코딩동아리',
+          date: today,
+          consecutive_days: streak
+        }
+      ]);
+
+
+      // XP 보상
+      const xp = 10 + (streak >= 2 ? 20 : 0); // 기본 10XP + 연속 보너스
+      await addXP(xp);
+      scrollToCalendar(); // (선택) 달력 위치로 스크롤
+
+      await processDailyQuests(userId); // ✅ 출석 후 퀘스트 자동 성공 체크
+      document.getElementById("attendance-status").textContent =
+        `🎉 출석 완료! ${xp} XP 지급 (연속 ${streak}일차)`;
+
+      // 달력 표시
+      document.getElementById("calendar-container").classList.remove("hidden");
+      await renderCalendar(userId);
+
+
+    }
+
+    async function assignDailyQuests(userId) {
+      const today = new Date().toISOString().split('T')[0];
+
+      // 이미 오늘 퀘스트를 받은 경우 함수 종료
+      const { data: existing } = await supabase
+        .from('user_daily_quests')
+        .select('quest_id')
         .eq('user_id', userId)
         .eq('date', today);
-      success = attendance?.length > 0;
-    }
 
-    if (quest.title.includes("메모")) {
-      const { data: memo } = await supabase
-        .from('club_memo')
-        .select('content')
-        .eq('user_id', userId);
-      success = memo && memo[0]?.content?.length >= 5;
-    }
+      if (existing && existing.length >= 3) {
+        console.log("✅ 오늘 퀘스트 이미 배정됨");
+        return;
+      }
 
-    if (success) {
-      const reward = XP_BY_DIFFICULTY[quest.difficulty] || 10;
-      await addXP(reward);
+      // 전체 퀘스트 목록에서 무작위로 3개 선택
+      const { data: allQuests } = await supabase.from('daily_quests').select('*');
+      if (!allQuests || allQuests.length < 3) {
+        console.warn("⚠️ 퀘스트 목록 부족");
+        return;
+      }
 
-      await supabase.from('user_quest_log').insert([{
+      const selected = allQuests.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const inserts = selected.map(q => ({
         user_id: userId,
-        quest_id: quest.id,
         date: today,
-        completed: true,
-        completed_at: new Date().toISOString()
-      }]);
+        quest_id: q.id
+      }));
 
-      console.log(`✅ 퀘스트 완료 처리됨: ${quest.title} (+${reward}XP)`);
+      await supabase.from('user_daily_quests').insert(inserts);
+      console.log("🎯 퀘스트 3개 배정 완료");
     }
-  }
-}
-}
+    document.addEventListener("DOMContentLoaded", async () => {
+      const userId = localStorage.getItem("userId");
+      await assignDailyQuests(userId);     // 퀘스트 무작위 할당
+      await loadDailyQuests(userId);       // 퀘스트 UI 표시
+      await processDailyQuests(userId);    // 퀘스트 자동 확인
+    });
 
+    async function processDailyQuests(userId) {
+      if (!userId) return;
 
+      const today = new Date().toISOString().split('T')[0];
 
+      // 오늘 무작위로 부여된 퀘스트 가져오기
+      const { data: todayQuests, error: err1 } = await supabase
+        .from('user_daily_quests')
+        .select('quest_id')
+        .eq('user_id', userId)
+        .eq('date', today);
 
-const XP_BY_DIFFICULTY = {
-  '하': 10,
-  '중': 20,
-  '상': 30
-};
+      if (err1) {
+        console.error("❌ 퀘스트 불러오기 실패:", err1.message);
+        return;
+      }
 
+      if (!todayQuests || todayQuests.length === 0) {
+        console.log("⚠️ 오늘 퀘스트 없음");
+        return;
+      }
 
-async function renderCalendar(userId) {
-  const { data, error } = await supabase
-    .from('club_attendance')
-    .select('date')
-    .eq('user_id', userId)
-    .eq('club_name', '코딩동아리');
+      const questIds = todayQuests.map(q => q.quest_id).slice(0, 3); // 최대 3개만
 
-  if (error) {
-    console.error("❌ 출석 정보 불러오기 실패:", error.message);
-    return;
-  }
+      // 퀘스트 상세 정보 가져오기
+      const { data: quests, error: err2 } = await supabase
+        .from('daily_quests')
+        .select('*')
+        .in('id', questIds);
 
-  // 출석 날짜를 한국 시간 기준 YYYY-MM-DD 포맷으로 정리
-  const attendanceDates = new Set(
-    data.map(d => {
-      const date = new Date(d.date + "T00:00:00");
-      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-    })
-  );
+      if (err2 || !quests) {
+        console.error("❌ 퀘스트 상세 조회 실패:", err2?.message);
+        return;
+      }
 
-  const calendarGrid = document.getElementById("calendar-grid");
-  calendarGrid.innerHTML = ""; // 초기화
+      // 오늘 완료한 퀘스트 조회
+      async function processDailyQuests(userId) {
+        if (!userId) return;
 
-  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  weekdays.forEach(day => {
-    const div = document.createElement("div");
-    div.textContent = day;
-    calendarGrid.appendChild(div);
-  });
+        const today = new Date().toISOString().split('T')[0];
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth();
-  const startDay = new Date(year, month, 1).getDay();
-  const lastDate = new Date(year, month + 1, 0).getDate();
+        // 오늘 퀘스트 가져오기
+        const { data: todayQuests, error: err1 } = await supabase
+          .from('user_daily_quests')
+          .select('quest_id')
+          .eq('user_id', userId)
+          .eq('date', today);
 
-  // 빈칸 출력 (1일 전까지)
-  for (let i = 0; i < startDay; i++) {
-    calendarGrid.appendChild(document.createElement("div"));
-  }
+        if (err1 || !todayQuests) return;
 
-  // 날짜 출력
-  for (let d = 1; d <= lastDate; d++) {
-    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    const isMarked = attendanceDates.has(dateStr);
+        const questIds = todayQuests.map(q => q.quest_id);
 
-    const div = document.createElement("div");
-    div.textContent = d;
-    div.className = "p-2 text-sm text-center rounded";
+        const { data: quests } = await supabase
+          .from('daily_quests')
+          .select('*')
+          .in('id', questIds);
 
-    if (isMarked) {
-      div.classList.add("bg-green-500", "text-white", "font-bold");
-    } else {
-      div.classList.add("bg-gray-100");
+        const { data: completedLog } = await supabase
+          .from('user_quest_log')
+          .select('quest_id')
+          .eq('user_id', userId)
+          .eq('date', today);
+
+        const completedIds = completedLog?.map(q => q.quest_id) || [];
+
+        for (const quest of quests) {
+          if (completedIds.includes(quest.id)) continue;
+
+          let success = false;
+
+          if (quest.title.includes("출석")) {
+            const { data: attendance } = await supabase
+              .from('club_attendance')
+              .select('id')
+              .eq('user_id', userId)
+              .eq('date', today);
+            success = attendance?.length > 0;
+          }
+
+          if (quest.title.includes("메모")) {
+            const { data: memo } = await supabase
+              .from('club_memo')
+              .select('content')
+              .eq('user_id', userId);
+            success = memo && memo[0]?.content?.length >= 5;
+          }
+
+          if (success) {
+            const reward = XP_BY_DIFFICULTY[quest.difficulty] || 10;
+            await addXP(reward);
+
+            await supabase.from('user_quest_log').insert([{
+              user_id: userId,
+              quest_id: quest.id,
+              date: today,
+              completed: true,
+              completed_at: new Date().toISOString()
+            }]);
+
+            console.log(`✅ 퀘스트 완료 처리됨: ${quest.title} (+${reward}XP)`);
+          }
+        }
+      }
     }
 
-    calendarGrid.appendChild(div);
-  }
-}
+
+
+
+    const XP_BY_DIFFICULTY = {
+      '하': 10,
+      '중': 20,
+      '상': 30
+    };
+
+
+    async function renderCalendar(userId) {
+      const { data, error } = await supabase
+        .from('club_attendance')
+        .select('date')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리');
+
+      if (error) {
+        console.error("❌ 출석 정보 불러오기 실패:", error.message);
+        return;
+      }
+
+      // 출석 날짜를 한국 시간 기준 YYYY-MM-DD 포맷으로 정리
+      const attendanceDates = new Set(
+        data.map(d => {
+          const date = new Date(d.date + "T00:00:00");
+          return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        })
+      );
+
+      const calendarGrid = document.getElementById("calendar-grid");
+      calendarGrid.innerHTML = ""; // 초기화
+
+      const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+      weekdays.forEach(day => {
+        const div = document.createElement("div");
+        div.textContent = day;
+        calendarGrid.appendChild(div);
+      });
+
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      const startDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+
+      // 빈칸 출력 (1일 전까지)
+      for (let i = 0; i < startDay; i++) {
+        calendarGrid.appendChild(document.createElement("div"));
+      }
+
+      // 날짜 출력
+      for (let d = 1; d <= lastDate; d++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const isMarked = attendanceDates.has(dateStr);
+
+        const div = document.createElement("div");
+        div.textContent = d;
+        div.className = "p-2 text-sm text-center rounded";
+
+        if (isMarked) {
+          div.classList.add("bg-green-500", "text-white", "font-bold");
+        } else {
+          div.classList.add("bg-gray-100");
+        }
+
+        calendarGrid.appendChild(div);
+      }
+    }
 
 
 
 
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const userId = localStorage.getItem("userId"); // ✅ 먼저 가져오기
-  await loadRanking();
-  await loadMemo();
-  await loadDailyQuests(userId);
-});
+    document.addEventListener("DOMContentLoaded", async () => {
+      const userId = localStorage.getItem("userId"); // ✅ 먼저 가져오기
+      await loadRanking();
+      await loadMemo();
+      await loadDailyQuests(userId);
+    });
 
 
-  
 
-async function loadDailyQuests(userId) {
-  const today = new Date().toISOString().split('T')[0];
 
-  // 오늘의 퀘스트 3개 불러오기
-  const { data: todayQuests } = await supabase
-    .from('user_daily_quests')
-    .select('quest_id')
-    .eq('user_id', userId)
-    .eq('date', today);
+    async function loadDailyQuests(userId) {
+      const today = new Date().toISOString().split('T')[0];
 
-  if (!todayQuests) return;
+      // 오늘의 퀘스트 3개 불러오기
+      const { data: todayQuests } = await supabase
+        .from('user_daily_quests')
+        .select('quest_id')
+        .eq('user_id', userId)
+        .eq('date', today);
 
-  const ids = todayQuests.map(q => q.quest_id);
+      if (!todayQuests) return;
 
-  const { data: quests, error } = await supabase
-    .from('daily_quests')
-    .select('*')
-    .in('id', ids);
+      const ids = todayQuests.map(q => q.quest_id);
 
-  if (error) {
-    console.error("❌ 퀘스트 목록 불러오기 실패:", error.message);
-    return;
-  }
+      const { data: quests, error } = await supabase
+        .from('daily_quests')
+        .select('*')
+        .in('id', ids);
 
-  // ✅ 완료된 퀘스트 가져오기
-  const { data: completedLog } = await supabase
-    .from('user_quest_log')
-    .select('quest_id')
-    .eq('user_id', userId)
-    .eq('date', today);
+      if (error) {
+        console.error("❌ 퀘스트 목록 불러오기 실패:", error.message);
+        return;
+      }
 
-  const completedIds = completedLog?.map(q => q.quest_id) || [];
+      // ✅ 완료된 퀘스트 가져오기
+      const { data: completedLog } = await supabase
+        .from('user_quest_log')
+        .select('quest_id')
+        .eq('user_id', userId)
+        .eq('date', today);
 
-  const list = document.getElementById("quest-list");
-  list.innerHTML = "";
+      const completedIds = completedLog?.map(q => q.quest_id) || [];
 
-  quests.forEach(q => {
-    const isCompleted = completedIds.includes(q.id);
-    const reward = XP_BY_DIFFICULTY[q.difficulty] || 10;
+      const list = document.getElementById("quest-list");
+      list.innerHTML = "";
 
-    const li = document.createElement("li");
-    li.innerHTML = `
+      quests.forEach(q => {
+        const isCompleted = completedIds.includes(q.id);
+        const reward = XP_BY_DIFFICULTY[q.difficulty] || 10;
+
+        const li = document.createElement("li");
+        li.innerHTML = `
       <div class="flex justify-between items-center border p-3 rounded ${isCompleted ? 'bg-green-100' : 'bg-gray-50'}">
         <span>📌 ${q.title} (${q.difficulty}) ${isCompleted ? '✅ 완료' : ''}</span>
         <span class="text-sm ${isCompleted ? 'text-green-700 font-bold' : 'text-blue-600'}">
@@ -927,160 +1173,155 @@ async function loadDailyQuests(userId) {
         </span>
       </div>
     `;
-    list.appendChild(li);
-  });
-}
+        list.appendChild(li);
+      });
+    }
 
+    window.checkAttendance = checkAttendance;
+    window.renderCalendar = renderCalendar;
 
+    async function fetchRanking() {
+      const { data, error } = await supabase
+        .from('club_xp')
+        .select('user_id, xp')
+        .eq('club_name', '코딩동아리')
+        .order('xp', { ascending: false })
+        .limit(100);
 
+      if (error) {
+        console.error('랭킹 데이터 조회 실패:', error.message);
+        return;
+      }
 
+      displayRanking(data);
+    }
 
+    function displayRanking(data) {
+      const rankingContainer = document.getElementById('ranking-container');
+      rankingContainer.innerHTML = '';
 
-
-window.checkAttendance = checkAttendance;
-window.renderCalendar = renderCalendar;
-
-async function fetchRanking() {
-  const { data, error } = await supabase
-    .from('club_xp')
-    .select('user_id, xp')
-    .eq('club_name', '코딩동아리')
-    .order('xp', { ascending: false })
-    .limit(100);
-
-  if (error) {
-    console.error('랭킹 데이터 조회 실패:', error.message);
-    return;
-  }
-
-  displayRanking(data);
-}
-
-function displayRanking(data) {
-  const rankingContainer = document.getElementById('ranking-container');
-  rankingContainer.innerHTML = '';
-
-  data.forEach((user, index) => {
-    const rankItem = document.createElement('div');
-    rankItem.className = 'flex justify-between p-2 border-b';
-    rankItem.innerHTML = `
+      data.forEach((user, index) => {
+        const rankItem = document.createElement('div');
+        rankItem.className = 'flex justify-between p-2 border-b';
+        rankItem.innerHTML = `
       <span>${index + 1}위</span>
       <span>${user.user_id}</span>
       <span>${user.xp} XP</span>
     `;
-    rankingContainer.appendChild(rankItem);
-  });
-}
+        rankingContainer.appendChild(rankItem);
+      });
+    }
 
-async function loadRanking() {
-  const { data, error } = await supabase
-    .from('club_xp')
-    .select('user_id, xp')
-    .eq('club_name', '코딩동아리')
-    .order('xp', { ascending: false });
+    async function loadRanking() {
+      const { data, error } = await supabase
+        .from('club_xp')
+        .select('user_id, xp')
+        .eq('club_name', '코딩동아리')
+        .order('xp', { ascending: false });
 
-  if (error) {
-    console.error('❌ 랭킹 조회 실패:', error.message);
-    return;
-  }
+      if (error) {
+        console.error('❌ 랭킹 조회 실패:', error.message);
+        return;
+      }
 
-  const rankingList = document.getElementById('ranking-list');
-  rankingList.innerHTML = "";
+      const rankingList = document.getElementById('ranking-list');
+      rankingList.innerHTML = "";
 
-  data.forEach((entry, index) => {
-    const li = document.createElement('li');
-    let prefix = "";
-    let style = "";
+      data.forEach((entry, index) => {
+        const li = document.createElement('li');
+        let prefix = "";
+        let style = "";
 
-    if (index === 0) {
-      prefix = "👑 Admin";
-      style = "text-red-600";
-    } else {
-      const rank = index; // Admin을 0번으로 하고 나머지는 1부터 시작
-      switch (rank) {
-        case 1:
-          prefix = "🥇 1위";
-          style = "text-yellow-600 font-bold";
-          break;
-        case 2:
-          prefix = "🥈 2위";
-          style = "text-gray-700";
-          break;
-        case 3:
-          prefix = "🥉 3위";
-          style = "text-orange-600";
-          break;
-        default:
-          prefix = `😢 ${rank}위`;
-          style = "text-gray-500 text-sm";
+        if (index === 0) {
+          prefix = "👑 Admin";
+          style = "text-red-600";
+        } else {
+          const rank = index; // Admin을 0번으로 하고 나머지는 1부터 시작
+          switch (rank) {
+            case 1:
+              prefix = "🥇 1위";
+              style = "text-yellow-600 font-bold";
+              break;
+            case 2:
+              prefix = "🥈 2위";
+              style = "text-gray-700";
+              break;
+            case 3:
+              prefix = "🥉 3위";
+              style = "text-orange-600";
+              break;
+            default:
+              prefix = `😢 ${rank}위`;
+              style = "text-gray-500 text-sm";
+          }
+        }
+
+        li.innerHTML = `<span class="${style}">${prefix} - ${entry.user_id} (${entry.xp} XP)</span>`;
+        rankingList.appendChild(li);
+      });
+    }
+
+
+    document.addEventListener("DOMContentLoaded", loadRanking);
+
+    let memoTimer;
+    document.getElementById("memo").addEventListener("input", () => {
+      clearTimeout(memoTimer);
+      memoTimer = setTimeout(saveMemo, 5000); // 5초 후 자동 저장
+    });
+
+    async function saveMemo() {
+      const content = document.getElementById("memo").value;
+      const userId = localStorage.getItem("userId");
+      if (!userId) return;
+
+      const { data: existing } = await supabase
+        .from('club_memo')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리')
+        .limit(1);
+
+      if (existing.length > 0) {
+        await supabase
+          .from('club_memo')
+          .update({ content, updated_at: new Date().toISOString() })
+          .eq('id', existing[0].id);
+      } else {
+        await supabase
+          .from('club_memo')
+          .insert([{ user_id: userId, club_name: '코딩동아리', content }]);
+      }
+
+      console.log("📝 메모 저장 완료");
+      await processDailyQuests(userId); // ✅ 메모 저장 후 퀘스트 자동 확인
+
+    }
+
+    async function loadMemo() {
+      const userId = localStorage.getItem("userId");
+      if (!userId) return;
+
+      const { data, error } = await supabase
+        .from('club_memo')
+        .select('content')
+        .eq('user_id', userId)
+        .eq('club_name', '코딩동아리')
+        .limit(1);
+
+      if (error) {
+        console.error("❌ 메모 불러오기 실패:", error.message);
+        return;
+      }
+
+      if (data.length > 0 && data[0].content) {
+        document.getElementById("memo").value = data[0].content;
       }
     }
 
-    li.innerHTML = `<span class="${style}">${prefix} - ${entry.user_id} (${entry.xp} XP)</span>`;
-    rankingList.appendChild(li);
-  });
-}
-
-
-document.addEventListener("DOMContentLoaded", loadRanking);
-
-let memoTimer;
-document.getElementById("memo").addEventListener("input", () => {
-  clearTimeout(memoTimer);
-  memoTimer = setTimeout(saveMemo, 5000); // 5초 후 자동 저장
-});
-
-async function saveMemo() {
-  const content = document.getElementById("memo").value;
-  const userId = localStorage.getItem("userId");
-  if (!userId) return;
-
-  const { data: existing } = await supabase
-    .from('club_memo')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('club_name', '코딩동아리')
-    .limit(1);
-
-  if (existing.length > 0) {
-    await supabase
-      .from('club_memo')
-      .update({ content, updated_at: new Date().toISOString() })
-      .eq('id', existing[0].id);
-  } else {
-    await supabase
-      .from('club_memo')
-      .insert([{ user_id: userId, club_name: '코딩동아리', content }]);
-  }
-
-  console.log("📝 메모 저장 완료");
-  await processDailyQuests(userId); // ✅ 메모 저장 후 퀘스트 자동 확인
-
-}
-
-async function loadMemo() {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return;
-
-  const { data, error } = await supabase
-    .from('club_memo')
-    .select('content')
-    .eq('user_id', userId)
-    .eq('club_name', '코딩동아리')
-    .limit(1);
-
-  if (error) {
-    console.error("❌ 메모 불러오기 실패:", error.message);
-    return;
-  }
-
-  if (data.length > 0 && data[0].content) {
-    document.getElementById("memo").value = data[0].content;
-  }
-}
-
-</script>
+  </script>
 
 
 </body>
+
 </html>
